@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.env
+.env.*
+!.env.example
+artifacts/
+outputs/
+workers/
+worker_configuration.json
+*.sqlite*
+*.log
+.DS_Store
+dist/
+build/

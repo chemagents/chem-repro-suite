@@ -1,0 +1,10 @@
+paper_stage,paper_cohort,paper_n,source_location
+raw,DS1_Cannabis,5211,section4.2
+raw,DS2_pesticides,1709,section4.2
+raw,DS3_AChE_inactive,1698,section4.2
+standardized,DS1_Cannabis,5027,section4.2
+standardized,DS2_pesticides,1709,section4.2
+standardized,DS3_AChE_inactive,1694,section4.2
+docking_prepared,DS1_Cannabis,2465,section4.4;Figure2
+docking_prepared,DS2_pesticides,1680,section4.4;Figure2
+docking_prepared,DS3_AChE_inactive,1491,section4.4;Figure2

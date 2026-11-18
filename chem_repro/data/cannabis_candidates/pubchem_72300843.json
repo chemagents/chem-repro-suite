@@ -1,0 +1,23 @@
+{
+  "CID": 72300843,
+  "MolecularFormula": "C18H22O4",
+  "MolecularWeight": "302.4",
+  "SMILES": "CC1=CC2C(CC1)C(OC3=C2C(=C(C(=C3)C)C(=O)O)O)(C)C",
+  "ConnectivitySMILES": "CC1=CC2C(CC1)C(OC3=C2C(=C(C(=C3)C)C(=O)O)O)(C)C",
+  "InChI": "InChI=1S/C18H22O4/c1-9-5-6-12-11(7-9)15-13(22-18(12,3)4)8-10(2)14(16(15)19)17(20)21/h7-8,11-12,19H,5-6H2,1-4H3,(H,20,21)",
+  "InChIKey": "BWFHYGJGKLAXKO-UHFFFAOYSA-N",
+  "IUPACName": "1-hydroxy-3,6,6,9-tetramethyl-6a,7,8,10a-tetrahydrobenzo[c]chromene-2-carboxylic acid",
+  "XLogP": 5,
+  "ExactMass": "302.15180918",
+  "TPSA": 66.8,
+  "Charge": 0,
+  "HBondDonorCount": 2,
+  "HBondAcceptorCount": 4,
+  "RotatableBondCount": 1,
+  "HeavyAtomCount": 22,
+  "synonyms": [
+    "SCHEMBL21426815"
+  ],
+  "n_synonyms_total": 1,
+  "synonyms_truncated": false
+}

@@ -1,0 +1,103 @@
+synID,SMILES_standardized,InChIKey,IUPAC_name,trivial_name
+156376236,COC(C)(C)[C@@H](COc1c2occc2cc2ccc(=O)oc12)OC(C)(C)[C@H](O)COc1c2occc2cc2ccc(=O)oc12,UATMYWAJFJXYFT-DHIUTWEWSA-N,"9-[(2R)-2-hydroxy-3-[(2R)-3-methoxy-3-methyl-1-(7-oxofuro[3,2-g]chromen-9-yl)oxybutan-2-yl]oxy-3-methylbutoxy]furo[3,2-g]chromen-7-one",
+51221512,C=C(C)[C@H](COc1c2occc2cc2ccc(=O)oc12)OC(C)(C)[C@@H](COc1c2occc2cc2ccc(=O)oc12)OC(C)(C)[C@@H](COc1c2occc2cc2ccc(=O)oc12)OC(C)(C)[C@H](O)COc1c2occc2cc2ccc(=O)oc12,WXNLFVAYVBUIFJ-HLBUBFAMSA-N,"9-[(2R)-2-[(3R)-3-[(3R)-3-[(3R)-3-hydroxy-2-methyl-4-(7-oxofuro[3,2-g]chromen-9-yl)oxybutan-2-yl]oxy-2-methyl-4-(7-oxofuro[3,2-g]chromen-9-yl)oxybutan-2-yl]oxy-2-methyl-4-(7-oxofuro[3,2-g]chromen-9-yl)oxybutan-2-yl]oxy-3-methylbut-3-enoxy]furo[3,2-g]chromen-7-one",
+75526841,COc1coc2cc3oc(=O)ccc3cc12,ZRSSNKQAHFVTPW-UHFFFAOYSA-N,"3-methoxyfuro[3,2-g]chromen-7-one",
+17079332,O=c1ccc2ccc(O[C@@H]3O[C@H](CO)[C@@H](O)[C@H](O)[C@H]3O)cc2o1,VPAOSFFTKWUGAD-TVKJYDDYSA-N,"7-[(2S,3R,4S,5S,6R)-3,4,5-trihydroxy-6-(hydroxymethyl)oxan-2-yl]oxychromen-2-one",Skimmin
+17072397,CC(C)(O)[C@@H]1Cc2c(ccc3ccc(=O)oc23)O1,YRAQEMCYCSSHJG-NSHDSACASA-N,"(8S)-8-(2-hydroxypropan-2-yl)-8,9-dihydrofuro[2,3-h]chromen-2-one",Columbianetin
+68278484,COc1cc2ccoc2c2ccc(=O)oc12,KEENTAGJAUYRBY-UHFFFAOYSA-N,"5-methoxyfuro[2,3-f]chromen-7-one",
+92319338,COc1c2ccoc2c(OC[C@H]2OC2(C)C)c2oc(=O)ccc12,ORBITTMJKIGFNH-LLVKDONJSA-N,"9-[[(2R)-3,3-dimethyloxiran-2-yl]methoxy]-4-methoxyfuro[3,2-g]chromen-7-one",Byakangelicol
+81140095,COc1c2ccoc2c(OC/C=C(\C)CCC=C(C)C)c2oc(=O)ccc12,CTPXXQMJFXTTQZ-XNTDXEJSSA-N,"9-[(2E)-3,7-dimethylocta-2,6-dienoxy]-4-methoxyfuro[3,2-g]chromen-7-one",17182-52-4
+164093610,CC(C)(O[C@@H]1O[C@H](CO[C@@H]2OC[C@](O)(CO)[C@H]2O)[C@@H](O)[C@H](O)[C@H]1O)[C@H]1Oc2ccc3ccc(=O)oc3c2[C@H]1O,VUPSIQAIMVYQGV-UTIGKQGSSA-N,"(8S,9R)-8-[2-[(2S,3R,4S,5S,6R)-6-[[(2R,3R,4R)-3,4-dihydroxy-4-(hydroxymethyl)oxolan-2-yl]oxymethyl]-3,4,5-trihydroxyoxan-2-yl]oxypropan-2-yl]-9-hydroxy-8,9-dihydrofuro[2,3-h]chromen-2-one",2188162-94-7
+164093603,C=C(C)C(COc1c2occc2cc2ccc(=O)oc12)OC(C)(C)[C@H](O)COc1c2c(cc3ccoc13)C=C[C@@]1(O2)OC(C)(C)[C@@](C)(COc2c3occc3cc3ccc(=O)oc23)O1,RTHQVQIMFJPHES-FECITGTBSA-N,,
+16991340,COc1c2ccoc2cc2oc(=O)ccc12,BGEBZHIAGXMEMV-UHFFFAOYSA-N,"4-methoxyfuro[3,2-g]chromen-7-one",Bergapten
+16998704,COc1c2ccoc2c(OC[C@@H](O)C(C)(C)O)c2oc(=O)ccc12,PKRPFNXROFUNDE-LLVKDONJSA-N,"9-[(2R)-2,3-dihydroxy-3-methylbutoxy]-4-methoxyfuro[3,2-g]chromen-7-one",Byakangelicin
+53364924,COc1c(OC[C@@H](O)C(C)(C)O)c2occc2c2oc(=O)ccc12,SYCQEMIWUFVJHN-LLVKDONJSA-N,"6-[(2R)-2,3-dihydroxy-3-methylbutoxy]-5-methoxyfuro[2,3-h]chromen-2-one",heraclesol
+164093599,COc1c2c(cc3oc(=O)ccc13)O[C@@H](OC)[C@@H]2O,JTOUDFPTTSDGNE-DGCLKSJQSA-N,,
+52978737,O=c1ccc2ccc(OC3OC(COC4OCC(O)(CO)C4O)C(O)C(O)C3O)cc2o1,SXPBJYHKMRWZNA-UHFFFAOYSA-N,"7-[6-[[3,4-dihydroxy-4-(hydroxymethyl)oxolan-2-yl]oxymethyl]-3,4,5-trihydroxyoxan-2-yl]oxychromen-2-one","7-[6-[[3,4-dihydroxy-4-(hydroxymethyl)tetrahydrofuran-2-yl]oxymethyl]-3,4,5-trihydroxy-tetrahydropyran-2-yl]oxychromen-2-one"
+17051629,CC(C)=CCc1c2ccoc2c(O)c2oc(=O)ccc12,KDXVVZMYSLWJMA-UHFFFAOYSA-N,"9-hydroxy-4-(3-methylbut-2-enyl)furo[3,2-g]chromen-7-one",Alloimperatorin
+16993011,COc1c2occc2cc2ccc(=O)oc12,QXKHYNVANLEOEG-UHFFFAOYSA-N,"9-methoxyfuro[3,2-g]chromen-7-one",methoxsalen
+8745717,O=c1ccc2c(O)c3ccoc3cc2o1,GIJHDGJRTUSBJR-UHFFFAOYSA-N,"4-hydroxyfuro[3,2-g]chromen-7-one",Bergaptol
+50668608,CC1(C)O[C@H](COc2c3occc3cc3ccc(=O)oc23)C(C)(C)O1,YCWZUJWUYQAIBF-CYBMUJFWSA-N,"9-[[(4R)-2,2,5,5-tetramethyl-1,3-dioxolan-4-yl]methoxy]furo[3,2-g]chromen-7-one",Heraclenol acetonide
+164093609,CC(O)(CO[C@@H]1OC(CO)[C@H](O)[C@H](O)C1O)[C@@H]1Cc2c(ccc3ccc(=O)oc23)O1,SNDKCNISROFTJM-VXZMXONMSA-N,,
+36132207,COc1cc2oc(=O)ccc2c2occc12,SWGAZNPMBFPENE-UHFFFAOYSA-N,"4-methoxyfuro[2,3-f]chromen-7-one",
+17529246,C=C(C)C(O)COc1c2occc2c(OC)c2ccc(=O)oc12,UBAMGTKSOKGECF-UHFFFAOYSA-N,"9-(2-hydroxy-3-methylbut-3-enoxy)-4-methoxyfuro[3,2-g]chromen-7-one","9-(2-hydroxy-3-methylbut-3-enoxy)-4-methoxyfuro[3,2-g]chromen-7-one"
+68111310,CC(C)(O[C@@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O)[C@H]1Oc2cc3oc(=O)ccc3cc2[C@H]1O,KLPNFWKZLQAVTH-LDCXIIFCSA-N,"(2S,3R)-3-hydroxy-2-[2-[(2S,3R,4S,5S,6R)-3,4,5-trihydroxy-6-(hydroxymethyl)oxan-2-yl]oxypropan-2-yl]-2,3-dihydrofuro[3,2-g]chromen-7-one",87592-77-6
+7888001,O=c1ccc2cc(O)c3occc3c2o1,ZKCVFMVZXPEHMD-UHFFFAOYSA-N,"6-hydroxyfuro[2,3-h]chromen-2-one",Heratomol
+8161297,CC=C(C)C(=O)OC(C)(C)C1Cc2cc3ccc(=O)oc3cc2O1,HHNCJFKRMZDTHW-UHFFFAOYSA-N,"2-(7-oxo-2,3-dihydrofuro[3,2-g]chromen-2-yl)propan-2-yl 2-methylbut-2-enoate",
+4090575,CC(C)=CCOc1cc2occc2c2oc(=O)ccc12,KRMAZPGDYXHYMX-UHFFFAOYSA-N,"5-(3-methylbut-2-enoxy)furo[2,3-h]chromen-2-one",LANATIN
+53364925,COc1c2ccoc2c(OCC(O)C(C)C)c2oc(=O)ccc12,XRBMPACVVNZLIO-UHFFFAOYSA-N,"9-(2-hydroxy-3-methylbutoxy)-4-methoxyfuro[3,2-g]chromen-7-one",Heracol
+164093606,CC1(C)O[C@@H]1COc1c2c(cc3ccoc13)C=C[C@]1(O2)O[C@](C)(COc2c3occc3cc3ccc(=O)oc23)[C@](C)(COc2c3occc3cc3ccc(=O)oc23)O1,QAUKIGSCNVROKI-BMNJZFLYSA-N,,
+23759896,CC(C)(O[C@@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O)[C@H]1Oc2ccc3ccc(=O)oc3c2[C@H]1O,ALEQYOXVXJKFOM-KTZZUYPUSA-N,"(8S,9R)-9-hydroxy-8-[2-[(2S,3R,4S,5S,6R)-3,4,5-trihydroxy-6-(hydroxymethyl)oxan-2-yl]oxypropan-2-yl]-8,9-dihydrofuro[2,3-h]chromen-2-one",Apterin
+17104665,COc1c2c(c3ccoc3c1OC)OC(=O)C1C3C(=O)Oc4c(c(OC)c(OC)c5occc45)C3C21,LRROJPIKHKKOOJ-UHFFFAOYSA-N,"4,5,24,25-tetramethoxy-7,12,17,22-tetraoxaheptacyclo[13.11.0.02,14.03,11.06,10.018,26.019,23]hexacosa-3(11),4,6(10),8,18(26),19(23),20,24-octaene-13,16-dione",Moellendorffiline
+80999252,C/C=C(\C)C(=O)OC(C)(C)C1Cc2cc3ccc(=O)oc3cc2O1,HHNCJFKRMZDTHW-VZUCSPMQSA-N,"2-(7-oxo-2,3-dihydrofuro[3,2-g]chromen-2-yl)propan-2-yl (E)-2-methylbut-2-enoate",Sprengelianin
+17537199,CC(C)C(=O)COc1c2ccoc2cc2oc(=O)ccc12,USLPJJIUMAKBIU-UHFFFAOYSA-N,"4-(3-methyl-2-oxobutoxy)furo[3,2-g]chromen-7-one",Isooxypeucedanin
+17382790,CC(C)(O)[C@@H]1Cc2cc3ccc(=O)oc3c(O[C@@H]3O[C@H](CO)[C@@H](O)[C@H](O)[C@H]3O)c2O1,JWWFVRMFYKPZNE-VVIWCBLHSA-N,"(2S)-2-(2-hydroxypropan-2-yl)-9-[(2S,3R,4S,5S,6R)-3,4,5-trihydroxy-6-(hydroxymethyl)oxan-2-yl]oxy-2,3-dihydrofuro[3,2-g]chromen-7-one",Rutarin
+17395200,CC1(C)O[C@@H]1COc1c2occc2cc2ccc(=O)oc12,CTJZWFCPUDPLME-LLVKDONJSA-N,"9-[[(2R)-3,3-dimethyloxiran-2-yl]methoxy]furo[3,2-g]chromen-7-one",Heraclenin
+17050311,COc1c2ccoc2c(OC)c2oc(=O)ccc12,DFMAXQKDIGCMTL-UHFFFAOYSA-N,"4,9-dimethoxyfuro[3,2-g]chromen-7-one",Isopimpinellin
+17415260,COC(C)(C)C(O)COc1c2occc2cc2ccc(=O)oc12,ICVVBGAHOQMQEJ-UHFFFAOYSA-N,"9-(2-hydroxy-3-methoxy-3-methylbutoxy)furo[3,2-g]chromen-7-one",
+164093600,CC(C)(O[C@@H]1OC(CO)[C@@H](O)[C@H](O)[C@H]1O)[C@H](O)COc1c2occc2cc2ccc(=O)oc12,CDKAMOZNCWECGP-ZONPRWPVSA-N,,
+16999113,O=c1ccc2ccc3occc3c2o1,XDROKJSWHURZGO-UHFFFAOYSA-N,"furo[2,3-h]chromen-2-one",Angelicin
+17382777,CC(C)=CC(=O)OC(C)(C)[C@@H]1Cc2c(ccc3ccc(=O)oc23)O1,YCXXSERNLQPDHF-HNNXBMFYSA-N,"2-[(8S)-2-oxo-8,9-dihydrofuro[2,3-h]chromen-8-yl]propan-2-yl 3-methylbut-2-enoate",Libanorin
+17054886,CC(C)(O[C@@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O)[C@H]1Cc2cc3ccc(=O)oc3cc2O1,HXCGUCZXPFBNRD-DNLMCPORSA-N,"(2R)-2-[2-[(2S,3R,4S,5S,6R)-3,4,5-trihydroxy-6-(hydroxymethyl)oxan-2-yl]oxypropan-2-yl]-2,3-dihydrofuro[3,2-g]chromen-7-one",Nodakenin
+16998705,CC(C)=CCOc1c2occc2cc2ccc(=O)oc12,OLOOJGVNMBJLLR-UHFFFAOYSA-N,"9-(3-methylbut-2-enoxy)furo[3,2-g]chromen-7-one",IMPERATORIN
+46360417,CCOC(C)(C)C(O)COc1c2occc2cc2ccc(=O)oc12,ZQAHVKVXUSYIBF-UHFFFAOYSA-N,"9-(3-ethoxy-2-hydroxy-3-methylbutoxy)furo[3,2-g]chromen-7-one",55481-87-3
+92343967,O=c1ccc2ccc3ccoc3c2o1,MLMVLVJMKDPYBM-UHFFFAOYSA-N,"furo[3,2-h]chromen-8-one",Pseudoisopsoralen
+92344316,COc1c(OCC=C(C)C)c2occc2c2oc(=O)ccc12,QYROBYWPUVLPTM-UHFFFAOYSA-N,"5-methoxy-6-(3-methylbut-2-enoxy)furo[2,3-h]chromen-2-one",24099-29-4
+17180483,CC(C)(O[C@@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O)[C@@H]1Cc2cc3ccc(=O)oc3cc2O1,HXCGUCZXPFBNRD-NEDVQNLSSA-N,"(2S)-2-[2-[(2S,3R,4S,5S,6R)-3,4,5-trihydroxy-6-(hydroxymethyl)oxan-2-yl]oxypropan-2-yl]-2,3-dihydrofuro[3,2-g]chromen-7-one",Marmesinin
+68024326,CC(C)(O)[C@H](O)COc1c2c(cc3ccoc13)C=C[C@@]1(O2)O[C@H](COc2c3occc3cc3ccc(=O)oc23)C(C)(C)O1,RQSPCDMBNUXDLD-FLGDYYPQSA-N,"9-[[(2R,4R)-9'-[(2R)-2,3-dihydroxy-3-methylbutoxy]-5,5-dimethylspiro[1,3-dioxolane-2,7'-furo[3,2-g]chromene]-4-yl]methoxy]furo[3,2-g]chromen-7-one",
+62350510,C=C(C)C(COc1c2occc2cc2ccc(=O)oc12)OC(C)(C)C(O)COc1c2c(cc3ccoc13)C=C[C@@]1(O2)OC(COc2c3occc3cc3ccc(=O)oc23)C(C)(C)O1,NTWDPJZQXCEWOS-XLJBUJBNSA-N,"9-[[(2R)-9'-[2-hydroxy-3-methyl-3-[3-methyl-1-(7-oxofuro[3,2-g]chromen-9-yl)oxybut-3-en-2-yl]oxybutoxy]-5,5-dimethylspiro[1,3-dioxolane-2,7'-furo[3,2-g]chromene]-4-yl]methoxy]furo[3,2-g]chromen-7-one",
+8776625,CC(O)(CO)[C@@H]1Cc2c(ccc3ccc(=O)oc23)O1,QWQZTILKTKQJTA-ZSOXZCCMSA-N,"(8S)-8-(1,2-dihydroxypropan-2-yl)-8,9-dihydrofuro[2,3-h]chromen-2-one",SCHEMBL30256774
+16994953,O=c1ccc2cc3ccoc3cc2o1,ZCCUUQDIBDJBTK-UHFFFAOYSA-N,"furo[3,2-g]chromen-7-one",Psoralen
+17050314,COc1cc2occc2c2oc(=O)ccc12,AJSPSRWWZBBIOR-UHFFFAOYSA-N,"5-methoxyfuro[2,3-h]chromen-2-one",Isobergapten
+17132641,CC1(C)OC1COc1c2ccoc2cc2oc(=O)ccc12,QTAGQHZOLRFCBU-UHFFFAOYSA-N,"4-[(3,3-dimethyloxiran-2-yl)methoxy]furo[3,2-g]chromen-7-one","4-[(3,3-dimethyloxiran-2-yl)methoxy]furo[3,2-g]chromen-7-one"
+8867701,CC(C)=CCC/C(C)=C/COc1c2ccoc2cc2oc(=O)ccc12,DBMJZOMNXBSRED-OQLLNIDSSA-N,"4-[(2E)-3,7-dimethylocta-2,6-dienoxy]furo[3,2-g]chromen-7-one",Bergamottin
+8775506,C=CC(C)(C)c1c2occc2c(O)c2ccc(=O)oc12,XYCSWDLNRXCFHA-UHFFFAOYSA-N,"4-hydroxy-9-(2-methylbut-3-en-2-yl)furo[3,2-g]chromen-7-one",RefChem:1070804
+96893357,CC(C)(O)C(O)CC(=O)Oc1coc2cc3oc(=O)ccc3cc12,YZPPVNJYXOEWHU-UHFFFAOYSA-N,"(7-oxofuro[3,2-g]chromen-3-yl) 3,4-dihydroxy-4-methylpentanoate",
+17047520,O=c1ccc2cc3ccoc3c(O)c2o1,JWVYQQGERKEAHW-UHFFFAOYSA-N,"9-hydroxyfuro[3,2-g]chromen-7-one",Xanthotoxol
+92343913,O=c1ccc2c(ccc3ccoc32)o1,HMUJHZNYHJMOHR-UHFFFAOYSA-N,"furo[2,3-f]chromen-7-one",Bakuchicin
+75045490,CC(C)(O)[C@H]1Oc2ccc3ccc(=O)oc3c2[C@H]1O,DQISGWRLCDLKJI-YPMHNXCESA-N,"(8S,9R)-9-hydroxy-8-(2-hydroxypropan-2-yl)-8,9-dihydrofuro[2,3-h]chromen-2-one",Vaginidiol
+17525455,C=C(C)C1Cc2cc3ccc(=O)oc3cc2O1,VMWUHWZFDITAOL-UHFFFAOYSA-N,"2-prop-1-en-2-yl-2,3-dihydrofuro[3,2-g]chromen-7-one","2-Isopropenyl-2,3-dihydrofuro[3,2-g]chromen-7-one"
+164093604,CC(C)(O)[C@H](COc1c2occc2cc2ccc(=O)oc12)OC(C)(C)[C@@H](COc1c2occc2cc2ccc(=O)oc12)OC(C)(C)[C@H](O)COc1c2occc2cc2ccc(=O)oc12,FDGAHDVLSOQOKB-XKKJXBDVSA-N,,
+50945293,CC(C)(O)[C@H](O)COc1c(O)c(/C=C/C(=O)O[C@H](COc2c3occc3cc3ccc(=O)oc23)C(C)(C)O)cc2ccoc12,KUTCFXJKKVZGMS-VICXPYPNSA-N,"[(2R)-3-hydroxy-3-methyl-1-(7-oxofuro[3,2-g]chromen-9-yl)oxybutan-2-yl] (E)-3-[7-[(2R)-2,3-dihydroxy-3-methylbutoxy]-6-hydroxy-1-benzofuran-5-yl]prop-2-enoate",
+8819294,O=c1ccc2c(O)c3ccoc3c(O)c2o1,DZEPISXWRUMGFN-UHFFFAOYSA-N,"4,9-dihydroxyfuro[3,2-g]chromen-7-one",14348-23-3
+67955760,CC(C)(O)[C@@H](COc1c2occc2cc2ccc(=O)oc12)OC(C)(C)[C@H](O)COc1c2occc2cc2ccc(=O)oc12,OIZNBPDWHFCLKY-FGZHOGPDSA-N,"9-[(2R)-2-hydroxy-3-[(2R)-3-hydroxy-3-methyl-1-(7-oxofuro[3,2-g]chromen-9-yl)oxybutan-2-yl]oxy-3-methylbutoxy]furo[3,2-g]chromen-7-one",Rivulobirin E
+51813114,C=C(C)[C@@H](COc1c2occc2cc2ccc(=O)oc12)OC(C)(C)[C@@H](COc1c2occc2cc2ccc(=O)oc12)OC(C)(C)[C@H](O)COc1c2occc2cc2ccc(=O)oc12,WDUWWUNEMHZARE-CKOYEXALSA-N,"9-[(2S)-2-[(3R)-3-[(3R)-3-hydroxy-2-methyl-4-(7-oxofuro[3,2-g]chromen-9-yl)oxybutan-2-yl]oxy-2-methyl-4-(7-oxofuro[3,2-g]chromen-9-yl)oxybutan-2-yl]oxy-3-methylbut-3-enoxy]furo[3,2-g]chromen-7-one",
+53043814,CC(C)C(=O)COc1c2occc2cc2ccc(=O)oc12,SVPDNNKLQWHTPC-UHFFFAOYSA-N,"9-(3-methyl-2-oxobutoxy)furo[3,2-g]chromen-7-one",Pabularinone
+8775508,CC(C)=CCc1cc2ccc(=O)oc2cc1O,FIDUIAPDSKSUGO-UHFFFAOYSA-N,7-hydroxy-6-(3-methylbut-2-enyl)chromen-2-one,Demethylsuberosin
+17005439,CC(C)(O)[C@H](O)COc1c2ccoc2cc2oc(=O)ccc12,PEWFWDOPJISUOK-CYBMUJFWSA-N,"4-[(2R)-2,3-dihydroxy-3-methylbutoxy]furo[3,2-g]chromen-7-one",Oxypeucedanin hydrate
+75336485,C/C(=C\COc1c2occc2cc2ccc(=O)oc12)COC(C)(C)C(O)COc1c2occc2cc2ccc(=O)oc12,GLGOFDCTFNYYFK-QGMBQPNBSA-N,"9-[(E)-4-[3-hydroxy-2-methyl-4-(7-oxofuro[3,2-g]chromen-9-yl)oxybutan-2-yl]oxy-3-methylbut-2-enoxy]furo[3,2-g]chromen-7-one",
+8716341,CC(C)(OC1OC(CO)C(O)C(O)C1O)C1Oc2ccc3ccc(=O)oc3c2C1O,ALEQYOXVXJKFOM-UHFFFAOYSA-N,"9-hydroxy-8-[2-[3,4,5-trihydroxy-6-(hydroxymethyl)oxan-2-yl]oxypropan-2-yl]-8,9-dihydrofuro[2,3-h]chromen-2-one",orb1685025
+17019555,CC1(C)O[C@H]1COc1c2ccoc2cc2oc(=O)ccc12,QTAGQHZOLRFCBU-ZDUSSCGKSA-N,"4-[[(2S)-3,3-dimethyloxiran-2-yl]methoxy]furo[3,2-g]chromen-7-one",26091-73-6
+96090316,CC1(C)O[C@H](COc2c3occc3cc3ccc(=O)oc23)C(C)(C)O[C@@H]1COc1c2occc2cc2ccc(=O)oc12.CN(C)C=O,LQHIDDSSBUDMFO-HLUKFBSCSA-N,"N,N-dimethylformamide;9-[[(2R,5R)-3,3,6,6-tetramethyl-5-[(7-oxofuro[3,2-g]chromen-9-yl)oxymethyl]-1,4-dioxan-2-yl]methoxy]furo[3,2-g]chromen-7-one",kd-e-3-19 dmf
+17086900,COc1cc2ccc(=O)oc2c2ccoc12,DLCJNIBLOSKIQW-UHFFFAOYSA-N,"6-methoxyfuro[2,3-h]chromen-2-one",Sphondin
+92280881,C=C(C)[C@H](O)COc1c2ccoc2cc2oc(=O)ccc12,BVMOMQJYQYBMKL-GFCCVEGCSA-N,"4-[(2S)-2-hydroxy-3-methylbut-3-enoxy]furo[3,2-g]chromen-7-one",Pabulenol
+51422429,CC(C)(O)[C@H]1Cc2cc3ccc(=O)oc3c(O)c2O1,FVFQELHSZVFPDZ-SECBINFHSA-N,"(2R)-9-hydroxy-2-(2-hydroxypropan-2-yl)-2,3-dihydrofuro[3,2-g]chromen-7-one",Qianhucoumarin G
+164093602,COC(C)(C)[C@H](O)COc1c2c(cc3ccoc13)C=C[C@]1(O2)O[C@@H]2[C@H]3O[C@]3(C)[C@H](Oc3c4occc4cc4ccc(=O)oc34)[C@@]2(C)O1,WCADVLZUMVCUOQ-GJKZLPIKSA-N,,
+164093601,COc1cc(/C=C/C(=O)O[C@H]2[C@H](O)[C@H]3[C@@H](O)[C@@H]2C[C@@]3(O)C(=O)O[C@H](COc2c3occc3cc3ccc(=O)oc23)C(C)(C)O)ccc1O,HCLXIAWUNCKGSO-LGSQJHIESA-N,,
+17150124,CC(C)=CCOc1cc2ccc(=O)oc2c2ccoc12,DSDJMMMGDPDPIX-UHFFFAOYSA-N,"6-(3-methylbut-2-enoxy)furo[2,3-h]chromen-2-one",HERATOMIN
+17719920,COc1c2occc2c(OCC=C(C)C)c2ccc(=O)oc12,NNDOCYLWULORAM-UHFFFAOYSA-N,"9-methoxy-4-(3-methylbut-2-enoxy)furo[3,2-g]chromen-7-one",Cnidilin
+50668979,CC(C)(Cl)[C@H](O)COc1c2occc2cc2ccc(=O)oc12,VNNTVHKCIBWHDR-LLVKDONJSA-N,"9-[(2R)-3-chloro-2-hydroxy-3-methylbutoxy]furo[3,2-g]chromen-7-one","(+)-9-(3-Chloro-2-hydroxy-3-methylbutoxy)-7H-furo[3,2-g][1]benzopyran-7-one; 8-(3-Chloro-2-hydroxy-3-methylbutoxy)psoralen; 8-(3-Chloro-2-hydroxy-3-methylbutyloxy)psoralen"
+7480156,CC(C)=CCOc1c2ccoc2c(OCC=C(C)C)c2oc(=O)ccc12,HJMDOAWWVCOEDW-UHFFFAOYSA-N,"4,9-bis(3-methylbut-2-enoxy)furo[3,2-g]chromen-7-one",14348-21-1
+50945296,COC(C)(C)[C@H](O)COc1c2c(cc3ccoc13)C=C[C@]1(O2)O[C@H](COc2c3occc3cc3ccc(=O)oc23)C(C)(C)O1,DQNKESIZLPEBGV-JJWUTGECSA-N,"9-[[(2S,4R)-9'-[(2R)-2-hydroxy-3-methoxy-3-methylbutoxy]-5,5-dimethylspiro[1,3-dioxolane-2,7'-furo[3,2-g]chromene]-4-yl]methoxy]furo[3,2-g]chromen-7-one",
+8776261,CC(C)=CCc1c2occc2c(O)c2ccc(=O)oc12,JLCROWZWGSUEMR-UHFFFAOYSA-N,"4-hydroxy-9-(3-methylbut-2-enyl)furo[3,2-g]chromen-7-one",Alloisoimperatorin
+155851421,O=c1ccc2ccc(O)cc2o1,ORHBXUUXSCNDEV-UHFFFAOYSA-N,7-hydroxychromen-2-one,Umbelliferone
+16998720,COc1ccc2ccc(=O)oc2c1CC=C(C)C,MBRLOUHOWLUMFF-UHFFFAOYSA-N,7-methoxy-8-(3-methylbut-2-enyl)chromen-2-one,Osthole
+8776363,CC(C)=CCC/C(C)=C/COc1c2occc2cc2ccc(=O)oc12,SOVNCTNQAWWYAQ-OQLLNIDSSA-N,"9-[(2E)-3,7-dimethylocta-2,6-dienoxy]furo[3,2-g]chromen-7-one",8-geranyloxypsoralen
+16993683,COc1c(OC)c2occc2c2oc(=O)ccc12,BQPRWZCEKZLBHL-UHFFFAOYSA-N,"5,6-dimethoxyfuro[2,3-h]chromen-2-one",pimpinellin
+164093607,CC(C)=CCOc1c2c(cc3ccoc13)[C@]1(C=C2)CCC[C@]12CCC[C@]21O[C@]12C=Cc1cc3ccoc3c(OCC=C(C)C)c1O2,XPAJFZXZXKQLRI-ROZBJHDGSA-N,,
+7629444,O=c1ccc2c(O)cc3occc3c2o1,OOWBIFOFDYBTAE-UHFFFAOYSA-N,"5-hydroxyfuro[2,3-h]chromen-2-one",Isobergaptol
+96977065,C=CC(C)(C)c1c(O)c2ccc(=O)oc2c2ccoc12,PLIQWTXXYHCEJG-UHFFFAOYSA-N,"5-hydroxy-6-(2-methylbut-3-en-2-yl)furo[2,3-h]chromen-2-one",
+17133356,CC(=O)OC(C)(C)[C@@H]1Cc2c(ccc3ccc(=O)oc23)O1,IQTTZQQJJBEAIM-ZDUSSCGKSA-N,"2-[(8S)-2-oxo-8,9-dihydrofuro[2,3-h]chromen-8-yl]propan-2-yl acetate",Columbianetin acetate
+92343812,COc1c2ccoc2c(O)c2oc(=O)ccc12,MVJHUMZXIJPVHV-UHFFFAOYSA-N,"9-hydroxy-4-methoxyfuro[3,2-g]chromen-7-one",8-Hydroxybergapten
+164093608,COc1c2c(c3ccc(=O)oc3c1OC[C@]13CCCC[C@]1(C=O)O[C@@]14CCCC[C@@]1(CCc1c(c(OCC=C(C)C)c(OCC=C(C)C)c5occ(C)c15)O4)O3)CCCC2,BFCJSHKXFIZZCH-PJPVDIEGSA-N,,
+164093605,CC1(C)O[C@@H]1COc1c2c(cc3ccoc13)C=C[C@]1(O2)O[C@H](COc2c3occc3cc3ccc(=O)oc23)C(C)(C)O1,DGFLEVFPESLTBR-VOSQCMCKSA-N,"9-[[(2S,4R)-9'-[[(2R)-3,3-dimethyloxiran-2-yl]methoxy]-5,5-dimethylspiro[1,3-dioxolane-2,7'-furo[3,2-g]chromene]-4-yl]methoxy]furo[3,2-g]chromen-7-one",
+17122183,C=C(C)C(O)COc1c2occc2cc2ccc(=O)oc12,RTUPRHIHXSAWDP-UHFFFAOYSA-N,"9-(2-hydroxy-3-methylbut-3-enoxy)furo[3,2-g]chromen-7-one","9-((2-Hydroxy-3-methylbut-3-en-1-yl)oxy)-7H-furo(3,2-g)(1)benzopyran-7-one"
+8777037,COc1c2ccoc2c(OCC(=O)C(C)C)c2oc(=O)ccc12,GYJATVZZLSOXTA-UHFFFAOYSA-N,"4-methoxy-9-(3-methyl-2-oxobutoxy)furo[3,2-g]chromen-7-one",Isobyakangelicol
+17050313,CC(C)=CCOc1c2ccoc2cc2oc(=O)ccc12,IGWDEVSBEKYORK-UHFFFAOYSA-N,"4-(3-methylbut-2-enoxy)furo[3,2-g]chromen-7-one",Isoimperatorin
+17054941,CC(C)(O)[C@H](O)COc1c2occc2cc2ccc(=O)oc12,FOINLJRVEBYARJ-LLVKDONJSA-N,"9-[(2R)-2,3-dihydroxy-3-methylbutoxy]furo[3,2-g]chromen-7-one",Heraclenol
+7467813,C=C(C)C(COc1c2occc2cc2ccc(=O)oc12)OC(C)(C)C(O)COc1c2occc2cc2ccc(=O)oc12,AVODUFXCUYKMAY-UHFFFAOYSA-N,"9-[2-[3-hydroxy-2-methyl-4-(7-oxofuro[3,2-g]chromen-9-yl)oxybutan-2-yl]oxy-3-methylbut-3-enoxy]furo[3,2-g]chromen-7-one",rivulobirin A
+17289929,CC(C)(O)[C@@H]1Cc2cc3ccc(=O)oc3cc2O1,FWYSBEAFFPBAQU-LBPRGKRZSA-N,"(2S)-2-(2-hydroxypropan-2-yl)-2,3-dihydrofuro[3,2-g]chromen-7-one",Marmesin
+81135027,C/C=C(/C)C(=O)OC(C)(C)[C@@H]1Cc2c(ccc3ccc(=O)oc23)O1,JRIBPWOXWIRQOQ-GHAIFCDISA-N,"2-[(8S)-2-oxo-8,9-dihydrofuro[2,3-h]chromen-8-yl]propan-2-yl (Z)-2-methylbut-2-enoate",Columbianadin
+17078318,COc1c2ccoc2c(OCC=C(C)C)c2oc(=O)ccc12,BMLZFLQMBMYVHG-UHFFFAOYSA-N,"4-methoxy-9-(3-methylbut-2-enoxy)furo[3,2-g]chromen-7-one",Phellopterin
+17132688,CC(C)(O)c1cc2c(ccc3ccc(=O)oc32)o1,KDJVHSVOXOZBDR-UHFFFAOYSA-N,"8-(2-hydroxypropan-2-yl)furo[2,3-h]chromen-2-one",Oroselol
+8778429,CC(C)=CCc1c(O)ccc2ccc(=O)oc12,RAKJVIPCCGXHHS-UHFFFAOYSA-N,7-hydroxy-8-(3-methylbut-2-enyl)chromen-2-one,Osthenol

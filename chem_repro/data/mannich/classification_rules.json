@@ -1,0 +1,244 @@
+{
+  "organocatalyst": [
+    {
+      "name": "squaramide",
+      "patterns": [
+        "[#7]~[#6]1~[#6](~[#7])~[#6](=O)~[#6]1=O"
+      ]
+    },
+    {
+      "name": "urea_thiourea_guanidine_isothiourea",
+      "patterns": [
+        "[NX3][CX3](=[OX1,SX1,NX2,NX3+])[NX3]",
+        "[NX3][CX3](=[NX2])[SX2]"
+      ]
+    },
+    {
+      "name": "phosphoric_acid",
+      "patterns": [
+        "[PX4](=O)([OX2H1,OX1-,NX3])[OX2]"
+      ]
+    },
+    {
+      "name": "cinchona_alkaloid",
+      "patterns": [
+        "N1(CC2)CCC2CC1"
+      ]
+    },
+    {
+      "name": "imidazolidinone",
+      "patterns": [
+        "O=C1NCNC1"
+      ]
+    },
+    {
+      "name": "proline_pyrrolidine_derivatives",
+      "patterns": [
+        "[NX3;R]1CCCC1",
+        "[#7;R]1[#6][#16;R][#6][#6]1"
+      ]
+    },
+    {
+      "name": "1,2-diamine",
+      "patterns": [
+        "[#7][CX4][CX4][#7]"
+      ]
+    },
+    {
+      "name": "amino_acid",
+      "patterns": [
+        "[NX3,NX4+;!$([NX3]C=[O,S,N])][CX4][CX3](=O)[OX2H1,OX1-,$([OX2][#6]),NX3]"
+      ]
+    },
+    {
+      "name": "ammonium_betaine",
+      "patterns": [
+        "[NX4+]"
+      ]
+    },
+    {
+      "name": "binaphthyl_azepine",
+      "patterns": [
+        "[c;r6]1[c;r6][CH2;r7][NX3;r7][CH2;r7][c;r6][c;r6]1"
+      ]
+    },
+    {
+      "name": "binaphthyl",
+      "patterns": [
+        "c1ccc2ccccc2c1-c1ccc2ccccc2c1"
+      ]
+    }
+  ],
+  "nucleophile": [
+    {
+      "name": "nitroalkane",
+      "patterns": [
+        "[CX4]-[$([NX3](=O)=O),$([NX3+](=O)[O-])]"
+      ]
+    },
+    {
+      "name": "pyrazolone",
+      "patterns": [
+        "[#6]1=[#7][#7][#6](=O)[#6]1"
+      ]
+    },
+    {
+      "name": "maleimide",
+      "patterns": [
+        "O=C1[NX3]C(=O)CC1"
+      ]
+    },
+    {
+      "name": "rhodanine/thiazolone",
+      "patterns": [
+        "C1SC(=[S,O])[#7,#6]C1=O"
+      ]
+    },
+    {
+      "name": "cyanoester",
+      "patterns": [
+        "[NX1]#[CX2][CX4][CX3](=O)[OX2]"
+      ]
+    },
+    {
+      "name": "pyranone",
+      "patterns": [
+        "O=c1cc[o,c][c,o]c1"
+      ]
+    },
+    {
+      "name": "acylazole",
+      "patterns": [
+        "[CX3](=O)n1cccn1"
+      ]
+    },
+    {
+      "name": "oxindole",
+      "patterns": [
+        "O=C1[#7]c2ccccc2C1"
+      ]
+    },
+    {
+      "name": "azlactone",
+      "patterns": [
+        "O=C1OC=NC1"
+      ]
+    },
+    {
+      "name": "beta_ketoacid",
+      "patterns": [
+        "[CX3](=O)[CX4][CX3](=O)[OX2H1]"
+      ]
+    },
+    {
+      "name": "beta_ketoester",
+      "patterns": [
+        "[#6][CX3](=O)[CX4][CX3](=O)[OX2][#6]"
+      ]
+    },
+    {
+      "name": "malonate",
+      "patterns": [
+        "[#6][OX2][CX3](=O)[CX4][CX3](=O)[OX2][#6]"
+      ]
+    },
+    {
+      "name": "1,3-dicarbonyl",
+      "patterns": [
+        "[CX3](=O)[CX4][CX3]=O"
+      ]
+    },
+    {
+      "name": "arylacetate_ester",
+      "patterns": [
+        "[c][CX4;H1,H2][CX3](=O)[OX2][#6]"
+      ]
+    },
+    {
+      "name": "thioester",
+      "patterns": [
+        "[CX3](=O)[SX2][#6]"
+      ]
+    },
+    {
+      "name": "lactone",
+      "patterns": [
+        "[OX2;R][CX3;R]=O"
+      ]
+    },
+    {
+      "name": "aldehyde",
+      "patterns": [
+        "[CX3;H1](=O)[#6]"
+      ]
+    },
+    {
+      "name": "ketone",
+      "patterns": [
+        "[#6][CX3](=O)[#6]"
+      ]
+    }
+  ],
+  "electrophile": [
+    {
+      "name": "quinazolinone",
+      "patterns": [
+        "[#7]c(=O)[#7]"
+      ]
+    },
+    {
+      "name": "benzoxazinone",
+      "patterns": [
+        "O=c1[#6,#7][#7,#6,#8]c2ccccc2o1"
+      ]
+    },
+    {
+      "name": "isatin_ketimine",
+      "patterns": [
+        "O=C1[#7]c2ccccc2C1=[NX2]"
+      ]
+    },
+    {
+      "name": "cyclic_imine",
+      "patterns": [
+        "[CX3]=[NX2;R]"
+      ]
+    },
+    {
+      "name": "alpha_imino_ester",
+      "patterns": [
+        "[NX2]=[CX3][CX3](=O)[OX2]"
+      ]
+    },
+    {
+      "name": "CF3_ketimine",
+      "patterns": [
+        "[NX2;H0,H1]=[CX3]C(F)(F)F"
+      ]
+    },
+    {
+      "name": "N-sulfonyl",
+      "patterns": [
+        "[NX2]=[CX3].[NX2]S(=O)(=O)"
+      ]
+    },
+    {
+      "name": "N-carbamate",
+      "patterns": [
+        "[NX2]=[CX3].[NX2]C(=O)[OX2]"
+      ]
+    },
+    {
+      "name": "N-aryl",
+      "patterns": [
+        "[NX2]=[CX3].[NX2]-c"
+      ]
+    },
+    {
+      "name": "N-acyl_other",
+      "patterns": [
+        "[NX2]=[CX3].[NX2]C(=O)"
+      ]
+    }
+  ]
+}

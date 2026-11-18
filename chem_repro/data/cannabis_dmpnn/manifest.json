@@ -1,0 +1,22 @@
+{
+  "study_id": "cannabis_2026",
+  "paper_doi": "10.3390/ijms27188000",
+  "revision": "chemprop-source-reconstruction-v2-sgkf-fix",
+  "files": {
+    "worker_requirements.txt": {
+      "sha256": "c431bd7d5f00c7e2cd0748c06128483fe8c4ba738c9eaed483e711f63c28f10c",
+      "source_url": "https://pypi.org/project/chemprop/2.2.1/",
+      "derivation": "Actual isolated CPU worker environment; selected implementation versions, not claimed author versions"
+    },
+    "dmpnn_published_reference.json": {
+      "sha256": "1c43d05e3f01e29fd0f1027f050d5e0fd419e02daa3a933bc970c368d44b9344",
+      "source_url": "https://github.com/chemagents/cannabis-biopesticide-mcp-server/blob/61e257122ef823248f83f4cacdd3a9bb7667d0cc/server/data/reference/dmpnn_stack_rmt_cv.json",
+      "derivation": "Pinned source reference"
+    },
+    "scientific_versions.json": {
+      "sha256": "ff26499cfa1e7c811f4a80680eda8c052f8fa8af1b15924f6f39619b5f73c177",
+      "source_url": "https://pypi.org/project/chemprop/2.2.1/",
+      "derivation": "Actual isolated CPU worker environment; selected implementation versions, not claimed author versions"
+    }
+  }
+}

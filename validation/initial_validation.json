@@ -1,0 +1,32 @@
+{
+  "public_tests_passed": 137,
+  "fresh_environment": true,
+  "python": "3.12",
+  "http_checks": [
+    {
+      "study": "heracleum",
+      "tool_count": 8,
+      "tool": "heracleum2026_dataset_audit",
+      "status": "success",
+      "verified_downloads": 2,
+      "scope": "Actual HTTP MCP smoke check; not a complete paper or CoScientist E2E acceptance"
+    },
+    {
+      "study": "mannich",
+      "tool_count": 10,
+      "tool": "mannich_dataset_overview",
+      "status": "success",
+      "verified_downloads": 7,
+      "scope": "Actual HTTP MCP smoke check; not a complete paper or CoScientist E2E acceptance"
+    },
+    {
+      "study": "cannabis",
+      "tool_count": 9,
+      "tool": "cannabis2026_dataset_audit",
+      "status": "partial",
+      "verified_downloads": 6,
+      "scope": "Actual HTTP MCP smoke check; not a complete paper or CoScientist E2E acceptance"
+    }
+  ],
+  "full_root_coscientist_acceptance": "ongoing; not asserted"
+}

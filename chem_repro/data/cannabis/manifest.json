@@ -1,0 +1,43 @@
+{
+  "study_id": "cannabis_2026",
+  "paper_doi": "10.3390/ijms27188000",
+  "revision": "b43286cc799f5ee856e4ed5d546078ce8c26e270",
+  "files": {
+    "data.csv": {
+      "sha256": "33a04e920121d3c20ad6f5c74e3a01e6b7328518909f23faf517d7a1e13a2b25",
+      "source_url": "https://github.com/chemagents/canpest/blob/b43286cc799f5ee856e4ed5d546078ce8c26e270/data/data.csv"
+    },
+    "split_registry.csv": {
+      "sha256": "f89b2c7a1a2232557ca222171faf5a55c5ea633644d298f4ad71e136086adeea",
+      "source_url": "https://github.com/chemagents/canpest/blob/b43286cc799f5ee856e4ed5d546078ce8c26e270/data/splits/split_registry.csv"
+    },
+    "metadata.json": {
+      "sha256": "150a438cc6fcc30113a9331833e4d76071c6e7b4398f67646835d693c67f9098",
+      "source_url": "https://github.com/chemagents/canpest/blob/b43286cc799f5ee856e4ed5d546078ce8c26e270/data/splits/metadata.json"
+    },
+    "32264_TETUR_ace_UP-D8V7J0_residue_matrix.csv": {
+      "sha256": "0a1b61b0004c851400ef702f1549c2669454d11207db13ebe93c2a35fafc7a22",
+      "source_url": "https://github.com/chemagents/canpest/blob/b43286cc799f5ee856e4ed5d546078ce8c26e270/source_inputs/residue_matrices/32264_TETUR_ace_UP-D8V7J0_residue_matrix.csv"
+    },
+    "32264_TETUR_gstm12_PDB-8UDB_residue_matrix.csv": {
+      "sha256": "a0b2b87704d89386a517fd7d9a3522a6a1a298095652a2acfc263ea23ef00423",
+      "source_url": "https://github.com/chemagents/canpest/blob/b43286cc799f5ee856e4ed5d546078ce8c26e270/source_inputs/residue_matrices/32264_TETUR_gstm12_PDB-8UDB_residue_matrix.csv"
+    },
+    "32264_TETUR_ugt202a2_PDB-8SFY_residue_matrix.csv": {
+      "sha256": "105c1b5dcc46a5b3927bd4e8f038fad86763a5be85249dd500ee37c1ddb21866",
+      "source_url": "https://github.com/chemagents/canpest/blob/b43286cc799f5ee856e4ed5d546078ce8c26e270/source_inputs/residue_matrices/32264_TETUR_ugt202a2_PDB-8SFY_residue_matrix.csv"
+    },
+    "6239_CAEEL_glc1_PDB-3RIF_residue_matrix.csv": {
+      "sha256": "1f6f210353f5b5ca6b1f8ac61ae1685416d627fc9ed9a4d638202696bb474ab4",
+      "source_url": "https://github.com/chemagents/canpest/blob/b43286cc799f5ee856e4ed5d546078ce8c26e270/source_inputs/residue_matrices/6239_CAEEL_glc1_PDB-3RIF_residue_matrix.csv"
+    },
+    "7165_ANOGA_agamor28_PDB-8V3D_residue_matrix.csv": {
+      "sha256": "1c6e43be5036673131d987eedee822012742a7d2b0e9156ee10b9f66371fc201",
+      "source_url": "https://github.com/chemagents/canpest/blob/b43286cc799f5ee856e4ed5d546078ce8c26e270/source_inputs/residue_matrices/7165_ANOGA_agamor28_PDB-8V3D_residue_matrix.csv"
+    },
+    "7165_ANOGA_gste2_PDB-2IMI_residue_matrix.csv": {
+      "sha256": "196348031eb74aadac4762e68769fe7d19c209b4a9221d598ff24fe35b36cc6e",
+      "source_url": "https://github.com/chemagents/canpest/blob/b43286cc799f5ee856e4ed5d546078ce8c26e270/source_inputs/residue_matrices/7165_ANOGA_gste2_PDB-2IMI_residue_matrix.csv"
+    }
+  }
+}

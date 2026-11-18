@@ -1,0 +1,24 @@
+{
+  "study_id": "heracleum_2026",
+  "paper_doi": "10.3390/ijms27177947",
+  "revision": "pinned full paper; controls section2.3.1",
+  "files": {
+    "paper.pdf": {
+      "sha256": "ee893f319592f3dcbd09d715da366c7821565ba391da53fb804e29f114170110",
+      "source_url": "https://www.mdpi.com/1422-0067/27/17/7947/pdf"
+    },
+    "control_reference.json": {
+      "sha256": "78eee926a763d2c4d2c79674bacc2e566813a16f208ae162bdf4fe8bfda7cf64",
+      "source_url": "https://www.mdpi.com/1422-0067/27/17/7947",
+      "parent_sha256": "ee893f319592f3dcbd09d715da366c7821565ba391da53fb804e29f114170110",
+      "derivation": "Manual transcription of sections2.3.1/4.4/4.8, PDF pages5/15/17; no raw control observations or per-target test recomputation."
+    },
+    "priority_reference.json": {
+      "sha256": "23904b46e581fe76b18f8f5e34544d0be780d3804974f08a65158d87b3dafda3",
+      "source_url": "https://www.mdpi.com/1422-0067/27/17/7947",
+      "parent_sha256": "ee893f319592f3dcbd09d715da366c7821565ba391da53fb804e29f114170110",
+      "revision": "Main article priority statement; identity cross-reference to supplementary S4row17",
+      "derivation": "Manual transcription of the named all-eight/unique claim in sections2.7/3, PDF pages10/13. InChIKey transcribed from Supplementary Table S4row17; both source hashes retained."
+    }
+  }
+}

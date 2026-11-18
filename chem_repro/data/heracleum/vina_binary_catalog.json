@@ -1,0 +1,55 @@
+{
+  "version": "1.2.5",
+  "version_output": "AutoDock Vina v1.2.5",
+  "accepted": [
+    {
+      "name": "vina_1.2.5_linux_aarch64",
+      "sha256": "5bf4eba87f133b5c2d35e5e6c21c062221e2a35a91ee7fa1dbd69d341efb3516",
+      "bytes": 4395536,
+      "asset_id": 113089882,
+      "url": "https://github.com/forlilab/AutoDock-Vina/releases/download/v1.2.5/vina_1.2.5_linux_aarch64",
+      "created_at": "2023-06-16T16:58:55Z",
+      "updated_at": "2023-06-16T16:58:58Z",
+      "system": "Linux",
+      "architecture": "aarch64",
+      "reported_version": "AutoDock Vina v1.2.5"
+    },
+    {
+      "name": "vina_1.2.5_linux_x86_64",
+      "sha256": "fa0126a28a9ea9162d1b161dfa92bc76e632416db28ca246278ea4b2dc6860cb",
+      "bytes": 4089576,
+      "asset_id": 113089866,
+      "url": "https://github.com/forlilab/AutoDock-Vina/releases/download/v1.2.5/vina_1.2.5_linux_x86_64",
+      "created_at": "2023-06-16T16:58:47Z",
+      "updated_at": "2023-06-16T16:58:51Z",
+      "system": "Linux",
+      "architecture": "x86_64",
+      "reported_version": "AutoDock Vina v1.2.5"
+    },
+    {
+      "name": "vina_1.2.5_mac_x86_64",
+      "sha256": "de9402701fba0f69bce53aec94254a08a7044c7d1d459958896022a7f98b073d",
+      "bytes": 1297344,
+      "asset_id": 113089896,
+      "url": "https://github.com/forlilab/AutoDock-Vina/releases/download/v1.2.5/vina_1.2.5_mac_x86_64",
+      "created_at": "2023-06-16T16:59:06Z",
+      "updated_at": "2023-06-16T16:59:07Z",
+      "system": "Darwin",
+      "architecture": "x86_64",
+      "reported_version": "AutoDock Vina v1.2.5"
+    }
+  ],
+  "excluded": [
+    {
+      "name": "vina_1.2.5_mac_aarch64",
+      "sha256": "4999b3133f162b66d8b21bafdb54aa53c507ed6347489844e6778dac7871ff5f",
+      "bytes": 1171224,
+      "asset_id": 194707916,
+      "url": "https://github.com/forlilab/AutoDock-Vina/releases/download/v1.2.5/vina_1.2.5_mac_aarch64",
+      "created_at": "2024-09-24T23:38:07Z",
+      "updated_at": "2024-09-24T23:38:08Z",
+      "reported_version": "AutoDock Vina v1.2.5-17-gda92a68",
+      "reason": "Ahead-of-tag build is not the exact requested version"
+    }
+  ]
+}

@@ -1,0 +1,420 @@
+[
+  {
+    "id": "H01",
+    "study": "heracleum",
+    "prompt": "Из каких наборов состоит исследование фуранокумаринов Heracleum (IJMS 2026, 27, 7947)? Проверь размеры, пересечения, пригодность для докинга и согласованность идентичности молекул между исходными файлами. Покажи проблемные записи отдельно.",
+    "expected_tools": [
+      "heracleum2026_dataset_audit"
+    ],
+    "scientific_checks": [
+      "2008/102/37/2073; docking 2055",
+      "65 identity conflicts remain visible"
+    ],
+    "tool_readiness": "implemented",
+    "execution_status": "not_run"
+  },
+  {
+    "id": "H02",
+    "study": "heracleum",
+    "prompt": "Насколько химическое пространство фуранокумаринов Heracleum сосредоточено вокруг небольшого числа каркасов? Пересчитай покрытие частыми каркасами отдельно для референсного и природного наборов; отличай число каркасов от числа молекул.",
+    "expected_tools": [
+      "heracleum2026_chemical_space"
+    ],
+    "scientific_checks": [
+      "DS1 psoralen767 angelicin334 top5=1254",
+      "DS2 top15=79; total singleton28 versus23 outside top15"
+    ],
+    "tool_readiness": "implemented",
+    "execution_status": "not_run"
+  },
+  {
+    "id": "H03",
+    "study": "heracleum",
+    "prompt": "Достаточно ли среднего докинг-скора для описания панели офф-таргетов Heracleum? Воспроизведи PCA, доли дисперсии, нагрузки мишеней и связь с усреднённым скором. Покажи, какая информация теряется.",
+    "expected_tools": [
+      "heracleum2026_docking_profile"
+    ],
+    "scientific_checks": [
+      "PC1~0.612; rho~0.927; n80=4",
+      "PC loadings and interpretation; score is not affinity measurement"
+    ],
+    "tool_readiness": "implemented",
+    "execution_status": "not_run"
+  },
+  {
+    "id": "H04",
+    "study": "heracleum",
+    "prompt": "Насколько надёжен докинг-протокол Heracleum? Проверь восстановление нативных поз и различение активных и неактивных контролей. Раздели пересчитанные по таблицам показатели, опубликованные значения и результаты нового запуска; исключённые мишени не считай неудачными.",
+    "expected_tools": [
+      "heracleum2026_docking_protocol_validation"
+    ],
+    "scientific_checks": [
+      "24/42 top1;36/42 top5; median0.83",
+      "6 failures and2 excluded; raw control rerun still required"
+    ],
+    "tool_readiness": "partial",
+    "execution_status": "not_run"
+  },
+  {
+    "id": "H05",
+    "study": "heracleum",
+    "prompt": "Можно ли свести десять прогнозируемых эндпойнтов токсичности Heracleum к одному индексу? Пересчитай распределения, корреляции, PCA и насыщение шкал; объясни, какие эндпойнты плохо подходят для ранжирования.",
+    "expected_tools": [
+      "heracleum2026_toxicity_landscape"
+    ],
+    "scientific_checks": [
+      "PC1~0.296;n80=6",
+      "genotoxicity and eye irritation saturation; no independence or biological-validation claim"
+    ],
+    "tool_readiness": "implemented",
+    "execution_status": "not_run"
+  },
+  {
+    "id": "H06",
+    "study": "heracleum",
+    "prompt": "Зависит ли предсказанный профиль Heracleum от каркасного класса? Проведи исходный перестановочный анализ разделимости по всем токсикологическим и докинговым осям с поправкой на множественные сравнения. Покажи размер эффекта и случайное ожидание.",
+    "expected_tools": [
+      "heracleum2026_scaffold_separability"
+    ],
+    "scientific_checks": [
+      "13axes;10000 permutations;BH FDR",
+      "mean toxicityKS~.345;dockingPC1~.832;null~.149"
+    ],
+    "tool_readiness": "implemented",
+    "execution_status": "not_run"
+  },
+  {
+    "id": "H07",
+    "study": "heracleum",
+    "prompt": "Переносятся ли модели Heracleum на незнакомые каркасы? Воспроизведи Random Forest и ElasticNet для neurotoxicity и eye corrosion при случайной и scaffold-based пятикратной валидации. Для численной сверки используй опубликованные записи и сохранённые группы каркасов. Верни pooled OOF R², RMSE, MAE, 95%-интервалы R² по 1000 bootstrap-повторам, падение R² и проверку пересечения каркасов. Проблемы источника перечисли отдельно.",
+    "expected_tools": [
+      "heracleum2026_scaffold_transfer"
+    ],
+    "scientific_checks": [
+      "Full4endpoint/model combinations viaonebatchcall or4specificcalls;2schemes each;identity_policy=published_snapshot",
+      "RF .645→.444 and .670→.308;ElasticNet .310→.195 and .357→.162",
+      "targets are ADMETlab outputs; all group folds disjoint"
+    ],
+    "tool_readiness": "implemented",
+    "execution_status": "not_run"
+  },
+  {
+    "id": "H08",
+    "study": "heracleum",
+    "prompt": "Какие природные фуранокумарины Heracleum приоритетны для экспериментальной проверки? Воспроизведи распределение по Tier из опубликованного снимка, затем отдельно сформируй список с проверенной идентичностью. Покажи критерии для каждой молекулы и отличия между этими двумя списками.",
+    "expected_tools": [
+      "heracleum2026_dataset_audit",
+      "heracleum2026_prioritize_candidates"
+    ],
+    "scientific_checks": [
+      "snapshot21/24/57;strict18/10/9+65unranked",
+      "conflicting identities do not acquire trusted names; relative priority is not safety",
+      "Original DS2 PAINS zero; master structures have3 PAINS hits; archived alerts match original102/102 versus master50/102; no silent tier change"
+    ],
+    "tool_readiness": "implemented",
+    "execution_status": "not_run"
+  },
+  {
+    "id": "H09",
+    "study": "heracleum",
+    "prompt": "Подтверждают ли согласованные каркасы, докинг и ADMET-профили биологическую токсичность Heracleum? Разбери происхождение этих трёх видов свидетельств, их зависимости и какие внешние эксперименты потребовались бы для независимой проверки.",
+    "expected_tools": [
+      "heracleum2026_dataset_audit",
+      "heracleum2026_docking_profile",
+      "heracleum2026_toxicity_landscape"
+    ],
+    "scientific_checks": [
+      "all derived from structure;no independent biological validation",
+      "no invented experimental results"
+    ],
+    "tool_readiness": "implemented",
+    "execution_status": "not_run"
+  },
+  {
+    "id": "M01",
+    "study": "mannich",
+    "prompt": "Каков состав набора асимметричных органокаталитических реакций Манниха из Scientific Data 2026? Пересчитай реакции, публикации, катализаторы и реагенты, сохранив аксиальную стереохимию и объяснив дедупликацию.",
+    "expected_tools": [
+      "mannich_dataset_overview"
+    ],
+    "scientific_checks": [
+      "4015reactions153DOIs;468catalysts vs462canonical;538/578reagents",
+      "Audit preserves4015 rows,20 products have unspecified potential carbon stereo; chemical inventory flags are not automatic errors"
+    ],
+    "tool_readiness": "implemented",
+    "execution_status": "executed_root_incomplete",
+    "acceptance_status": "report_not_completed",
+    "evidence": "artifacts/three-paper-reproduction/e2e/M01_root_scoped_v8"
+  },
+  {
+    "id": "M02",
+    "study": "mannich",
+    "prompt": "Зачем авторы набора реакций Манниха преобразовали ee в |ΔΔG‡|? Независимо пересчитай значения по ee и температуре, сравни с сохранённой колонкой, покажи распределения и асимметрию. Объясни предел ee=100% и отличие от dr.",
+    "expected_tools": [
+      "mannich_enantioselectivity_distribution"
+    ],
+    "scientific_checks": [
+      "median ee89.4;skew-1.5478 vs.1022;residual<1e-12",
+      "cap99.9%;magnitude only;figures downloadable"
+    ],
+    "tool_readiness": "implemented",
+    "execution_status": "not_run"
+  },
+  {
+    "id": "M03",
+    "study": "mannich",
+    "prompt": "Какие температуры, растворители, времена, выходы и загрузки катализатора представлены в наборе Манниха? Воспроизведи распределения и проверь, совпадает ли число растворителей со статьёй; смеси и синонимы обработай явно.",
+    "expected_tools": [
+      "mannich_reaction_conditions"
+    ],
+    "scientific_checks": [
+      "temperature-78..85;yield median83;time median24",
+      "77raw/50notebook categories;do not equate to unique molecular solvent identities",
+      "51 non-mixture case-folded labels excluding neat; not verified unique solvent identities"
+    ],
+    "tool_readiness": "implemented",
+    "execution_status": "not_run"
+  },
+  {
+    "id": "M04",
+    "study": "mannich",
+    "prompt": "Какие классы катализаторов и реагентов доминируют в наборе Манниха? Пересчитай SMARTS-классификацию, проверь сохранённые метки и покажи самый частый катализатор каждого класса со структурой и частотой.",
+    "expected_tools": [
+      "mannich_component_classification"
+    ],
+    "scientific_checks": [
+      "zero stored catalyst label disagreements",
+      "11 representative structures and frequencies, explicit axial labels; download and inspect Figure5"
+    ],
+    "tool_readiness": "implemented",
+    "execution_status": "not_run"
+  },
+  {
+    "id": "M05",
+    "study": "mannich",
+    "prompt": "Воспроизведи карты химического пространства катализаторов и реагентов Манниха. Сохрани принадлежность каждой точки исходной структуре; отдельно проверь, как кодируется стереохимия и соответствует ли это тексту статьи.",
+    "expected_tools": [
+      "mannich_chemical_space"
+    ],
+    "scientific_checks": [
+      "both catalysts/reagents calls;468/1106records",
+      "catalyst notebook chiralityFalse;axial R/S not in fingerprint;no global-distance inference"
+    ],
+    "tool_readiness": "implemented",
+    "execution_status": "not_run"
+  },
+  {
+    "id": "M06",
+    "study": "mannich",
+    "prompt": "Насколько разнообразны каркасы катализаторов, электрофилов и нуклеофилов в наборе Манниха? Воспроизведи дополнение с частотами, отдельно покажи ациклические исключения и расхождения с опубликованными числами.",
+    "expected_tools": [
+      "mannich_scaffold_diversity"
+    ],
+    "scientific_checks": [
+      "207vs204catalysts;114/112reagents;acyclic16/14/104",
+      "207/114/112 scaffold grids exported across12/7/7pages; discrepancy207vs204 remains visible"
+    ],
+    "tool_readiness": "partial",
+    "execution_status": "not_run"
+  },
+  {
+    "id": "M07",
+    "study": "mannich",
+    "prompt": "Какие сочетания классов катализатора и субстрата дают высокий медианный ee в опубликованных реакциях Манниха? Построй обе тепловые карты с числом наблюдений и сравни правила маскирования статьи и ноутбука. Можно ли по ним выбрать лучший катализатор для нового субстрата?",
+    "expected_tools": [
+      "mannich_selectivity_heatmaps"
+    ],
+    "scientific_checks": [
+      "both paper/notebook calls;min_n5vs4;masked cells null",
+      "observational medians;no causal or prospective best-catalyst claim;download artifacts"
+    ],
+    "tool_readiness": "implemented",
+    "execution_status": "not_run"
+  },
+  {
+    "id": "M08",
+    "study": "mannich",
+    "prompt": "Проверь трёхмерные структуры всех катализаторов Манниха против табличных SMILES, точечной и аксиальной стереохимии. Раздели ошибку графа, дополнительную неуказанную стереохимию и неподтверждённое абсолютное R/S. Затем воспроизведи генерацию структур без OCR.",
+    "expected_tools": [
+      "mannich_catalyst_structure_audit",
+      "mannich_regenerate_catalyst_structures"
+    ],
+    "scientific_checks": [
+      "468 deposited and468 regenerated structures;zero graph/point-stereo contradictions",
+      "Deposited axial audit:9 supported matches,3 disagreements,39 conditional/ambiguous; source regeneration:8 matches,4 disagreements,38 conditional,1 ambiguous",
+      "Source torsion-sign convention differs from geometry/CIP check; 12 supported alternative conformers verified separately; no silent input repair"
+    ],
+    "tool_readiness": "partial",
+    "execution_status": "not_run"
+  },
+  {
+    "id": "M09",
+    "study": "mannich",
+    "prompt": "Воспроизведи PCA пространства всех реакций Манниха из дополнения. Сохрани роли реагентов, катализатора и продукта, покажи настройки структурного reaction fingerprint, доли дисперсии и координаты. Не подменяй неизвестные настройки авторов молчаливыми значениями по умолчанию.",
+    "expected_tools": [
+      "mannich_reaction_space"
+    ],
+    "scientific_checks": [
+      "4015records;exact fingerprint settings and source deviations",
+      "Tool implemented with explicit structural defaults; missing original settings prevent exact PCA-coordinate replay"
+    ],
+    "tool_readiness": "partial",
+    "execution_status": "not_run"
+  },
+  {
+    "id": "C01",
+    "study": "cannabis",
+    "prompt": "Какие соединения входят в исходный, стандартизованный и подготовленный к докингу наборы Cannabis sativa из IJMS 2026, 27, 8000? Воспроизведи поток отбора и объясни, насколько подготовленный набор представляет полный метаболом.",
+    "expected_tools": [
+      "cannabis2026_dataset_audit"
+    ],
+    "scientific_checks": [
+      "source5920=1680+1491+2749;paperDS15027/docked2465",
+      "final cohort mapping missing;no arbitrary truncation"
+    ],
+    "tool_readiness": "partial",
+    "execution_status": "not_run"
+  },
+  {
+    "id": "C02",
+    "study": "cannabis",
+    "prompt": "Отличаются ли докинговые профили пестицидов и AChE-неактивных контролей в статье Cannabis? Пересчитай сравнения для всех мишеней, медианные разности и поправку на множественные проверки; не скрывай противоположное направление эффекта.",
+    "expected_tools": [
+      "cannabis2026_docking_comparisons"
+    ],
+    "scientific_checks": [
+      "6targets;two-sidedMW;BH;OR28opposite",
+      "DS3isAChEinactive not universal inactivity"
+    ],
+    "tool_readiness": "implemented",
+    "execution_status": "not_run"
+  },
+  {
+    "id": "C03",
+    "study": "cannabis",
+    "prompt": "Какие аминокислотные остатки информативны в статье Cannabis? Для всех мишеней воспроизведи отбор по Appendix A на нулевом сохранённом внешнем разбиении: RMT-спектр, выбор числа остатков во внутренней валидации, энергетический фильтр и применение к test. Покажи отсутствие использования test при отборе.",
+    "expected_tools": [
+      "cannabis2026_select_residues"
+    ],
+    "scientific_checks": [
+      "6target calls;training-only;ROC-AUC;98%gate;raw retained columns",
+      "unspecified numerical settings and final split equivalence disclosed"
+    ],
+    "tool_readiness": "implemented",
+    "execution_status": "not_run"
+  },
+  {
+    "id": "C04",
+    "study": "cannabis",
+    "prompt": "Содержат ли RTE-дескрипторы информацию для различения пестицидов и AChE-неактивных соединений? Воспроизведи CatBoost и линейный SVM отдельно по мишеням и по объединённым дескрипторам с отбором признаков внутри каждого внешнего разбиения.",
+    "expected_tools": [
+      "cannabis2026_validate_rte"
+    ],
+    "scientific_checks": [
+      "6targets+combined;two models;source split audit",
+      "420 actual fits and model roundtrips verified; final-paper fold/config equivalence unverified, ALL6CB.82175vsreported.802"
+    ],
+    "tool_readiness": "partial",
+    "execution_status": "not_run"
+  },
+  {
+    "id": "C05",
+    "study": "cannabis",
+    "prompt": "Как структурная DMPNN Cannabis переносится на новые каркасы? Воспроизведи парную случайную и каркасную валидацию одной конфигурации, с ROC-AUC и PR-AUC, и отдели её от основного random-CV результата статьи.",
+    "expected_tools": [
+      "cannabis2026_validate_dmpnn"
+    ],
+    "scientific_checks": [
+      "paired .9260/.9393 vs .9084/.9297 are references, not computations until run",
+      "final DMPNN training artifacts/config missing"
+    ],
+    "tool_readiness": "partial",
+    "execution_status": "not_run",
+    "direct_mcp_evidence": "Actual source-cohort execution and artifacts verified; exact final-paper reconstruction and root acceptance remain separate requirements."
+  },
+  {
+    "id": "C06",
+    "study": "cannabis",
+    "prompt": "Действительно ли произведение структурного и RTE-скоров уменьшает ложноположительные предсказания Cannabis? На одинаковых held-out объектах сравни обе ветви и произведение: ROC-AUC, PR-AUC, FPR, recall, confusion matrix и покрытие при оценочном пороге статьи.",
+    "expected_tools": [
+      "cannabis2026_evaluate_fusion"
+    ],
+    "scientific_checks": [
+      "threshold.5;FPR12.20%vs4.92%references",
+      "recall loss and coverage;product not calibrated joint posterior"
+    ],
+    "tool_readiness": "partial",
+    "execution_status": "not_run",
+    "direct_mcp_evidence": "Actual source-cohort execution and artifacts verified; exact final-paper reconstruction and root acceptance remain separate requirements."
+  },
+  {
+    "id": "C07",
+    "study": "cannabis",
+    "prompt": "Какие метаболиты Cannabis входят в итоговую десятку и почему? Воспроизведи исходный структурный отбор, исключение первичных метаболитов и сортировку по произведению скоров. Верни обе вероятности, структуры, происхождение и изменившиеся позиции.",
+    "expected_tools": [
+      "cannabis2026_prioritize_candidates"
+    ],
+    "scientific_checks": [
+      "DMPNN candidate cutoff.70;ranking not hard final cutoff.5",
+      "requires final prediction/cohort/occurrence records",
+      "10 reviewed Figure4 connectivities map to pinned source IDs; newly computed source components stay separate from unavailable original author components; ranks1/9 classification-reference overlap explicit"
+    ],
+    "tool_readiness": "partial",
+    "execution_status": "not_run",
+    "direct_mcp_evidence": "Actual source-cohort execution and artifacts verified; exact final-paper reconstruction and root acceptance remain separate requirements."
+  },
+  {
+    "id": "C08",
+    "study": "cannabis",
+    "prompt": "Благоприятнее ли предсказанный токсикологический и экотоксикологический профиль Cannabis по сравнению с пестицидами? Воспроизведи сравнения по каждому эндпойнту и для итоговых кандидатов, сохранив единицы, применимость и происхождение моделей.",
+    "expected_tools": [
+      "cannabis2026_open_toxicity_profile"
+    ],
+    "scientific_checks": [
+      "Explicitly distinguish new public-data model predictions from paper-reported Syntelly outputs",
+      "Available cohort2749unlabeled/1680pesticide/1491AChE; do not claim final5027/1709or top-ten replay",
+      "Endpoint-specific units, OOF validation, identity/scaffold overlap and applicability",
+      "hERG is a proxy; no separate broad hepatotoxicity result inferred from DILI",
+      "Domain score is not calibrated reliability; ranking does not establish efficacy or environmental safety",
+      "Existing open recipe omits original2024 tuning/custom-fragment filters; disclose this",
+      "all10 mapped Figure4 structures have computed source-model predictions for all9 requested endpoints, with full90rowCSV and complete compact matrices; no proprietary Syntelly or occurrence claim"
+    ],
+    "tool_readiness": "partial",
+    "execution_status": "not_run"
+  },
+  {
+    "id": "C09",
+    "study": "cannabis",
+    "prompt": "Насколько надёжен вывод о безопасности приоритетных биопестицидов Cannabis? Проверь область применимости каждого токсикологического прогноза, ошибки моделей и ограничения исходных AChE-контролей; перечисли, что ещё требует эксперимента.",
+    "expected_tools": [
+      "cannabis2026_open_toxicity_profile",
+      "cannabis2026_dataset_audit"
+    ],
+    "scientific_checks": [
+      "Explicitly distinguish new public-data model predictions from paper-reported Syntelly outputs",
+      "Available cohort2749unlabeled/1680pesticide/1491AChE; do not claim final5027/1709or top-ten replay",
+      "Endpoint-specific units, OOF validation, identity/scaffold overlap and applicability",
+      "hERG is a proxy; no separate broad hepatotoxicity result inferred from DILI",
+      "Domain score is not calibrated reliability; ranking does not establish efficacy or environmental safety",
+      "Existing open recipe omits original2024 tuning/custom-fragment filters; disclose this"
+    ],
+    "tool_readiness": "partial",
+    "execution_status": "not_run"
+  },
+  {
+    "id": "C10",
+    "study": "cannabis",
+    "prompt": "Воспроизведи открытые токсикологические бенчмарки из Supplementary Table S3 статьи Cannabis: Ames, reproductive toxicity, Daphnia и fathead minnow, при опубликованных вариантах разбиения. Для каждого числа укажи фактический набор и число записей, базовую модель или способ объединения, полученную метрику и сверку с публикацией. Проверь, можно ли интерпретировать разницу random/scaffold как чистый штраф переноса; отдельно оцени независимость валидации метамодели. Не подменяй этими бенчмарками основные профили Syntelly.",
+    "expected_tools": [
+      "cannabis2026_open_toxicity_validation"
+    ],
+    "scientific_checks": [
+      "All seven reported entries compared against actual cached or freshly executed source replays",
+      "Ames7460 uses fixed mean blend; reproductive156 matches CatBoost-ECFP; water scaffold references match augmented614/1100 cohorts, whereas random references match345/812",
+      "Meta CV is non-nested and does not preserve scaffold groups; mixed cohort/aggregator comparisons are not paired split penalties",
+      "Main-text Syntelly outputs remain distinct and unavailable"
+    ],
+    "tool_readiness": "implemented",
+    "execution_status": "not_run"
+  }
+]

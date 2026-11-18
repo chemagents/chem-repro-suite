@@ -1,0 +1,25 @@
+{
+  "endpoint": "reproductive",
+  "scheme": "random",
+  "threads": 2,
+  "software": {
+    "catboost": "1.2.10",
+    "joblib": "1.5.3",
+    "lightgbm": "4.7.0",
+    "numpy": "2.5.2",
+    "pandas": "3.0.5",
+    "rdkit": "2026.3.5",
+    "scikit-learn": "1.9.0",
+    "scipy": "1.18.0",
+    "threadpoolctl": "3.6.0",
+    "xgboost": "3.4.0"
+  },
+  "source_sha256": "43335be925d2fc0786cf5dfec9365b03bf2d979298d3c7b8f75beacc1eeb83b3",
+  "source_revision": "61e257122ef823248f83f4cacdd3a9bb7667d0cc",
+  "source_code_sha256": {
+    "runtime/open_tox_worker.py": "0f74db1009bcf31ec5bb3a5e0433923658891c402d8df432db7ef1e39c679197",
+    "vendor/cannabis_open_tox/scaffold_eval.py": "5082fcfbd8b98fd23bad0f0666c2cb07c3cfdc8a90f48dd6ac1dea3169978fc7",
+    "vendor/cannabis_open_tox/stack_v2.py": "b548a672b7db334c7f97463fea0bb31efde39aa741f37b26eedadeeb0b88e387",
+    "vendor/cannabis_open_tox/tox_train.py": "89f9ee3c31eaba075ccff03d6819f707477de8e976de686c5e0e8fd326c16a1e"
+  }
+}

@@ -1,0 +1,6 @@
+model,metric,reported_mean,reported_sd,reported_unit,comparison_mean,comparison_sd,comparison_unit,evaluation_threshold,source_location
+DMPNN,ROC_AUC,0.9283,0.0092,fraction,0.9283,0.0092,fraction,,"section2.3,p5;section4.7"
+DMPNN,FPR,12.2,1.86,percent,0.122,0.0186,fraction,0.5,"section2.3,p5;section4.7"
+product,ROC_AUC,0.9176,0.0093,fraction,0.9176,0.0093,fraction,,"section2.3,p6;section4.7"
+product,FPR,4.92,1.08,percent,0.0492,0.0108,fraction,0.5,"section2.3,p5-6;section4.7"
+RTE_ALL6,ROC_AUC,0.802,0.017,fraction,0.802,0.017,fraction,,"section2.3,p5;Figure3"

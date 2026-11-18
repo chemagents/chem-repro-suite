@@ -1,0 +1,331 @@
+{
+  "curated_at": "2026-11-16T07:37:06.912810+00:00",
+  "records": [
+    {
+      "paper_rank": 1,
+      "paper_name": "isobornyl thiocyanoacetate",
+      "paper_final_score": 0.997,
+      "source_ligand_id": 3928,
+      "source_smiles": "CC1(C)C2CCC1(C(OC(=O)CSC#N)C2)C",
+      "connectivity_smiles": "CC1(C)C2CCC1(C)C(OC(=O)CSC#N)C2",
+      "toxicity_query_id": "03928",
+      "pubchem_cids": [
+        13218779
+      ],
+      "pubchem_urls": [
+        "https://pubchem.ncbi.nlm.nih.gov/compound/13218779"
+      ],
+      "all_source_connectivity_matches": [
+        {
+          "ligand_id": 1154,
+          "activity": 1.0,
+          "SMILES": "CC1(C)C2CCC1(C(OC(=O)CSC#N)C2)C"
+        },
+        {
+          "ligand_id": 3928,
+          "activity": null,
+          "SMILES": "CC1(C)C2CCC1(C(OC(=O)CSC#N)C2)C"
+        }
+      ],
+      "labeled_reference_match_ids": [
+        1154
+      ],
+      "identity_policy": "stereochemistry explicitly removed; isotopes, salts, charges and tautomers retained",
+      "paper_graph_visual_review": "Matched against Figure4 page7 and saved source depiction grid; no stereoisomer assignment",
+      "name_evidence": "Figure4 caption plus PubChem name/alias lookup",
+      "CCD_annotation_independently_verified": false,
+      "natural_occurrence_independently_verified": false,
+      "author_component_probabilities_available": false
+    },
+    {
+      "paper_rank": 2,
+      "paper_name": "cannabinol methylether",
+      "paper_final_score": 0.954,
+      "source_ligand_id": 3799,
+      "source_smiles": "CC1(C)c2ccc(cc2-c2c(cc(cc2OC)CCCCC)O1)C",
+      "connectivity_smiles": "CCCCCc1cc(OC)c2c(c1)OC(C)(C)c1ccc(C)cc1-2",
+      "toxicity_query_id": "03799",
+      "pubchem_cids": [
+        628150
+      ],
+      "pubchem_urls": [
+        "https://pubchem.ncbi.nlm.nih.gov/compound/628150"
+      ],
+      "all_source_connectivity_matches": [
+        {
+          "ligand_id": 3799,
+          "activity": null,
+          "SMILES": "CC1(C)c2ccc(cc2-c2c(cc(cc2OC)CCCCC)O1)C"
+        }
+      ],
+      "labeled_reference_match_ids": [],
+      "identity_policy": "stereochemistry explicitly removed; isotopes, salts, charges and tautomers retained",
+      "paper_graph_visual_review": "Matched against Figure4 page7 and saved source depiction grid; no stereoisomer assignment",
+      "name_evidence": "Figure4 caption plus PubChem name/alias lookup",
+      "CCD_annotation_independently_verified": false,
+      "natural_occurrence_independently_verified": false,
+      "author_component_probabilities_available": false
+    },
+    {
+      "paper_rank": 3,
+      "paper_name": "blumenol A",
+      "paper_final_score": 0.95,
+      "source_ligand_id": 3633,
+      "source_smiles": "CC1(C)CC(C=C(C)C1(C=CC(C)O)O)=O",
+      "connectivity_smiles": "CC1=CC(=O)CC(C)(C)C1(O)C=CC(C)O",
+      "toxicity_query_id": "03633",
+      "pubchem_cids": [
+        5280462
+      ],
+      "pubchem_urls": [
+        "https://pubchem.ncbi.nlm.nih.gov/compound/5280462"
+      ],
+      "all_source_connectivity_matches": [
+        {
+          "ligand_id": 3633,
+          "activity": null,
+          "SMILES": "CC1(C)CC(C=C(C)C1(C=CC(C)O)O)=O"
+        }
+      ],
+      "labeled_reference_match_ids": [],
+      "identity_policy": "stereochemistry explicitly removed; isotopes, salts, charges and tautomers retained",
+      "paper_graph_visual_review": "Matched against Figure4 page7 and saved source depiction grid; no stereoisomer assignment",
+      "name_evidence": "Figure4 caption plus PubChem name/alias lookup",
+      "CCD_annotation_independently_verified": false,
+      "natural_occurrence_independently_verified": false,
+      "author_component_probabilities_available": false
+    },
+    {
+      "paper_rank": 4,
+      "paper_name": "stigmasta-5,22-dien-3β-ol-7-one",
+      "paper_final_score": 0.941,
+      "source_ligand_id": 3687,
+      "source_smiles": "CC(C)C(C=CC(C1C2(C)C(CC1)C1C(C=C3CC(O)CCC3(C)C1CC2)=O)C)CC",
+      "connectivity_smiles": "CCC(C=CC(C)C1CCC2C3C(=O)C=C4CC(O)CCC4(C)C3CCC12C)C(C)C",
+      "toxicity_query_id": "03687",
+      "pubchem_cids": [
+        12044013
+      ],
+      "pubchem_urls": [
+        "https://pubchem.ncbi.nlm.nih.gov/compound/12044013"
+      ],
+      "all_source_connectivity_matches": [
+        {
+          "ligand_id": 3687,
+          "activity": null,
+          "SMILES": "CC(C)C(C=CC(C1C2(C)C(CC1)C1C(C=C3CC(O)CCC3(C)C1CC2)=O)C)CC"
+        }
+      ],
+      "labeled_reference_match_ids": [],
+      "identity_policy": "stereochemistry explicitly removed; isotopes, salts, charges and tautomers retained",
+      "paper_graph_visual_review": "Matched against Figure4 page7 and saved source depiction grid; no stereoisomer assignment",
+      "name_evidence": "Figure4 caption plus PubChem name/alias lookup",
+      "CCD_annotation_independently_verified": false,
+      "natural_occurrence_independently_verified": false,
+      "author_component_probabilities_available": false
+    },
+    {
+      "paper_rank": 5,
+      "paper_name": "Δ-9-tetrahydrocannabiorcolic acid",
+      "paper_final_score": 0.931,
+      "source_ligand_id": 3786,
+      "source_smiles": "CC1(C)Oc2cc(C)c(C(=O)O)c(O)c2C2C1CCC(C)=C2",
+      "connectivity_smiles": "CC1=CC2c3c(cc(C)c(C(=O)O)c3O)OC(C)(C)C2CC1",
+      "toxicity_query_id": "03786",
+      "pubchem_cids": [
+        72300843
+      ],
+      "pubchem_urls": [
+        "https://pubchem.ncbi.nlm.nih.gov/compound/72300843"
+      ],
+      "all_source_connectivity_matches": [
+        {
+          "ligand_id": 3786,
+          "activity": null,
+          "SMILES": "CC1(C)Oc2cc(C)c(C(=O)O)c(O)c2C2C1CCC(C)=C2"
+        }
+      ],
+      "labeled_reference_match_ids": [],
+      "identity_policy": "stereochemistry explicitly removed; isotopes, salts, charges and tautomers retained",
+      "paper_graph_visual_review": "Matched against Figure4 page7 and saved source depiction grid; no stereoisomer assignment",
+      "name_evidence": "Figure4 caption and manually matched graph; PubChem exact-SMILES lookup confirms connectivity but supplies no common-name synonym",
+      "CCD_annotation_independently_verified": false,
+      "natural_occurrence_independently_verified": false,
+      "author_component_probabilities_available": false
+    },
+    {
+      "paper_rank": 6,
+      "paper_name": "ergosterol",
+      "paper_final_score": 0.92,
+      "source_ligand_id": 3480,
+      "source_smiles": "CC(C)C(C=CC(C1CCC2C=3C(C4(C(=CC=3)CC(O)CC4)C)CCC12C)C)C",
+      "connectivity_smiles": "CC(C)C(C)C=CC(C)C1CCC2C3=CC=C4CC(O)CCC4(C)C3CCC21C",
+      "toxicity_query_id": "03480",
+      "pubchem_cids": [
+        444679
+      ],
+      "pubchem_urls": [
+        "https://pubchem.ncbi.nlm.nih.gov/compound/444679"
+      ],
+      "all_source_connectivity_matches": [
+        {
+          "ligand_id": 3480,
+          "activity": null,
+          "SMILES": "CC(C)C(C=CC(C1CCC2C=3C(C4(C(=CC=3)CC(O)CC4)C)CCC12C)C)C"
+        }
+      ],
+      "labeled_reference_match_ids": [],
+      "identity_policy": "stereochemistry explicitly removed; isotopes, salts, charges and tautomers retained",
+      "paper_graph_visual_review": "Matched against Figure4 page7 and saved source depiction grid; no stereoisomer assignment",
+      "name_evidence": "Figure4 caption plus PubChem name/alias lookup",
+      "CCD_annotation_independently_verified": false,
+      "natural_occurrence_independently_verified": false,
+      "author_component_probabilities_available": false
+    },
+    {
+      "paper_rank": 7,
+      "paper_name": "friedelanol",
+      "paper_final_score": 0.913,
+      "source_ligand_id": 3632,
+      "source_smiles": "CC1(C)CC2C(C)(CC1)CCC1(C3C(CCC12C)(C)C1CCC(O)C(C1(CC3)C)C)C",
+      "connectivity_smiles": "CC1C(O)CCC2C1(C)CCC1C2(C)CCC2(C)C3CC(C)(C)CCC3(C)CCC12C",
+      "toxicity_query_id": "03632",
+      "pubchem_cids": [
+        76316825
+      ],
+      "pubchem_urls": [
+        "https://pubchem.ncbi.nlm.nih.gov/compound/76316825"
+      ],
+      "all_source_connectivity_matches": [
+        {
+          "ligand_id": 3632,
+          "activity": null,
+          "SMILES": "CC1(C)CC2C(C)(CC1)CCC1(C3C(CCC12C)(C)C1CCC(O)C(C1(CC3)C)C)C"
+        }
+      ],
+      "labeled_reference_match_ids": [],
+      "identity_policy": "stereochemistry explicitly removed; isotopes, salts, charges and tautomers retained",
+      "paper_graph_visual_review": "Matched against Figure4 page7 and saved source depiction grid; no stereoisomer assignment",
+      "name_evidence": "Figure4 caption plus PubChem name/alias lookup",
+      "CCD_annotation_independently_verified": false,
+      "natural_occurrence_independently_verified": false,
+      "author_component_probabilities_available": false
+    },
+    {
+      "paper_rank": 8,
+      "paper_name": "γ-curcumene",
+      "paper_final_score": 0.851,
+      "source_ligand_id": 3826,
+      "source_smiles": "CC(C)=CCCC(C1=CC=C(C)CC1)C",
+      "connectivity_smiles": "CC(C)=CCCC(C)C1=CC=C(C)CC1",
+      "toxicity_query_id": "03826",
+      "pubchem_cids": [
+        12304273
+      ],
+      "pubchem_urls": [
+        "https://pubchem.ncbi.nlm.nih.gov/compound/12304273"
+      ],
+      "all_source_connectivity_matches": [
+        {
+          "ligand_id": 3826,
+          "activity": null,
+          "SMILES": "CC(C)=CCCC(C1=CC=C(C)CC1)C"
+        }
+      ],
+      "labeled_reference_match_ids": [],
+      "identity_policy": "stereochemistry explicitly removed; isotopes, salts, charges and tautomers retained",
+      "paper_graph_visual_review": "Matched against Figure4 page7 and saved source depiction grid; no stereoisomer assignment",
+      "name_evidence": "Figure4 caption plus PubChem name/alias lookup",
+      "CCD_annotation_independently_verified": false,
+      "natural_occurrence_independently_verified": false,
+      "author_component_probabilities_available": false
+    },
+    {
+      "paper_rank": 9,
+      "paper_name": "α-bisabolol",
+      "paper_final_score": 0.782,
+      "source_ligand_id": 3555,
+      "source_smiles": "CC(C)=CCCC(O)(C)C1CC=C(C)CC1",
+      "connectivity_smiles": "CC(C)=CCCC(C)(O)C1CC=C(C)CC1",
+      "toxicity_query_id": "03555",
+      "pubchem_cids": [
+        1549992,
+        10586,
+        442343,
+        1201551
+      ],
+      "pubchem_urls": [
+        "https://pubchem.ncbi.nlm.nih.gov/compound/1549992",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/10586",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/442343",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/1201551"
+      ],
+      "all_source_connectivity_matches": [
+        {
+          "ligand_id": 3230,
+          "activity": 0.0,
+          "SMILES": "CC1=CCC(CC1)C(C)(CCC=C(C)C)O"
+        },
+        {
+          "ligand_id": 3555,
+          "activity": null,
+          "SMILES": "CC(C)=CCCC(O)(C)C1CC=C(C)CC1"
+        }
+      ],
+      "labeled_reference_match_ids": [
+        3230
+      ],
+      "identity_policy": "stereochemistry explicitly removed; isotopes, salts, charges and tautomers retained",
+      "paper_graph_visual_review": "Matched against Figure4 page7 and saved source depiction grid; no stereoisomer assignment",
+      "name_evidence": "Figure4 caption plus PubChem name/alias lookup",
+      "CCD_annotation_independently_verified": false,
+      "natural_occurrence_independently_verified": false,
+      "author_component_probabilities_available": false
+    },
+    {
+      "paper_rank": 10,
+      "paper_name": "cannabigerol monomethylether",
+      "paper_final_score": 0.668,
+      "source_ligand_id": 3766,
+      "source_smiles": "CC(C)=CCCC(=CCc1c(cc(cc1OC)CCCCC)O)C",
+      "connectivity_smiles": "CCCCCc1cc(O)c(CC=C(C)CCC=C(C)C)c(OC)c1",
+      "toxicity_query_id": "03766",
+      "pubchem_cids": [
+        13864080
+      ],
+      "pubchem_urls": [
+        "https://pubchem.ncbi.nlm.nih.gov/compound/13864080"
+      ],
+      "all_source_connectivity_matches": [
+        {
+          "ligand_id": 3766,
+          "activity": null,
+          "SMILES": "CC(C)=CCCC(=CCc1c(cc(cc1OC)CCCCC)O)C"
+        }
+      ],
+      "labeled_reference_match_ids": [],
+      "identity_policy": "stereochemistry explicitly removed; isotopes, salts, charges and tautomers retained",
+      "paper_graph_visual_review": "Matched against Figure4 page7 and saved source depiction grid; no stereoisomer assignment",
+      "name_evidence": "Figure4 caption plus PubChem name/alias lookup",
+      "CCD_annotation_independently_verified": false,
+      "natural_occurrence_independently_verified": false,
+      "author_component_probabilities_available": false
+    }
+  ],
+  "parents": {
+    "mcp-servers/chem-repro-suite/chem_repro/data/cannabis/data.csv": "33a04e920121d3c20ad6f5c74e3a01e6b7328518909f23faf517d7a1e13a2b25",
+    "mcp-servers/chem-repro-suite/chem_repro/data/cannabis_candidates/paper.pdf": "ed20d4635d1e224822aa2fa2e5a2d3a436df6f7fc500f1b6f29954c1a923ea06",
+    "mcp-servers/chem-repro-suite/chem_repro/data/cannabis_candidates/figure4_candidates.csv": "dab28096c3355f0940336e0e7668456e776c7430debb765a4dd7623a0d73380f",
+    "mcp-servers/chem-repro-suite/chem_repro/data/open_syntelly_2024/cannabis_query.csv": "bf28272f14983e5f5747228d3f6b3c5c6487002abf5c89002a79791e7eff27f5",
+    "artifacts/three-paper-reproduction/sources/cannabis_candidates_pubchem/name_lookup_v1.json": "3f9886f029831e42b3392af561cb2d36b2507809e55cec350780b7c840037b04",
+    "artifacts/three-paper-reproduction/sources/cannabis_candidates_pubchem/name_alias_lookup_v1.json": "27e8f42bafc184dcd4f21ef00b061b8d8f9581740fc59405be819213b705b4d4",
+    "artifacts/three-paper-reproduction/sources/cannabis_candidates_pubchem/name_alias_lookup_v2.json": "52063bdef1a754901112eb90f217ec35065667dc2f3fececbcbc69dcf15d61a5",
+    "artifacts/three-paper-reproduction/sources/cannabis_candidates_pubchem/structure_and_synonym_verification_v1.json": "2103b9518e539d90fafc4fc848b45d59bfdc2960355c4b4f3e310843dd5f8d32",
+    "artifacts/three-paper-reproduction/sources/cannabis_candidates_pubchem/connectivity_review_grid.png": "f0f5dc111ce52dc4dc8cfcd7931ae4001a70bca7d82448af6c06bfd9c6d43055",
+    "artifacts/three-paper-reproduction/sources/cannabis_candidates_pubchem/paper_figure4_page7.png": "c3bf83536fa820d3b273c72b4ea77ac7b8d5e4dd2c4a73a9c3a1786994528eba"
+  },
+  "curation_script_sha256": "cf6d24845d9f61b85130bfd27d3b5931f8801624054ba085fa54c79ddf355e62",
+  "review_scope": "Manual graph review plus exact RDKit stereo-free connectivity matching. This resolves source-row identity for the displayed Figure4 structures, not original probabilities, full44candidate ranking, stereochemistry or independent occurrence evidence.",
+  "important_overlaps": "Rank1 matches a pesticide-reference row and rank9 an AChE-inactive reference row in the deposited source. Both original records remain; this is not independent candidate validation.",
+  "source_synonym_caution": "PubChem12044013 also lists a conflicting 3-one synonym; mapping uses the actual7-one graph, IUPAC structure and Figure4 depiction."
+}

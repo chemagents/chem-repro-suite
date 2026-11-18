@@ -1,0 +1,24 @@
+{
+  "study_id": "mannich_2026",
+  "paper_doi": "10.1038/s41597-026-08287-9",
+  "revision": "9cbd97285d945c3131d460f7f1ad33b9e0be76ef",
+  "files": {
+    "mannich_dataset.csv": {
+      "sha256": "903dd5d69bfe6c3b6a93bbde344f4df3bd7186a9f775eae18c954ffb252fd4a7",
+      "source_url": "https://github.com/chemagents/Mannich-dataset/blob/9cbd97285d945c3131d460f7f1ad33b9e0be76ef/mannich_dataset/mannich_dataset.csv"
+    },
+    "organocatalysts_sdfs.zip": {
+      "sha256": "7c80540e5ff7195fc3a0109c28e24ab474d293cca1e8d8f273b8d589b79882d0",
+      "source_url": "https://github.com/chemagents/Mannich-dataset/blob/9cbd97285d945c3131d460f7f1ad33b9e0be76ef/mannich_dataset/organocatalysts_sdfs.zip"
+    },
+    "classification_rules.json": {
+      "sha256": "74a842d701ab698ea58a0e459be133e3e0a91efd6de86814de5f40fee3305947",
+      "source_url": "https://github.com/chemagents/Mannich-dataset/tree/9cbd97285d945c3131d460f7f1ad33b9e0be76ef/scripts/figures",
+      "transformation": "Literal AST extraction of FG_SMARTS, NUCLEOPHILE_RULES, IMINE_RULES from notebooks 04 and 07; no notebook execution."
+    },
+    "generate_catalyst_sdfs.ipynb": {
+      "sha256": "b71a5cd0463e301d545e8bff39c4920cfcad0289574b4bc274cd7937d06a1d2c",
+      "source_url": "https://github.com/chemagents/Mannich-dataset/blob/9cbd97285d945c3131d460f7f1ad33b9e0be76ef/scripts/generate_catalyst_sdfs.ipynb"
+    }
+  }
+}

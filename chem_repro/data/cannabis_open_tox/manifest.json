@@ -1,0 +1,36 @@
+{
+  "study_id": "cannabis_open_tox_2026",
+  "paper_doi": "10.3390/ijms27188000",
+  "revision": "61e257122ef823248f83f4cacdd3a9bb7667d0cc",
+  "files": {
+    "toxric_reproductive.csv": {
+      "sha256": "43335be925d2fc0786cf5dfec9365b03bf2d979298d3c7b8f75beacc1eeb83b3",
+      "source_url": "https://github.com/chemagents/cannabis-biopesticide-mcp-server/blob/61e257122ef823248f83f4cacdd3a9bb7667d0cc/server/data/tox/toxric_reproductive.csv"
+    },
+    "toxric_fathead.csv": {
+      "sha256": "1126262466bcee3bdd6b559db74999db0a4fc53fae2a74c12666ef5c25428496",
+      "source_url": "https://github.com/chemagents/cannabis-biopesticide-mcp-server/blob/61e257122ef823248f83f4cacdd3a9bb7667d0cc/server/data/tox/toxric_fathead.csv"
+    },
+    "toxric_ames.csv": {
+      "sha256": "c384e58dc6e2e62cba3e3b2a00e1a66823dda55315c32bc7adaa6f917ed9053c",
+      "source_url": "https://github.com/chemagents/cannabis-biopesticide-mcp-server/blob/61e257122ef823248f83f4cacdd3a9bb7667d0cc/server/data/tox/toxric_ames.csv"
+    },
+    "toxric_daphnia.csv": {
+      "sha256": "09e7a0455fcd4b1bdcd70adb256345a5127836508eb3105cda8b1bc9c158cab2",
+      "source_url": "https://github.com/chemagents/cannabis-biopesticide-mcp-server/blob/61e257122ef823248f83f4cacdd3a9bb7667d0cc/server/data/tox/toxric_daphnia.csv"
+    },
+    "worker_requirements.txt": {
+      "sha256": "959e7c86cd100a1ce85f11dfecddc30c0342c8e4a608158d9817b4ea70677bf3",
+      "source_url": "https://github.com/chemagents/cannabis-biopesticide-mcp-server/blob/61e257122ef823248f83f4cacdd3a9bb7667d0cc/uv.lock",
+      "derivation": "Selected scientific worker dependencies from the pinned upstream lockfile; no training-time version equivalence asserted."
+    },
+    "daphnia_aug.csv": {
+      "sha256": "c97d9a53aebff99e0a0957834a72702013fa72953405f372a6c25de1a9b111b9",
+      "source_url": "https://github.com/chemagents/cannabis-biopesticide-mcp-server/blob/61e257122ef823248f83f4cacdd3a9bb7667d0cc/server/data/tox/daphnia_aug.csv"
+    },
+    "fathead_aug.csv": {
+      "sha256": "592a24f0af2f7fb9aa6005b8a01f02e043da6b3aaec419f2073858a14946e2ee",
+      "source_url": "https://github.com/chemagents/cannabis-biopesticide-mcp-server/blob/61e257122ef823248f83f4cacdd3a9bb7667d0cc/server/data/tox/fathead_aug.csv"
+    }
+  }
+}

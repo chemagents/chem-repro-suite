@@ -1,0 +1,95 @@
+{
+  "protocol": "public_sources_for_open_syntelly_2024",
+  "files": {
+    "dili": {
+      "path": "dili.csv",
+      "sha256": "2d731f6e00d371817c946530f14dde77b7bc63c08203b2b084b934f91c9d817b",
+      "n_source_records": 475,
+      "source": "https://dataverse.harvard.edu/api/access/datafile/4259585?format=original",
+      "unit": "probability",
+      "task": "classification",
+      "notes": "Source columns selected/renamed; source_id retained or original row index added. No target rows deduplicated. Raw original Dataverse rows retained, including duplicates; hERG is channel blockade, DILI is drug-induced liver injury. No separate broad hepatotoxicity target is available in this source.",
+      "parent_sha256": "f977be424b9e509dc721e24106dd51cfb5a63ad8df0104ae51d9ab51cef7be09"
+    },
+    "herg": {
+      "path": "herg.csv",
+      "sha256": "f56d7df7d26b124fb9ff80607dbf6e753dfc335bea5eb8b148ed780b34a34e72",
+      "n_source_records": 655,
+      "source": "https://dataverse.harvard.edu/api/access/datafile/4259588?format=original",
+      "unit": "probability",
+      "task": "classification",
+      "notes": "Source columns selected/renamed; source_id retained or original row index added. No target rows deduplicated. Raw original Dataverse rows retained, including duplicates; hERG is channel blockade, DILI is drug-induced liver injury. No separate broad hepatotoxicity target is available in this source.",
+      "parent_sha256": "f2b00c05f12763c9da91d46246800e30925a626d5038e15eec366d633bdffe54"
+    },
+    "carcinogens_lagunin": {
+      "path": "carcinogens_lagunin.csv",
+      "sha256": "b13cc49c8e1c3a93567589d263cd218d90b8d2db371c452058eaba310b2d6d4c",
+      "n_source_records": 280,
+      "source": "https://dataverse.harvard.edu/api/access/datafile/4259570?format=original",
+      "unit": "probability",
+      "task": "classification",
+      "notes": "Source columns selected/renamed; source_id retained or original row index added. No target rows deduplicated. Raw original Dataverse rows retained, including duplicates; hERG is channel blockade, DILI is drug-induced liver injury. No separate broad hepatotoxicity target is available in this source.",
+      "parent_sha256": "3087c1348ecc87068c5c22f2b8289dbceec9cbb9bcccdf7dbf107ef457d9d84c"
+    },
+    "mouse_oral_ld50": {
+      "path": "mouse_oral_ld50.csv",
+      "sha256": "9c7a0a24dbd6ce590bd2733ebcef15411cec8f5e8cb44b9202ddf387b3f48794",
+      "n_source_records": 23373,
+      "source": "https://doi.org/10.6084/m9.figshare.27195339.v5",
+      "unit": "-log10(mol/kg)",
+      "task": "regression",
+      "notes": "Source columns selected/renamed; source_id retained or original row index added. No target rows deduplicated. Species-specific oral LD50. All measured target rows retained; no route-agnostic replacement or LDLo values.",
+      "parent_sha256": "2fddd0ecbe54eac259ecbd9ed15646d131d0225714ac04fb4b7334f2f5dcf9e4"
+    },
+    "rat_oral_ld50": {
+      "path": "rat_oral_ld50.csv",
+      "sha256": "b5205c4fac4b4471b5bcf8939bcc953ebd595d167f200757ad6b2bb6eadcf9ed",
+      "n_source_records": 10190,
+      "source": "https://doi.org/10.6084/m9.figshare.27195339.v5",
+      "unit": "-log10(mol/kg)",
+      "task": "regression",
+      "notes": "Source columns selected/renamed; source_id retained or original row index added. No target rows deduplicated. Species-specific oral LD50. All measured target rows retained; no route-agnostic replacement or LDLo values.",
+      "parent_sha256": "2fddd0ecbe54eac259ecbd9ed15646d131d0225714ac04fb4b7334f2f5dcf9e4"
+    },
+    "ames": {
+      "path": "ames.csv",
+      "sha256": "8fd511a7f314f3ed6278ab7da7bc49477a6b7b9251f98243f413efc75325c555",
+      "n_source_records": 7460,
+      "source": "https://github.com/chemagents/cannabis-biopesticide-mcp-server/blob/61e257122ef823248f83f4cacdd3a9bb7667d0cc/server/data/tox/toxric_ames.csv",
+      "unit": "probability",
+      "task": "classification",
+      "notes": "Source columns selected/renamed; source_id retained or original row index added. No target rows deduplicated. Use source scale; no absolute aquatic concentration conversion without verified unit definition.",
+      "parent_sha256": "c384e58dc6e2e62cba3e3b2a00e1a66823dda55315c32bc7adaa6f917ed9053c"
+    },
+    "reproductive": {
+      "path": "reproductive.csv",
+      "sha256": "929252e4e800f4add62d60af4845be1ee6d03d101ba02b016fc2b3d6b12aaf65",
+      "n_source_records": 156,
+      "source": "https://github.com/chemagents/cannabis-biopesticide-mcp-server/blob/61e257122ef823248f83f4cacdd3a9bb7667d0cc/server/data/tox/toxric_reproductive.csv",
+      "unit": "probability",
+      "task": "classification",
+      "notes": "Source columns selected/renamed; source_id retained or original row index added. No target rows deduplicated. Use source scale; no absolute aquatic concentration conversion without verified unit definition.",
+      "parent_sha256": "43335be925d2fc0786cf5dfec9365b03bf2d979298d3c7b8f75beacc1eeb83b3"
+    },
+    "daphnia": {
+      "path": "daphnia.csv",
+      "sha256": "73aaa54a23cd8e5485829c5858dc07985c61d49e9e78d1d613000c28840442a6",
+      "n_source_records": 345,
+      "source": "https://github.com/chemagents/cannabis-biopesticide-mcp-server/blob/61e257122ef823248f83f4cacdd3a9bb7667d0cc/server/data/tox/toxric_daphnia.csv",
+      "unit": "source pLC50 scale",
+      "task": "regression",
+      "notes": "Source columns selected/renamed; source_id retained or original row index added. No target rows deduplicated. Use source scale; no absolute aquatic concentration conversion without verified unit definition.",
+      "parent_sha256": "09e7a0455fcd4b1bdcd70adb256345a5127836508eb3105cda8b1bc9c158cab2"
+    },
+    "fathead": {
+      "path": "fathead.csv",
+      "sha256": "85ecaa695a88ddddd6c16d1cb2752273690b746e4552c724d72a0fb43b6b8193",
+      "n_source_records": 812,
+      "source": "https://github.com/chemagents/cannabis-biopesticide-mcp-server/blob/61e257122ef823248f83f4cacdd3a9bb7667d0cc/server/data/tox/toxric_fathead.csv",
+      "unit": "source pLC50 scale",
+      "task": "regression",
+      "notes": "Source columns selected/renamed; source_id retained or original row index added. No target rows deduplicated. Use source scale; no absolute aquatic concentration conversion without verified unit definition.",
+      "parent_sha256": "1126262466bcee3bdd6b559db74999db0a4fc53fae2a74c12666ef5c25428496"
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "study_id": "cannabis_2026",
+  "paper_doi": "10.3390/ijms27188000",
+  "revision": "figure4-manual-transcription-and-connectivity-map-v2",
+  "files": {
+    "paper.pdf": {
+      "sha256": "ed20d4635d1e224822aa2fa2e5a2d3a436df6f7fc500f1b6f29954c1a923ea06",
+      "source_url": "https://www.mdpi.com/1422-0067/27/18/8000",
+      "derivation": "Published PDF"
+    },
+    "figure4_candidates.csv": {
+      "sha256": "dab28096c3355f0940336e0e7668456e776c7430debb765a4dd7623a0d73380f",
+      "source_url": "https://www.mdpi.com/1422-0067/27/18/8000",
+      "derivation": "Manual transcription of Figure4 page7 names and rendered score labels; component probabilities absent",
+      "parent_sha256": "ed20d4635d1e224822aa2fa2e5a2d3a436df6f7fc500f1b6f29954c1a923ea06"
+    },
+    "identity_map.json": {
+      "sha256": "a0944fa6ae986990f500cb9c9ae85b80e653387aa78d7d4f476361d88c80c7dd",
+      "source_url": "https://www.mdpi.com/1422-0067/27/18/8000",
+      "derivation": "Reviewed Figure4 connectivity matched to pinned source rows; stereochemistry is not assigned",
+      "parent_sha256": "ed20d4635d1e224822aa2fa2e5a2d3a436df6f7fc500f1b6f29954c1a923ea06"
+    },
+    "identity_review_grid.png": {
+      "sha256": "f0f5dc111ce52dc4dc8cfcd7931ae4001a70bca7d82448af6c06bfd9c6d43055",
+      "source_url": "https://www.mdpi.com/1422-0067/27/18/8000",
+      "derivation": "Reviewed Figure4 connectivity matched to pinned source rows; stereochemistry is not assigned",
+      "parent_sha256": "ed20d4635d1e224822aa2fa2e5a2d3a436df6f7fc500f1b6f29954c1a923ea06"
+    },
+    "pubchem_13218779.json": {
+      "sha256": "7ab1d650c5a8ddd4d476a752dd4d5571b3e6ee4cedbd4a4abac6887bf5172b1c",
+      "source_url": "https://pubchem.ncbi.nlm.nih.gov/compound/13218779",
+      "derivation": "PubChem connector property snapshot retrieved2026-11-16; original lookup responses retained in research artifacts"
+    },
+    "pubchem_628150.json": {
+      "sha256": "b8d9f2c88ba8d5601aabc23a997d2215e18151dd4236d35493e7182e29a0bb94",
+      "source_url": "https://pubchem.ncbi.nlm.nih.gov/compound/628150",
+      "derivation": "PubChem connector property snapshot retrieved2026-11-16; original lookup responses retained in research artifacts"
+    },
+    "pubchem_5280462.json": {
+      "sha256": "f6f0a6c94f9d91237c6118b746753fcc9b6a28c0976a66880c334fc33f972e95",
+      "source_url": "https://pubchem.ncbi.nlm.nih.gov/compound/5280462",
+      "derivation": "PubChem connector property snapshot retrieved2026-11-16; original lookup responses retained in research artifacts"
+    },
+    "pubchem_444679.json": {
+      "sha256": "02582fbb145d1d01cb47150fa637c1beba88ae693bd3edbdf5c4b4b6a345d4e7",
+      "source_url": "https://pubchem.ncbi.nlm.nih.gov/compound/444679",
+      "derivation": "PubChem connector property snapshot retrieved2026-11-16; original lookup responses retained in research artifacts"
+    },
+    "pubchem_76316825.json": {
+      "sha256": "e36996f6c7cf05894bbcb8fbfd9e44aa7b67120dbcaf924e44289561c4d78eda",
+      "source_url": "https://pubchem.ncbi.nlm.nih.gov/compound/76316825",
+      "derivation": "PubChem connector property snapshot retrieved2026-11-16; original lookup responses retained in research artifacts"
+    },
+    "pubchem_12304273.json": {
+      "sha256": "964d2ff0124309ff7ddc6e84aa320ae53e89a395409e579baf197b39b45d1fa9",
+      "source_url": "https://pubchem.ncbi.nlm.nih.gov/compound/12304273",
+      "derivation": "PubChem connector property snapshot retrieved2026-11-16; original lookup responses retained in research artifacts"
+    },
+    "pubchem_1549992.json": {
+      "sha256": "c770bc0ca38dce90c8512cbaf574194881656f1e2770c46eed406dfe4b9b1bb5",
+      "source_url": "https://pubchem.ncbi.nlm.nih.gov/compound/1549992",
+      "derivation": "PubChem connector property snapshot retrieved2026-11-16; original lookup responses retained in research artifacts"
+    },
+    "pubchem_10586.json": {
+      "sha256": "30cb8d28dab736cefca2f6d66e49ace51caab8ed17be2f4b17bb32ada26d9de6",
+      "source_url": "https://pubchem.ncbi.nlm.nih.gov/compound/10586",
+      "derivation": "PubChem connector property snapshot retrieved2026-11-16; original lookup responses retained in research artifacts"
+    },
+    "pubchem_442343.json": {
+      "sha256": "175833616d79be32019f821532fd8282d67782a6ea346a5f3439db8d3a6e5324",
+      "source_url": "https://pubchem.ncbi.nlm.nih.gov/compound/442343",
+      "derivation": "PubChem connector property snapshot retrieved2026-11-16; original lookup responses retained in research artifacts"
+    },
+    "pubchem_1201551.json": {
+      "sha256": "1c119e9c0b72f8931c795a6e77adb6c71f5cc777b1b587bd82cec8eeac128f02",
+      "source_url": "https://pubchem.ncbi.nlm.nih.gov/compound/1201551",
+      "derivation": "PubChem connector property snapshot retrieved2026-11-16; original lookup responses retained in research artifacts"
+    },
+    "pubchem_13864080.json": {
+      "sha256": "de78d72f1e353f031baa1e680d205f8c42b9856bc8d29c5dc7ee53b899407f4a",
+      "source_url": "https://pubchem.ncbi.nlm.nih.gov/compound/13864080",
+      "derivation": "PubChem connector property snapshot retrieved2026-11-16; original lookup responses retained in research artifacts"
+    },
+    "pubchem_12044013.json": {
+      "sha256": "830b19b9f13e0e2f391afd29c2cdc631b76ac31aaa7370464cac5c12f38460f3",
+      "source_url": "https://pubchem.ncbi.nlm.nih.gov/compound/12044013",
+      "derivation": "PubChem connector property snapshot retrieved2026-11-16; original lookup responses retained in research artifacts"
+    },
+    "pubchem_72300843.json": {
+      "sha256": "3a6317bdca83fc94316fbe27aa8f9138cd6c86117192da3abb351da28b0804cb",
+      "source_url": "https://pubchem.ncbi.nlm.nih.gov/compound/72300843",
+      "derivation": "PubChem connector property snapshot retrieved2026-11-16; original lookup responses retained in research artifacts"
+    },
+    "paper_cohort_flow.csv": {
+      "sha256": "f3b19466d877848a3545e1ec9c14edb51feb6713894dba6d5f4a088e2ce3f6e5",
+      "source_url": "https://www.mdpi.com/1422-0067/27/18/8000",
+      "derivation": "Reported cohort counts transcribed from sections4.2/4.4 and Figure2; not a rerun of inclusion/exclusion decisions",
+      "parent_sha256": "ed20d4635d1e224822aa2fa2e5a2d3a436df6f7fc500f1b6f29954c1a923ea06"
+    },
+    "paper_primary_validation.csv": {
+      "sha256": "64ada6e119ec8e74b97460a0f4fdb11cb8c996f752aa635864ff48a35c7cd3e5",
+      "source_url": "https://www.mdpi.com/1422-0067/27/18/8000",
+      "derivation": "Main-text performance references; FPR percent values also converted to fractions, not recomputed model performance. Mean and SD across CV folds persection4.7. SeparatefrompairedSupplementS4.",
+      "parent_sha256": "ed20d4635d1e224822aa2fa2e5a2d3a436df6f7fc500f1b6f29954c1a923ea06"
+    }
+  }
+}

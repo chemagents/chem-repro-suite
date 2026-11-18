@@ -1,0 +1,51 @@
+{
+  "study_id": "heracleum_2026",
+  "paper_doi": "10.3390/ijms27177947",
+  "revision": "ffde039588a66c04a5e73725cc94536f3c529858",
+  "files": {
+    "DS1_2008.csv": {
+      "sha256": "d63dd6f105d86acfaceb894207e89a8378b8bda5c05a21570c516a43ab9e33df",
+      "source_url": "https://github.com/chemagents/heracleum-scaffold-pca/blob/ffde039588a66c04a5e73725cc94536f3c529858/DS1_2008.csv"
+    },
+    "DS2_102.csv": {
+      "sha256": "fc53df0ae4d3d5e7c4cbb8d868048e504da8487da746b120a0fbfb226505026b",
+      "source_url": "https://github.com/chemagents/heracleum-scaffold-pca/blob/ffde039588a66c04a5e73725cc94536f3c529858/DS2_102.csv"
+    },
+    "DS1-DS2_df.csv": {
+      "sha256": "eae150c95bd78ffa303b93a604d4b80204b21a8ffda870662a6c3d04d02ba517",
+      "source_url": "https://github.com/chemagents/heracleum-scaffold-pca/blob/ffde039588a66c04a5e73725cc94536f3c529858/DS1-DS2_df.csv"
+    },
+    "redocking_table_s1a.csv": {
+      "sha256": "a21154163bcbc444dfbccfee7e8d57489b6d9e06b37fb1605593d5606f68476b",
+      "source_url": "https://mdpi-res.com/d_attachment/ijms/ijms-27-07947/article_deploy/ijms-27-07947-s001.zip",
+      "revision": "MDPI supplement SHA256 1cd6a8a75cb342550f5025193fd3edf75ba08e86dccb6ddb46ab1ff50294498c",
+      "parent_sha256": "1cd6a8a75cb342550f5025193fd3edf75ba08e86dccb6ddb46ab1ff50294498c",
+      "derivation": "pdftotext -layout; 44 Table S1a rows split at runs of two or more spaces; only explicit numeric/identifier columns retained."
+    },
+    "supplement.pdf": {
+      "sha256": "1cd6a8a75cb342550f5025193fd3edf75ba08e86dccb6ddb46ab1ff50294498c",
+      "source_url": "https://mdpi-res.com/d_attachment/ijms/ijms-27-07947/article_deploy/ijms-27-07947-s001.zip",
+      "revision": "MDPI supplement SHA256 1cd6a8a75cb342550f5025193fd3edf75ba08e86dccb6ddb46ab1ff50294498c"
+    },
+    "vina125_release.json": {
+      "sha256": "f101a0faf9b740df1cd88f5d9845433fabeedaad69d01cbf97e1a3395682d97e",
+      "source_url": "https://api.github.com/repos/forlilab/AutoDock-Vina/releases/tags/v1.2.5",
+      "revision": "v1.2.5 release asset snapshot",
+      "derivation": "Official release metadata; accepted binary SHA256 and exact version-output probes retained."
+    },
+    "vina_binary_catalog.json": {
+      "sha256": "4341c03754d17d91faa45d8d860c5c1a751a66e79599396348cce37b80b0dfd4",
+      "source_url": "https://api.github.com/repos/forlilab/AutoDock-Vina/releases/tags/v1.2.5",
+      "revision": "v1.2.5 release asset snapshot",
+      "derivation": "Official release metadata; accepted binary SHA256 and exact version-output probes retained.",
+      "parent_sha256": "f101a0faf9b740df1cd88f5d9845433fabeedaad69d01cbf97e1a3395682d97e"
+    },
+    "table_s4_tier1_keys.csv": {
+      "sha256": "bbd6f3bc86d950fd1242935829fbd023aed7bc0e7de11160fddd65e3ac5ba5c0",
+      "source_url": "https://mdpi-res.com/d_attachment/ijms/ijms-27-07947/article_deploy/ijms-27-07947-s001.zip",
+      "revision": "MDPI Supplementary Table S4, PDF pages12\u201313",
+      "parent_sha256": "1cd6a8a75cb342550f5025193fd3edf75ba08e86dccb6ddb46ab1ff50294498c",
+      "derivation": "Manual transcription of21full InChIKeys and names from Table S4. Both original PDF pages visually inspected; missing names left blank. No nomenclature corrections."
+    }
+  }
+}
