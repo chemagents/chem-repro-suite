@@ -1,0 +1,24 @@
+name: Mannich scaffold version diagnostic
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        rdkit: ["2025.9.2", "2025.9.6", "2026.3.3"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11.11"
+      - run: python -m pip install "numpy==1.26.4" "Pillow==11.3.0" "rdkit==${{ matrix.rdkit }}"
+      - run: python scripts/diagnose_mannich_scaffolds.py --output validation/generated/scaffolds.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mannich-scaffolds-${{ matrix.rdkit }}
+          path: validation/generated/scaffolds.json
+          retention-days: 14
