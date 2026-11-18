@@ -46,3 +46,5 @@ See [REPRODUCTION_REQUIREMENTS.md](REPRODUCTION_REQUIREMENTS.md), [MISSING_SOURC
 Heracleum uses a frozen fold registry from this implementation's reference environment. NumPy's tie ordering inside GroupKFold changed the fold assignment of 402 records between macOS/ARM and Linux/x86 despite identical source groups. The registry fixes that implementation-level variation for both identity policies; input identities, group membership and zero scaffold overlap are checked before fitting. Models are trained anew. These are **reference-implementation folds, not author-supplied fold files**. The generation script and software metadata are included; no target values or predictions were used to choose the partitions.
 
 CSV artifacts preserve integer values even in columns with missing values. Missing entries remain empty, so withholding a Tier does not turn unchanged integer tiers into floating-point strings. Original JSON values and scientific selection rules are unchanged.
+
+Heracleum candidate tables retain nullable integer tiers at table construction as well as CSV export; the complete priority-to-download path is covered by a regression test.

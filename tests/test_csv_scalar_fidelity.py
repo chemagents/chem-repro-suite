@@ -35,3 +35,20 @@ def test_unchanged_tier_has_same_csv_spelling_with_or_without_unranked_rows(tmp_
             exports.append(list(csv.DictReader(handle)))
     assert exports[0][0]['tier'] == exports[1][0]['tier'] == '1'
     assert exports[1][1]['tier'] == ''
+
+
+def test_real_priority_pipeline_preserves_nullable_integer_tiers(tmp_path, monkeypatch):
+    from chem_repro.heracleum.analysis import prioritize
+
+    monkeypatch.setenv('CHEM_REPRO_ARTIFACTS_DIR', str(tmp_path))
+    exports = {}
+    for policy in ['published_snapshot', 'strict']:
+        table = prioritize(policy).answer.tables['candidates']
+        assert all(row['tier'] is None or type(row['tier']) is int for row in table.rows)
+        artifact = save_table(table, port=7342, display_name=policy + '.csv')
+        with (tmp_path / (artifact.sha256 + '.csv')).open(newline='') as handle:
+            exports[policy] = {row['synID']:row for row in csv.DictReader(handle)}
+    pub, strict = exports['published_snapshot'], exports['strict']
+    assert len(pub) == len(strict) == 102 and set(pub) == set(strict)
+    assert sum(pub[sid]['tier'] != strict[sid]['tier'] for sid in pub) == 65
+    assert sum(row['tier'] == '' for row in strict.values()) == 65

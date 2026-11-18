@@ -341,7 +341,7 @@ def prioritize(identity_policy="strict", strong_threshold=-10.0):
         f"original DS2 structures and {int(alerts.master_counts_match_archive.sum())}/102 master structures.",
         [metric("tier_" + k, int(v), population="DS2") for k, v in counts.items()],
         {
-            "candidates": table(pd.DataFrame(rows), "Every criterion and identity flag retained"),
+            "candidates": table(pd.DataFrame(rows, dtype=object), "Every criterion and identity flag retained"),
             "median_thresholds": table(
                 pd.DataFrame([{"endpoint": e, "median": medians[c]} for e, c in informative.items()]),
                 "All 102 deposited DS2 records define thresholds in both modes",
