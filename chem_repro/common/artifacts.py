@@ -76,7 +76,9 @@ def save_table(data, *, port, display_name):
         }
         for row in data.rows
     ]
-    body = pd.DataFrame(rows, columns=data.columns).to_csv(index=False).encode()
+    # Keep the schema's Python scalars. Inference otherwise promotes nullable
+    # integer columns to float64, changing 1 to 1.0 and rounding large IDs.
+    body = pd.DataFrame(rows, columns=data.columns, dtype=object).to_csv(index=False).encode()
     return save_artifact(
         body,
         suffix="csv",
