@@ -46,6 +46,20 @@
       "revision": "MDPI Supplementary Table S4, PDF pages12\u201313",
       "parent_sha256": "1cd6a8a75cb342550f5025193fd3edf75ba08e86dccb6ddb46ab1ff50294498c",
       "derivation": "Manual transcription of21full InChIKeys and names from Table S4. Both original PDF pages visually inspected; missing names left blank. No nomenclature corrections."
+    },
+    "cv_fold_registry.csv": {
+      "sha256": "6dcf9f28756b4184d9d6cd165ee461894a0f426704488007d6b0e10d0961acc9",
+      "source_url": "https://github.com/chemagents/chem-repro-suite",
+      "revision": "reference CV registry v1",
+      "parent_sha256": "eae150c95bd78ffa303b93a604d4b80204b21a8ffda870662a6c3d04d02ba517",
+      "derivation": "reference implementation execution; not author-supplied fold assignments. GroupKFold equal-size group tie ordering differs across NumPy platforms; fixed partitions make numeric comparisons portable. Generator versions and cohort/input hashes are in cv_fold_registry_metadata.json."
+    },
+    "cv_fold_registry_metadata.json": {
+      "sha256": "9fd536c660387382736f721c82897189ed7f0e96756adeda1919b595a87dd586",
+      "source_url": "https://github.com/chemagents/chem-repro-suite",
+      "revision": "reference CV registry v1",
+      "parent_sha256": "eae150c95bd78ffa303b93a604d4b80204b21a8ffda870662a6c3d04d02ba517",
+      "derivation": "reference implementation execution; not author-supplied fold assignments. GroupKFold equal-size group tie ordering differs across NumPy platforms; fixed partitions make numeric comparisons portable. Generator versions and cohort/input hashes are in cv_fold_registry_metadata.json."
     }
   }
 }

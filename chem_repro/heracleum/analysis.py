@@ -424,6 +424,9 @@ def _transfer(endpoint, model, identity_policy, bootstrap):
         if identity_policy == "strict"
         else df.generic_murcko_scaffold.fillna("none").to_numpy()
     )
+    from .cv_registry import reference_fold_assignments
+    ids = df.synID.astype(str).tolist()
+    assignments = reference_fold_assignments(ids, groups, identity_policy)
     fitted = regression_oof(
         x,
         df[ENDPOINTS[endpoint]].to_numpy(float),
@@ -432,6 +435,7 @@ def _transfer(endpoint, model, identity_policy, bootstrap):
         model=model,
         bootstrap=bootstrap,
         seed=42,
+        fold_assignments=assignments,
     )
     return fitted, len(df)
 
@@ -468,16 +472,23 @@ def transfer(
         f"{fitted['scaffold']['r2']:.3f}. The target is ADMETlab output, not experimental toxicity.",
         [metric("n_records", n), metric("delta_r2", fitted["random"]["r2"] - fitted["scaffold"]["r2"])],
         tables,
-        protocol="heracleum.surrogate_cv.v1",
+        protocol="heracleum.surrogate_cv.v2",
         model=model,
         endpoint=endpoint,
         target_column=ENDPOINTS[endpoint],
+        fold_assignment="frozen_reference_implementation_registry_v1_not_author_supplied",
         identity_policy=identity_policy,
         bootstrap=bootstrap,
         seed=42,
         morgan_radius=2,
         morgan_bits=2048,
         notes=[
+            EvidenceNote(
+                code="REFERENCE_FOLD_REGISTRY", severity="info",
+                message="Fold assignments are frozen from the reference implementation to avoid "
+                "platform-dependent GroupKFold tie ordering. These are not author-supplied folds. "
+                "Input identities and group membership are checked; models are fitted anew.",
+            ),
             EvidenceNote(
                 code="BOOTSTRAP_SCOPE",
                 message="Molecule bootstrap of fixed OOF predictions; "

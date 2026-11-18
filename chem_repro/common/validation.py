@@ -18,7 +18,7 @@ def regression_model(name, seed):
     raise ValueError("Unknown fixed model")
 
 
-def regression_oof(x, y, groups, ids, *, model, bootstrap=1000, seed=42):
+def regression_oof(x, y, groups, ids, *, model, bootstrap=1000, seed=42, fold_assignments=None):
     x, y, groups = np.asarray(x, float), np.asarray(y, float), np.asarray(groups)
     if not 100 <= bootstrap <= 1000:
         raise ValueError("Use 100–1000 bootstrap iterations")
@@ -28,11 +28,18 @@ def regression_oof(x, y, groups, ids, *, model, bootstrap=1000, seed=42):
         raise ValueError("Finite model inputs and five distinct groups required")
     results = {}
     for scheme in ["random", "scaffold"]:
-        folds = (
-            KFold(5, shuffle=True, random_state=seed).split(x)
-            if scheme == "random"
-            else GroupKFold(5).split(x, y, groups)
-        )
+        if fold_assignments is None:
+            folds = (KFold(5, shuffle=True, random_state=seed).split(x) if scheme == "random"
+                     else GroupKFold(5).split(x, y, groups))
+        else:
+            if set(fold_assignments) != {"random", "scaffold"}:
+                raise ValueError("Both reference split schemes are required")
+            assignment = np.asarray(fold_assignments[scheme])
+            if (assignment.shape != (len(y),) or not np.isin(assignment, range(5)).all()
+                    or set(assignment.tolist()) != set(range(5))):
+                raise ValueError("Reference folds must cover every row with five nonempty folds")
+            folds = [(np.flatnonzero(assignment != fold), np.flatnonzero(assignment == fold))
+                     for fold in range(5)]
         predictions = np.full(len(y), np.nan)
         fold_ids = np.full(len(y), -1, int)
         audit = []

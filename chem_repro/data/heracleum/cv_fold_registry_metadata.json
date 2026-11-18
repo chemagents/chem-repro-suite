@@ -1,0 +1,29 @@
+{
+  "origin": "reference implementation execution; not author-supplied fold assignments",
+  "reason": "GroupKFold equal-size group tie ordering differs across NumPy platforms; fixed partitions make numeric comparisons portable.",
+  "generator": {
+    "python": "3.12.11",
+    "system": "Darwin",
+    "machine": "arm64",
+    "numpy": "2.5.4",
+    "scikit-learn": "1.6.1"
+  },
+  "seed": 42,
+  "n_splits": 5,
+  "cohorts": {
+    "published_snapshot": {
+      "records": 2073,
+      "group_membership_sha256": "2e710ef7578aa5a95a41cb96e49367875f1c62a131ed4c8774d3efd1bcd2fbcc"
+    },
+    "strict": {
+      "records": 2008,
+      "group_membership_sha256": "d4529b0c9953beef794b80024aca048e4bbea42b5da1ae9ebb335dd0f242f256"
+    }
+  },
+  "input_sha256": {
+    "DS1-DS2_df.csv": "eae150c95bd78ffa303b93a604d4b80204b21a8ffda870662a6c3d04d02ba517",
+    "DS1_2008.csv": "d63dd6f105d86acfaceb894207e89a8378b8bda5c05a21570c516a43ab9e33df",
+    "DS2_102.csv": "fc53df0ae4d3d5e7c4cbb8d868048e504da8487da746b120a0fbfb226505026b"
+  },
+  "targets_or_predictions_used": false
+}

@@ -40,3 +40,7 @@ The public suite tests scientific logic and MCP contracts. Twenty-eight natural-
 - Cannabis: the public source cohort and newly fitted models are not silently substituted for unavailable author cohorts/weights. Final CCD annotations and original Syntelly data/weights are missing. Public reconstruction and nested evaluation are labelled accordingly; the nested recipe requires verified completed results and is not configured by the basic worker installer.
 
 See [REPRODUCTION_REQUIREMENTS.md](REPRODUCTION_REQUIREMENTS.md), [MISSING_SOURCE_INPUTS.md](MISSING_SOURCE_INPUTS.md) and [NOTICE.md](NOTICE.md). These limitations are returned with results rather than hidden by changing the data or acceptance criteria.
+
+## Portable validation splits
+
+Heracleum uses a frozen fold registry from this implementation's reference environment. NumPy's tie ordering inside GroupKFold changed the fold assignment of 402 records between macOS/ARM and Linux/x86 despite identical source groups. The registry fixes that implementation-level variation for both identity policies; input identities, group membership and zero scaffold overlap are checked before fitting. Models are trained anew. These are **reference-implementation folds, not author-supplied fold files**. The generation script and software metadata are included; no target values or predictions were used to choose the partitions.
