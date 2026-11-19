@@ -117,7 +117,8 @@ def dataset_audit():
         )
     output = result(
         "The public source supplies the 3171 labeled pesticide/AChE-inactive records and six residue "
-        "matrices. Its 2749 unlabeled records cannot yet be matched to the final paper's 2465 docked metabolites. "
+        "matrices. A local author table now aligns2465 of the2749 unlabeled source structures exactly; "
+        "its score-producing model and final-paper lineage are assessed separately by recovered_author_cohort. "
         "The separate reported flow for DS1 is 5211 raw → 5027 standardized → 2465 prepared; those counts "
         "are transcribed references, not recomputed curation or ligand-preparation outcomes.",
         [
@@ -204,7 +205,7 @@ def docking_comparisons():
     return result(
         "Six DS2-versus-DS3 docking comparisons were recomputed with two-sided Mann–Whitney U tests "
         "and BH correction across six targets. Lower energies are docking features, not measured affinity. "
-        "This comparison covers the two labeled cohorts only. The unavailable final DS1 map does not "
+        "This comparison covers the two labeled cohorts only. The unresolved final-paper lineage of the local2465DS1 map does not "
         "affect the completed DS2-versus-DS3 comparisons. No new docking is required for this score reanalysis. "
         "Both mean and median differences are returned: the published numerical range and OR28 value "
         "agree with the mean differences after rounding, although section4.4 defines delta as a median difference.",

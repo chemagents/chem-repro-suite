@@ -127,7 +127,7 @@ def author_replay(result):
     import matplotlib.pyplot as plt
     per=complete(result,'computed_per_split')
     methods=['dmpnn','catboost_rmt95_standalone','svm_rmt95_standalone','product_rmt95_veto']
-    labels=['DMPNN/HGB\nsource blend','CatBoost\nRMT95','SVM\nRMT95','Product']
+    labels=['Source\nblend','CatBoost\nRMT95','SVM\nRMT95','Product']
     initialize_style()
     fig,axes=plt.subplots(1,3,figsize=(6.75,2.8),layout='constrained')
     for letter,ax,key,ylabel,scale in zip('abc',axes,['roc_auc','fpr','recall'],
@@ -142,6 +142,6 @@ def author_replay(result):
         if key!='roc_auc':ax.set_ylim(0,100)
     fig.suptitle('Deposited author code · 30 repeated holdouts · mean ± SD',fontsize=9)
     return publish(result,fig,'cannabis_author_rmt95_validation','computed_per_split',
-        'Original-code refits: each grey point is one source holdout; blue whiskers show sample SD across30splits. '
+        'Original-code refits: Source blend means validation-selected DMPNN/HGB. Each grey point is one source holdout; blue whiskers show sample SD across30splits. '
         'RMT95 product trades lower FPR for lower recall at threshold0.5. Source global-label selection is preserved; '
         'this is not independent validation or the final RTE390 geometric mixture.')
