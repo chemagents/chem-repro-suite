@@ -4,10 +4,11 @@ These limits distinguish unavailable historical inputs from methods that can be 
 
 ## Cannabis
 
-- The final-paper cohort mapping is incomplete: the bundled source has 3171 labelled records and 2749 query records; the article's final prepared cohort differs.
+- The source has3171 labeled and2749 query records. Local author `victor.csv` recovers an explicit2465-record subset, all with matching source IDs/SMILES, and1010 archived scores >=0.70. Its score-producing model and exact final-paper lineage remain unresolved; the full5027 cohort is still absent.
 - The complete final CCD occurrence/primary-metabolite annotation ledger and original candidate component predictions are unavailable. Unknown annotation is not treated as a negative annotation.
 - Original Syntelly data and weights are unavailable. The public reconstruction follows the documented 2024 method with declared data, feature and search-budget differences.
-- New DMPNN/RTE fits and paired validation provide new computed evidence. They do not recover unpublished author checkpoints, exact historical folds or the custom fragment dictionary.
+- All30 author outer train/test partitions are deposited and used by the new unchanged-code RMT95 refits. Historical DMPNN checkpoints remain unfound. The final article's ten-fold RTE memberships and RTE390 geometric-mix configuration are separate unresolved inputs; do not describe all author splits as missing.
+- Deposited-code replay and article-based reconstruction differ in selection, encoder configuration and fusion. Both are labeled separately; source RMT95 FPR5.14% is not compared as the same protocol to final-paper4.92%.
 
 ## Heracleum
 

@@ -13,14 +13,57 @@ from .prioritization import CandidateAnnotation
 mcp = study_server("Cannabis2026", "10.3390/ijms27188000", artifact_port=7341, operational_numeric_defaults=True)
 
 
+def recovered_author_cohort() -> AnalysisResult:
+    """Audit the recovered local author victor.csv:2465 exact source structures and1010 archived
+    precision scores >=0.70. Return every inclusion/exclusion ID and local class annotations.
+    The producing model of precision is unresolved: do not call these new DMPNN predictions
+    or infer CCD secondary-metabolite status from chemical class names.
+    """
+    from .author_archive import recovered_cohort_audit
+    return recovered_cohort_audit()
+
+
+register(mcp, recovered_author_cohort, name="cannabis2026_recovered_author_cohort",
+         dataset_scope="cannabis_2026", read_only=True)
+
+
+def reproduce_author_code() -> AnalysisResult:
+    """Replay the deposited canpest RMT95 experiment using all30 original outer splits.
+    Recompute metrics from complete held-out scores produced by unchanged author training functions,
+    verify IDs/labels/product and checkpoint reload receipts. Return actual AUC/FPR/recall, sample SD,
+    complete per-split predictions and source-code comparisons. These are new author-code fits,
+    not recovered historical weights. Source RMT95 uses global-label selection and an in-sample
+    inner diagnostic; preserve and disclose this. Its source FPR reference is5.14%;4.92% belongs
+    to the later RTE390 geometric mixture and is kept separate. No fit runs inside this replay.
+    """
+    from .author_replay import author_code_replay
+    from .figures import author_replay
+    return author_replay(author_code_replay())
+
+
+register(mcp, reproduce_author_code, name="cannabis2026_reproduce_author_code",
+         dataset_scope="cannabis_2026", read_only=True)
+
+
 def dataset_audit() -> AnalysisResult:
     """Which Cannabis source cohorts and six residue-energy matrices are available, and do they
-    match the final article? Audit IDs/structures, 3171 labels, 2749 unlabeled source rows and missing
-    final 2465/5027 DS1 cohort mapping. AChE-inactive references are not universal non-pesticides.
+    match the final article? Audit IDs/structures,3171labels and2749unlabeled source rows.
+    A local2465record archive is separately aligned by recovered_author_cohort; its score/model
+    lineage and the full5027DS1 map are unresolved. AChE-inactive references are not universal non-pesticides.
     Return the separately reported raw/standardized/docking-prepared flow for all three paper cohorts.
     Also return the bundled original paper PDF as a source-reference artifact for CoScientist's existing paper reader.
     """
-    return analysis.dataset_audit()
+    output = analysis.dataset_audit()
+    import pandas as pd
+    from ..common.datasets import table
+    from .author_archive import recovered_cohort_audit
+    recovered = recovered_cohort_audit()
+    output.answer.tables['recovered_local_cohort_counts'] = table(
+        pd.DataFrame([{'quantity':m.name,'value':m.value} for m in recovered.answer.metrics]),
+        'Local archive alignment, not independent validation of the archived producing model')
+    output.answer.limitations.extend(recovered.answer.limitations)
+    output.metadata.sources.extend(recovered.metadata.sources)
+    return output
 
 
 def docking_comparisons() -> AnalysisResult:

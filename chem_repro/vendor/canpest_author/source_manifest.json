@@ -1,0 +1,14 @@
+{
+  "repository": "https://github.com/chemagents/canpest",
+  "revision": "b43286cc799f5ee856e4ed5d546078ce8c26e270",
+  "files": {
+    "source_code/train_models.py": "960a2048e070a9f61718213399593a724d70e775d6da7756173b12f4a1c443aa",
+    "source_code/rmt_filter.py": "f9f66de4501e21263b419bb0658079fb699bf57b45b25d2ab9e0ec16109eb4dc",
+    "select_rmt_residues.py": "6341adcdc4588b57d88f75c4109a9847623876f8cc62a88b8942f93bfccda357",
+    "run_split_veto.py": "5b08af07bb5e4fcb370cc157688cd7b6301b33d79a2a15064cad489bb8c1d994",
+    "run_30splits_veto.py": "d525e50e34a363775cc19a86373490eff2af422cd833a3830b54ce5afccbb7e7",
+    "rmt_selection/selected_rmt95_features.csv": "9c6a8cf8dc65458c3b5d3c1b39cbd896011602782155bb50848d2be8358e8eb2",
+    "README.md": "dac1135dbc02c8f9df26d1b349857c792e1d07e95b8860bf6938155ca586981b",
+    "reproduction_process.md": "b6efde022d9c7bf71f2a826e29b5839e99531b23a1871749e607eea1c1b3add7"
+  }
+}

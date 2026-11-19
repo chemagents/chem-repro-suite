@@ -6,7 +6,7 @@ Shared chemistry, statistics, artifact export and paper-specific MCP implementat
 |---|---|---:|---|
 | Heracleum | IJMS 2026, 27, 7947 | 8 | 7342 |
 | Mannich | Scientific Data s41597-026-08287-9 | 10 | 7343 |
-| Cannabis | IJMS 2026, 27, 8000 | 9 | 7341 |
+| Cannabis | IJMS 2026, 27, 8000 | 11 | 7341 |
 
 ## Install and run
 
@@ -22,6 +22,8 @@ uv run mannich-2026-mcp
 Use Streamable HTTP at `/mcp` for the complete tool and downloadable-artifact workflow. No shared hosted endpoint is currently published. Deploy on a host reachable by CoScientist, set `CHEM_REPRO_ARTIFACTS_DIR` to a persistent output directory and `CHEM_REPRO_PUBLIC_BASE_URL` to its client-reachable address. Artifacts include their size and SHA-256.
 
 For Cannabis, follow [CANNABIS_DEPLOYMENT.md](CANNABIS_DEPLOYMENT.md): neural and toxicology computations use separately pinned worker environments. Dataset auditing works with the base environment; model training needs the workers. Missing author models or unsupported modes are reported explicitly.
+
+[Cannabis author-code replay](CANNABIS_AUTHOR_REPLAY.md) verifies all30 original test partitions and recomputes metrics from complete author-code refit predictions, separately from the article-based reconstruction. A second tool audits the recovered local2465-record table without assuming the identity of its archived score.
 
 ## Integration and validation
 

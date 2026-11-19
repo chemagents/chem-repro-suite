@@ -105,7 +105,8 @@ def test_selected_residue_labels_match_exported_energy_columns(tmp_path, monkeyp
 async def test_cannabis_transport_contract():
     async with Client(mcp) as client:
         listed = await client.list_tools()
-        assert len(listed) == 9
+        assert len(listed) == 11
+        assert {'cannabis2026_reproduce_author_code', 'cannabis2026_recovered_author_cohort'} <= {t.name for t in listed}
         for tool in listed:
             scope = (
                 "cannabis_open_tox_2026"

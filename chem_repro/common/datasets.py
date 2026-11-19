@@ -36,7 +36,7 @@ def implementation_sha256():
 
 @lru_cache(maxsize=8)
 def verified_manifest(study: str):
-    if study not in {"mannich", "heracleum", "heracleum_paper", "cannabis", "cannabis_open_tox", "open_syntelly_2024", "cannabis_dmpnn", "cannabis_candidates"}:
+    if study not in {"mannich", "heracleum", "heracleum_paper", "cannabis", "cannabis_author", "cannabis_open_tox", "open_syntelly_2024", "cannabis_dmpnn", "cannabis_candidates"}:
         raise ValueError("Unknown study")
     root = DATA_ROOT / study
     manifest = json.loads((root / "manifest.json").read_text())

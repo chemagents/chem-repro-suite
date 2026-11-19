@@ -1,6 +1,6 @@
 # Scientific coverage and validation scope
 
-The servers expose 27 fixed-dataset scientific operations: 8 Heracleum, 10 Mannich and 9 Cannabis. Shared code implements chemistry, statistics, validation, provenance and artifact export. CoScientist retains orchestration and report writing.
+The servers expose29 fixed-dataset scientific operations:8 Heracleum,10 Mannich and11 Cannabis. Shared code implements chemistry, statistics, validation, provenance and artifact export. CoScientist retains orchestration and report writing.
 
 ## Heracleum
 
@@ -17,6 +17,8 @@ The 4015 records are already manually curated. OCR and re-extraction from primar
 ## Cannabis
 
 Implemented: source cohort audit; docking comparisons; RMT/RTE analysis; CatBoost/SVM validation; Chemprop structural-model validation; paired fusion; candidate filtering/ranking; open toxicology reconstruction and applicability analysis; published-reference comparison.
+
+The deposited-code replay additionally uses the original canpest DMPNN/RMT95 functions and30fixed outer splits, independently verifies checkpoints, and recomputes all held-out metrics. The local2465-record archive is aligned separately, with score provenance explicitly unresolved. See [the protocol comparison](CANNABIS_AUTHOR_REPLAY.md).
 
 Neural and toxicology workers need separate environments. Missing original cohorts, annotations, weights and historical validation details are not filled with guessed values. Nested reconstruction consumes verified completed runs; the basic installer configures the fixed-public recipe.
 

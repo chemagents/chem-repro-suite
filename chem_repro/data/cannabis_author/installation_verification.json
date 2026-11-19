@@ -1,0 +1,9 @@
+{
+  "complete": true,
+  "n_splits": 30,
+  "heldout_rows": 19050,
+  "metrics_checked": 120,
+  "maximum_independent_metric_error": 1.1102230246251565e-16,
+  "all_checkpoint_and_test_prediction_hashes_rechecked": true,
+  "openresearch_run": "171ee4f3-e09d-4fd5-aac9-e9b23985772c"
+}

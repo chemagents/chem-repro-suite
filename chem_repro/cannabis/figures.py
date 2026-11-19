@@ -120,3 +120,28 @@ def toxicity(result):
             publish(result,fig,f'open_toxicity_{scheme}_{suffix}','cohort_comparisons',
                 'Source-cohort point summaries from declared open models; no uncertainty interval or original Syntelly equivalence is implied.')
     return result
+
+
+def author_replay(result):
+    """Every split remains visible; error bars describe SD, not confidence intervals."""
+    import matplotlib.pyplot as plt
+    per=complete(result,'computed_per_split')
+    methods=['dmpnn','catboost_rmt95_standalone','svm_rmt95_standalone','product_rmt95_veto']
+    labels=['DMPNN/HGB\nsource blend','CatBoost\nRMT95','SVM\nRMT95','Product']
+    initialize_style()
+    fig,axes=plt.subplots(1,3,figsize=(6.75,2.8),layout='constrained')
+    for letter,ax,key,ylabel,scale in zip('abc',axes,['roc_auc','fpr','recall'],
+            ['ROC-AUC','False-positive rate (%)','Recall (%)'],[1,100,100],strict=True):
+        for i,method in enumerate(methods):
+            values=per.loc[per.method==method,key].to_numpy(float)*scale
+            ax.scatter(i+np.linspace(-.12,.12,len(values)),values,s=4,c='#9EA3A8',alpha=.6,zorder=1)
+            ax.errorbar(i,values.mean(),yerr=values.std(ddof=1),fmt='o',ms=4,c='#0072B2',capsize=3,zorder=2)
+        ax.set(xticks=range(4),xticklabels=labels,ylabel=ylabel)
+        ax.tick_params(axis='x',labelsize=7)
+        ax.text(-.13,1.03,f'({letter})',transform=ax.transAxes,weight='bold',fontsize=9)
+        if key!='roc_auc':ax.set_ylim(0,100)
+    fig.suptitle('Deposited author code · 30 repeated holdouts · mean ± SD',fontsize=9)
+    return publish(result,fig,'cannabis_author_rmt95_validation','computed_per_split',
+        'Original-code refits: each grey point is one source holdout; blue whiskers show sample SD across30splits. '
+        'RMT95 product trades lower FPR for lower recall at threshold0.5. Source global-label selection is preserved; '
+        'this is not independent validation or the final RTE390 geometric mixture.')

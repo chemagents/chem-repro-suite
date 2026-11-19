@@ -23,7 +23,9 @@ def limitations():
             code="SOURCE_COHORT_MISMATCH",
             message="Deposited data.csv contains 2749 unlabeled "
             "records; final-paper docked DS1 contains 2465, and standardized DS1 contains 5027. "
-            "The final DS1 inclusion map is missing. Unlabeled-source summaries do not reproduce either cohort.",
+            "A local victor.csv now supplies2465 exact source structures and1010 archived scores >=0.70 "
+            "(see recovered_author_cohort), but its producing model and final-paper lineage remain unverified. "
+            "Unlabeled-source summaries still use2749 rows unless explicitly labeled otherwise.",
         ),
         EvidenceNote(
             code="OPERATIONAL_NEGATIVE_CLASS",

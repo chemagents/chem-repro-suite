@@ -1,0 +1,48 @@
+{
+  "study_id": "cannabis_author_sources",
+  "paper_doi": "10.3390/ijms27188000",
+  "revision": "local-author-archive-20261119",
+  "files": {
+    "victor.csv": {
+      "sha256": "9cf2fc3da68747035e72de6c95b21148fe6396448940e9ebe6833edb1ce973f0",
+      "source_url": "urn:local-author-data:Docking-and-MIE/Activity/victor.csv",
+      "derivation": "Byte-preserving copy supplied through the author local project; model behind precision and class annotation provenance remain unresolved."
+    },
+    "heldout_predictions.csv": {
+      "sha256": "b84ae47e06135e1fcc483acc3889d7c7f980dac4d0ff076716423f9f0a53bee8",
+      "source_url": "https://github.com/chemagents/canpest/tree/b43286cc799f5ee856e4ed5d546078ce8c26e270",
+      "revision": "author-code-refit-20261119",
+      "derivation": "Computed by unchanged deposited source functions; new fitted weights. "
+    },
+    "training_receipt.json": {
+      "sha256": "6e775221aa8e4b21401fd5bf9d6422b80162b07ed528089c664fa6e26b88555b",
+      "source_url": "https://github.com/chemagents/canpest/tree/b43286cc799f5ee856e4ed5d546078ce8c26e270",
+      "revision": "author-code-refit-20261119",
+      "derivation": "Computed by unchanged deposited source functions; new fitted weights. "
+    },
+    "checkpoint_verification.json": {
+      "sha256": "7968784d829e46306fbae54b590b2b66a52909dcb60f1bfb1e334f26b0c36e6b",
+      "source_url": "https://github.com/chemagents/canpest/tree/b43286cc799f5ee856e4ed5d546078ce8c26e270",
+      "revision": "author-code-refit-20261119",
+      "derivation": "Computed by unchanged deposited source functions; new fitted weights. "
+    },
+    "structural_components.csv": {
+      "sha256": "7eae095ea18449c7790de3e50cff6498b32db29e1654cca22200cbe44eb2650e",
+      "source_url": "https://github.com/chemagents/canpest/tree/b43286cc799f5ee856e4ed5d546078ce8c26e270",
+      "revision": "author-code-refit-20261119",
+      "derivation": "Computed by unchanged deposited source functions; new fitted weights. "
+    },
+    "training_request.json": {
+      "sha256": "6190320bbaeaafb9d6fe0a5eb807caa9b8303d59a55553ef8c7f6ce4d4bc68d8",
+      "source_url": "https://github.com/chemagents/canpest/tree/b43286cc799f5ee856e4ed5d546078ce8c26e270",
+      "revision": "author-code-refit-20261119",
+      "derivation": "Computed by unchanged deposited source functions; new fitted weights. Output directory sanitized; original request hash retained."
+    },
+    "installation_verification.json": {
+      "sha256": "dfaeaff403ba6c8aa17b433bf2682c6f6b892af0dcf45faf595cb2bd444a1b74",
+      "source_url": "https://github.com/chemagents/canpest/tree/b43286cc799f5ee856e4ed5d546078ce8c26e270",
+      "revision": "author-code-refit-20261119",
+      "derivation": "Computed by unchanged deposited source functions; new fitted weights. "
+    }
+  }
+}
