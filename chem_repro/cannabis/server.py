@@ -28,23 +28,35 @@ def docking_comparisons() -> AnalysisResult:
     Recompute six two-sided Mann–Whitney tests, BH FDR, median differences and distributions.
     Does not rerun Vina; tests source scores. Final DS1 subset remains unmapped.
     """
-    return analysis.docking_comparisons()
+    from .figures import docking
+    from .data import load, TARGETS
+    return docking(analysis.docking_comparisons(), load(), TARGETS)
 
 
 def select_residues(
-    target: Literal["GSTE2", "ACHE", "GLC1", "UGT202A2", "GSTM12", "OR28"] = "GLC1",
+    target: Literal["all", "GSTE2", "ACHE", "GLC1", "UGT202A2", "GSTM12", "OR28"] = "all",
     split_index: Annotated[int, Field(ge=0, le=29)] = 0,
     inner_splits: Annotated[int, Field(ge=2, le=10)] = 5,
     inner_test_size: Annotated[float, Field(ge=0.1, le=0.4)] = 0.2,
     seed: Annotated[int, Field(ge=0, le=2147483647)] = 42,
 ) -> AnalysisResult:
     """Which target residues survive Appendix A's training-only RMT and 98% energy-contribution gate?
+    target=all (default) runs all six targets; select one named target for a narrower diagnostic.
     Fit on an explicit source outer split; choose top-m by inner-validation ROC-AUC on cumulative raw
     energies, retain original columns, export split registry and train/test features. Returns spectrum,
     full m scan and contribution audit. This is not the older global RMT95/point-biserial protocol.
     Unreported numerical choices and unverified final-paper split equivalence are explicitly disclosed.
     """
-    return analysis.select_residues(target, split_index, inner_splits, inner_test_size, seed)
+    from .figures import selection
+    if target == "all":
+        from ..common.comparison import compare_variants
+        from .data import TARGETS
+        return compare_variants(
+            {name.lower(): selection(analysis.select_residues(name, split_index, inner_splits, inner_test_size, seed))
+             for name in TARGETS}, protocol_id="cannabis.appendix_a.all_targets.v1",
+            finding="Computed Appendix A diagnostics for every target on the same declared source outer split. "
+                    "Each target retains its own eigenspectrum, inner scan, energetic gate and raw residue columns.")
+    return selection(analysis.select_residues(target, split_index, inner_splits, inner_test_size, seed))
 
 
 def validate_rte(
@@ -62,7 +74,9 @@ def validate_rte(
     stratified folds are saved. source_random preserves all30 deposited repeated80/20holdouts
     (420 fits), a separate code-replay protocol that must not be relabeled ten-fold validation.
     split_indices selects0..9 in paper mode or0..29 in source mode; None runs all folds.
-    Return complete predictions, residue-selection audits and scientific figures. Verified
+    Return complete predictions, residue-selection audits and scientific figures. For Appendix A
+    eigenspectrum and energy-gate plots on a deposited source split, also use select_residues;
+    target=all covers all six targets in one response. Verified
     cached training is labeled separately from a new fit. No parameter is tuned to a paper number.
     """
     if protocol == "paper_kfold10":
@@ -87,20 +101,21 @@ for fn in [dataset_audit, docking_comparisons, select_residues, validate_rte]:
 
 
 def open_toxicity_validation(
-    endpoint: Literal["ames", "reproductive", "daphnia", "fathead"] = "ames",
-    scheme: Literal["random", "source_scaffold"] = "random",
-    cohort: Literal["toxric", "toxric_ecotox"] = "toxric",
+    endpoint: Literal["all", "ames", "reproductive", "daphnia", "fathead"] = "all",
+    scheme: Literal["reported", "random", "source_scaffold"] = "reported",
+    cohort: Literal["both", "toxric", "toxric_ecotox"] = "both",
 ) -> AnalysisResult:
-    """Reproduce Supplement S3's open toxicity benchmark: five base learners, mean blend and source
-    meta-stack on pinned TOXRIC data. Uses a separately pinned worker environment and actual saved
-    OOF predictions; cached runs are verified. Source meta CV is not strictly nested or scaffold-disjoint.
-    These open benchmarks do not replace main-text Syntelly outputs. Reproductive has no scaffold reference.
-    The two aquatic endpoints expose separate TOXRIC-only and augmented TOXRIC+ECOTOX cohorts;
-    sample counts and estimator choices must remain explicit in random/scaffold comparisons.
+    """Reproduce the complete Supplement S3 open benchmark. Defaults execute every reported
+    endpoint/split combination and BOTH explicitly labeled aquatic cohorts (11 replays covering
+    seven reported references); no reproductive scaffold value is invented. Choose an explicit
+    endpoint/scheme/cohort for one replay. All five base learners, mean blend and source meta-stack
+    are retained, with actual saved OOF scores independently verified. No estimator is selected
+    to force agreement. Return a combined table and same-cohort/same-estimator random/scaffold
+    comparisons; source meta CV is not strictly nested or scaffold-disjoint. Open benchmarks are
+    separate from main-text Syntelly profiles. Requires the pinned open-toxicity worker environment.
     """
-    from .open_toxicity import validate_open_toxicity
-
-    return validate_open_toxicity(endpoint, scheme, cohort)
+    from .toxicity_benchmarks import evaluate_benchmarks
+    return evaluate_benchmarks(endpoint, scheme, cohort)
 
 
 register(
@@ -128,18 +143,19 @@ def open_toxicity_profile(
     Figure4 connectivities, with full candidate-level CSV evidence. These are source-model estimates.
     hERG is channel blockade; a separate broad hepatotoxicity output is not invented from DILI.
     recipe=nested_paper2024_v2 replays completed nested-tuning runs with applied 2024 preparation,
-    inner-fold feature selection and verified saved models. Request explicit endpoints; unavailable
-    completed runs are reported as unavailable, without falling back to fixed-v1 predictions.
+    inner-fold feature selection and verified saved models. Returns each requested endpoint in a coverage table; absent completed models are explicitly
+    unavailable while other endpoints are still verified. No fallback to fixed-v1 predictions.
     """
+    from .figures import toxicity
     if recipe == "nested_paper2024_v2":
         from .nested_toxicity import evaluate
 
-        return evaluate(endpoints)
+        return toxicity(evaluate(endpoints))
     if recipe != "fixed_public_v1":
         raise ValueError("Unknown public toxicity recipe")
     from .toxicity_profiles import open_toxicity_profile as evaluate
 
-    return evaluate(endpoints)
+    return toxicity(evaluate(endpoints))
 
 
 register(mcp, open_toxicity_profile, name="cannabis2026_open_toxicity_profile",
@@ -190,8 +206,9 @@ def evaluate_fusion(
     from .fusion import evaluate_fusion as evaluate
     from .fusion_summary import attach_fusion_summary
 
-    return attach_primary_validation(attach_fusion_summary(
-        evaluate(protocol, source_split_indices, max_epochs, iterations, include_models)), {"DMPNN", "RTE_ALL6", "product"})
+    from .figures import fusion
+    return attach_primary_validation(fusion(attach_fusion_summary(
+        evaluate(protocol, source_split_indices, max_epochs, iterations, include_models))), {"DMPNN", "RTE_ALL6", "product"})
 
 
 register(mcp, evaluate_fusion, name="cannabis2026_evaluate_fusion", dataset_scope="cannabis_2026", read_only=False)
@@ -217,8 +234,9 @@ def prioritize_candidates(
     """
     from .prioritization import prioritize_candidates as prioritize
 
-    return prioritize(annotations, reference_only=reference_only, scheme=scheme,
-                      max_epochs=max_epochs, iterations=iterations)
+    from .figures import candidates
+    return candidates(prioritize(annotations, reference_only=reference_only, scheme=scheme,
+                      max_epochs=max_epochs, iterations=iterations))
 
 
 register(mcp, prioritize_candidates, name="cannabis2026_prioritize_candidates",

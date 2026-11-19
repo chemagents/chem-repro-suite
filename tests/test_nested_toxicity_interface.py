@@ -8,12 +8,36 @@ import pytest
 from chem_repro.cannabis import nested_toxicity, server
 
 
-def test_nested_mode_refuses_missing_requested_endpoints_instead_of_falling_back(tmp_path, monkeypatch):
+def test_missing_endpoint_does_not_erase_verified_results_or_change_recipe(tmp_path, monkeypatch):
+    from chem_repro.cannabis.analysis import result
     registry = tmp_path / "runs.json"
     registry.write_text(json.dumps({"reproductive": {"result_dir": "unread", "source_dir": "unread"}}))
     monkeypatch.setenv("CHEM_REPRO_NESTED_TOX_RUNS_FILE", str(registry))
-    with pytest.raises(RuntimeError, match="ames"):
-        nested_toxicity.evaluate(["reproductive", "ames"])
+    monkeypatch.setenv("CHEM_REPRO_ARTIFACTS_DIR", str(tmp_path / "artifacts"))
+    calls=[]
+    def available(endpoints):
+        calls.append(endpoints)
+        return result("Verified reproductive results", [], {}, "paper2024_public_nested_v2")
+    monkeypatch.setattr(nested_toxicity, "_evaluate_available", available)
+    output=nested_toxicity.evaluate(["reproductive", "ames"])
+    assert calls==[["reproductive"]] and output.status=="partial"
+    rows=output.answer.tables["requested_endpoint_coverage"].rows
+    assert [(r["endpoint"],r["predictions_returned"]) for r in rows]==[("reproductive",True),("ames",False)]
+    assert output.metadata.protocol_parameters["unavailable_endpoints"]==["ames"]
+    assert "REQUESTED_ENDPOINTS_UNAVAILABLE" in {n.code for n in output.answer.limitations}
+    absent=nested_toxicity.evaluate(["ames"])
+    assert absent.status=="unsupported" and calls==[["reproductive"]]
+    assert not absent.answer.tables["requested_endpoint_coverage"].rows[0]["predictions_returned"]
+    with pytest.raises(ValueError):nested_toxicity.evaluate(["invented_endpoint"])
+
+
+def test_corrupt_available_endpoint_is_not_reclassified_as_missing(tmp_path, monkeypatch):
+    registry=tmp_path/"runs.json";registry.write_text(json.dumps({"ames": {}}))
+    monkeypatch.setenv("CHEM_REPRO_NESTED_TOX_RUNS_FILE",str(registry))
+    def corrupt(endpoints):raise ValueError("Saved model hash differs")
+    monkeypatch.setattr(nested_toxicity,"_evaluate_available",corrupt)
+    with pytest.raises(ValueError,match="hash differs"):
+        nested_toxicity.evaluate(["ames", "reproductive"])
 
 
 def test_existing_tool_routes_explicit_nested_recipe(monkeypatch):
@@ -25,6 +49,7 @@ def test_existing_tool_routes_explicit_nested_recipe(monkeypatch):
         return marker
 
     monkeypatch.setattr(nested_toxicity, "evaluate", evaluate)
+    monkeypatch.setattr("chem_repro.cannabis.figures.toxicity",lambda r:r)
     assert server.open_toxicity_profile(["reproductive"], "nested_paper2024_v2") is marker
     assert received == [["reproductive"]]
     with pytest.raises(ValueError, match="Unknown"):

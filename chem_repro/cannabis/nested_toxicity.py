@@ -13,7 +13,7 @@ import pandas as pd
 
 from ..common.artifacts import save_artifact, save_json, save_table
 from ..common.contracts import AnalysisResult, Answer, DataSource, EvidenceNote, Metric, Provenance
-from ..common.datasets import DATA_ROOT, implementation_sha256, table, verified_manifest
+from ..common.datasets import DATA_ROOT, implementation_sha256, provenance, table, verified_manifest
 from ..common.worker_environment import worker_environment
 from .candidate_identity import attach_mapping_provenance, identity_map, toxicity_rows, toxicity_tables
 from .paper2024 import xgboost_search_space
@@ -79,7 +79,7 @@ def search_audit(root, result):
     return rows, failures
 
 
-def evaluate(endpoints=None):
+def _evaluate_available(endpoints=None):
     source_manifest = verified_manifest("open_syntelly_2024")
     data_root = DATA_ROOT / "open_syntelly_2024"
     protocol = json.loads((data_root / "protocol.json").read_text())
@@ -240,6 +240,52 @@ def evaluate(endpoints=None):
                             sources=sources, software=software, implementation_sha256=implementation_sha256(),
                             reused_from_cache=True), artifacts=artifacts)
     attach_mapping_provenance(result, base_url=base)
-    result.artifacts.append(save_json(result.model_dump(mode="json"), public_base_url=base,
-                                       display_name="nested_toxicity_results.json"))
     return result
+
+
+def evaluate(endpoints=None):
+    """Replay available requested endpoints and explicitly retain missing coverage.
+
+    An absent completed model cannot erase other independently verified endpoints.
+    Invalid IDs, corrupt runs and provenance failures remain errors; no recipe is
+    substituted and missing predictions are never generated from reference values.
+    """
+    verified_manifest("open_syntelly_2024")
+    protocol = json.loads((DATA_ROOT / "open_syntelly_2024/protocol.json").read_text())
+    requested = list(protocol["files"]) if endpoints is None else list(endpoints)
+    if not requested or len(set(requested)) != len(requested) or set(requested) - set(protocol["files"]):
+        raise ValueError("Require unique known endpoints; none are silently omitted")
+    registry_path = os.environ.get("CHEM_REPRO_NESTED_TOX_RUNS_FILE")
+    if not registry_path:
+        raise RuntimeError("Configure CHEM_REPRO_NESTED_TOX_RUNS_FILE with completed nested-v2 runs")
+    registry = json.loads(Path(registry_path).read_text())
+    available = [e for e in requested if e in registry]
+    missing = [e for e in requested if e not in registry]
+    if available:
+        output = _evaluate_available(available)
+    else:
+        output = AnalysisResult(status="unsupported", answer=Answer(
+            finding="None of the requested endpoints has a completed nested-v2 run. No predictions returned.",
+            metrics=[], tables={}, limitations=[]),
+            metadata=provenance("open_syntelly_2024", "paper2024_public_nested_v2"))
+    output.answer.tables["requested_endpoint_coverage"] = table(pd.DataFrame([
+        {"endpoint": e, "requested": True,
+         "status": "verified_completed_run" if e in available else "unavailable_completed_run",
+         "recipe": "nested_paper2024_v2", "predictions_returned": e in available}
+        for e in requested]), "Every requested endpoint, including unavailable models; no recipe substitution")
+    output.metadata.protocol_parameters["requested_endpoints"] = requested
+    output.metadata.protocol_parameters["completed_endpoints"] = available
+    output.metadata.protocol_parameters["unavailable_endpoints"] = missing
+    if missing:
+        output.answer.finding += (f" Endpoint coverage: {len(available)}/{len(requested)} requested endpoints; "
+                                  "completed nested models unavailable for: " + ", ".join(missing) + ".")
+        output.answer.limitations.append(EvidenceNote(code="REQUESTED_ENDPOINTS_UNAVAILABLE",
+            message="No completed nested-v2 model for: " + ", ".join(missing) +
+                    ". These endpoints have no returned predictions. Other requested endpoints are verified independently; "
+                    "fixed-v1 predictions and paper-reported values are not substituted."))
+        if available:
+            output.status = "partial"
+    base = os.getenv("CHEM_REPRO_PUBLIC_BASE_URL", "http://127.0.0.1:7341")
+    output.artifacts.append(save_json(output.model_dump(mode="json"), public_base_url=base,
+                                     display_name="nested_toxicity_results.json"))
+    return output

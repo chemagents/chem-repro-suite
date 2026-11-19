@@ -116,3 +116,17 @@ async def test_cannabis_transport_contract():
         response = await client.call_tool("cannabis2026_docking_comparisons")
         assert not response.is_error
         assert len(response.structured_content["answer"]["tables"]["target_tests"]["rows"]) == 6
+
+
+def test_all_target_diagnostic_preserves_each_target_and_same_source_split(monkeypatch):
+    from chem_repro.cannabis import server
+    received=[]
+    def select(target, index, inner_splits, test_size, seed):
+        received.append((target,index,inner_splits,test_size,seed))
+        return analysis.result("verified " + target,[],{},"test", target=target,split_index=index)
+    monkeypatch.setattr(analysis,"select_residues",select)
+    monkeypatch.setattr("chem_repro.cannabis.figures.selection",lambda r:r)
+    output=server.select_residues(target="all",split_index=2)
+    assert [v[0] for v in received]==list(TARGETS)
+    assert all(v[1:]==(2,5,.2,42) for v in received)
+    assert len(output.answer.tables["variant_inventory"].rows)==6
