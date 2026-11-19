@@ -182,8 +182,10 @@ def evaluate_fusion(
     source cohort and reconstructed folds are not claimed to reproduce author final checkpoints.
     """
     from .fusion import evaluate_fusion as evaluate
+    from .fusion_summary import attach_fusion_summary
 
-    return attach_primary_validation(evaluate(protocol, source_split_indices, max_epochs, iterations, include_models), {"DMPNN", "RTE_ALL6", "product"})
+    return attach_primary_validation(attach_fusion_summary(
+        evaluate(protocol, source_split_indices, max_epochs, iterations, include_models)), {"DMPNN", "RTE_ALL6", "product"})
 
 
 register(mcp, evaluate_fusion, name="cannabis2026_evaluate_fusion", dataset_scope="cannabis_2026", read_only=False)
