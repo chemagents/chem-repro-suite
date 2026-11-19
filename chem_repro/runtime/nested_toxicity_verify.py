@@ -28,7 +28,8 @@ def verify(result_dir, source_dir):
         if not path.is_relative_to(root) or digest(path) != expected:
             raise ValueError("Result artifact changed or escaped the result directory")
     code = json.loads((root / "code_hashes.json").read_text())
-    package_root = Path(__file__).resolve().parents[1]
+    import chem_repro
+    package_root = Path(chem_repro.__file__).resolve().parent
     for name, expected in code.items():
         path = (package_root / name).resolve()
         if not path.is_relative_to(package_root) or digest(path) != expected:

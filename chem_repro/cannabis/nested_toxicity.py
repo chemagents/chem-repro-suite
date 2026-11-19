@@ -116,7 +116,7 @@ def _evaluate_available(endpoints=None):
             raise ValueError("Nested run query is not the fixed Cannabis source cohort")
         if config["task"] != spec["task"] or config["unit"] != spec["unit"]:
             raise ValueError("Nested run task or target unit differs from source declaration")
-        with tempfile.TemporaryDirectory(prefix="nested-tox-verify-") as tmp, worker_environment(ROOT, extra_import_roots=[addon]) as environment:
+        with tempfile.TemporaryDirectory(prefix="nested-tox-verify-") as tmp, worker_environment(source / "chem_repro", extra_import_roots=[addon]) as environment:
             report = Path(tmp) / "verification.json"
             completed = subprocess.run([python, str(ROOT / "runtime/nested_toxicity_verify.py"),
                 "--result-dir", str(root), "--source-dir", str(source), "--report", str(report)],
@@ -137,7 +137,9 @@ def _evaluate_available(endpoints=None):
                           "inner_folds": config["inner_folds"], "seed": config["seed"],
                           "optuna_trials": config["optuna_trials"], "optuna_startup_trials": config["optuna_startup_trials"],
                           "max_xgboost_candidates": config["max_xgboost_candidates"],
-                          "assumptions": result["assumptions"]}
+                          "assumptions": result["assumptions"],
+                          "fitted_code_sha256": json.loads((root / "code_hashes.json").read_text()),
+                          "verifier_sha256": verification["verifier_sha256"]}
         preparation.append({"endpoint": endpoint, **result["preparation"], "applied_to_predictions": True})
         metrics.append(Metric(name=endpoint + "_prepared_training_molecules", value=result["preparation"]["aggregated_molecules"],
                               population="Prepared public training source"))
@@ -172,8 +174,9 @@ def _evaluate_available(endpoints=None):
             zip_member(archive, "results/result.json", checked(root / "result.json", result_hash))
             code = json.loads((root / "code_hashes.json").read_text())
             for name, expected in code.items():
-                code_path = (ROOT / name).resolve()
-                if not code_path.is_relative_to(ROOT):
+                fitted_package = (source / "chem_repro").resolve()
+                code_path = (fitted_package / name).resolve()
+                if not code_path.is_relative_to(fitted_package):
                     raise ValueError("Fitted source path escapes the package")
                 zip_member(archive, "source/chem_repro/" + name, checked(code_path, expected))
             replay_config = dict(config)
