@@ -20,9 +20,9 @@ from ..common.statistics import bh_fdr, distribution
 from .data import TARGETS, limitations, load, residue_matrix, split
 
 
-def result(finding, metrics, tables, protocol, notes=(), **parameters):
+def result(finding, metrics, tables, protocol, notes=(), status="partial", **parameters):
     return AnalysisResult(
-        status="partial",
+        status=status,
         answer=Answer(
             finding=finding, metrics=metrics, tables=tables, limitations=limitations() + list(notes)
         ),
@@ -193,7 +193,8 @@ def docking_comparisons():
     return result(
         "Six DS2-versus-DS3 docking comparisons were recomputed with two-sided Mann–Whitney U tests "
         "and BH correction across six targets. Lower energies are docking features, not measured affinity. "
-        "The source-unlabeled cohort is excluded because the final docked DS1 map is unavailable.",
+        "This comparison covers the two labeled cohorts only. The unavailable final DS1 map does not "
+        "affect the completed DS2-versus-DS3 comparisons. No new docking is required for this score reanalysis.",
         [metric("n_target_comparisons", len(tests), "DS2 versus DS3")],
         {
             "target_tests": table(pd.DataFrame(tests), "Effect size is median(DS2) - median(DS3), kcal/mol"),
@@ -202,6 +203,9 @@ def docking_comparisons():
             ),
         },
         "cannabis.mann_whitney_six_targets.v1",
+        status="success",
+        analysis_scope="six labeled DS2-versus-DS3 source-score comparisons; not a new docking run or full-paper reproduction",
+        unavailable_ds1_map_affects_this_comparison=False,
         alternative="two-sided",
         method="asymptotic",
         continuity_correction=True,

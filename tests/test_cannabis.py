@@ -72,7 +72,10 @@ def test_source_overlap_reports_identities_and_records_separately():
 
 
 def test_six_target_comparisons_include_opposite_direction():
-    rows = {r["target"]: r for r in analysis.docking_comparisons().answer.tables["target_tests"].rows}
+    result = analysis.docking_comparisons()
+    assert result.status == "success"
+    assert result.metadata.protocol_parameters["unavailable_ds1_map_affects_this_comparison"] is False
+    rows = {r["target"]: r for r in result.answer.tables["target_tests"].rows}
     assert set(rows) == set(TARGETS)
     assert rows["OR28"]["median_difference_DS2_minus_DS3"] > 0
     assert sum(r["median_difference_DS2_minus_DS3"] < 0 for r in rows.values()) == 5
