@@ -11,6 +11,7 @@ from urllib.parse import unquote
 import numpy as np
 import pandas as pd
 from rdkit import Chem
+from scipy.stats import skew
 
 from ..common.chemistry import canonical_smiles, catalyst_identity, ee_to_ddg, scaffold
 from ..common.contracts import AnalysisResult, Answer, EvidenceNote, Metric
@@ -75,6 +76,7 @@ def overview(include_audit=True):
     df = load()
     counts = {
         "reaction_records": len(df),
+        "source_fields": len(pd.read_csv(DATA_ROOT / "mannich/mannich_dataset.csv", nrows=0).columns),
         "source_publications": df.normalized_doi.nunique(),
         "raw_doi_strings": df.paper_doi.nunique(),
         "unique_catalysts_including_axial": df.catalyst_identity.nunique(),
@@ -159,6 +161,12 @@ def target_distribution():
             ]
         ]
     )
+    # Retain the population moment already exposed by the tool and name the
+    # sample-adjusted estimator separately; pandas and scipy defaults differ.
+    summary["skewness_bias_corrected"] = [
+        float(skew(np.asarray(values, float), bias=False))
+        for values in (df.ee, df.ddG_kcal_mol, calculated)
+    ]
     mismatches = df.loc[np.abs(delta) > 1e-8, ["reaction_id", "ee", "temperature", "ddG_kcal_mol"]].copy()
     mismatches["recomputed_ddg"] = calculated[np.abs(delta) > 1e-8]
     records = df[["reaction_id", "ee", "temperature", "ddG_kcal_mol"]].copy()
@@ -181,7 +189,7 @@ def target_distribution():
             _metric("median_absolute_relative_error_percent", float(np.median(relative[nonzero])), unit="%", population="curated reaction records with nonzero stored absolute ddG"),
         ],
         {
-            "target_statistics": table(summary, "Target distribution moments, scipy skew(bias=True)"),
+            "target_statistics": table(summary, "skewness: scipy bias=True; skewness_bias_corrected: bias=False; neither is silently substituted"),
             "conversion_records": table(records, "Every retained reaction and its independently recomputed |ddG|; relative error is null for a zero reference"),
             "conversion_disagreements": table(mismatches, "ONLY mismatches above 1e-8 kcal/mol; zero rows means no disagreements, not missing computation"),
         },
@@ -353,11 +361,19 @@ def component_classes():
                     "n_tied_maxima": len(tied),
                 }
             )
+    catalyst_counts = pd.DataFrame(rows).query("role == 'organocatalyst'")
+    dominant = catalyst_counts.sort_values(
+        ["n_reactions", "class"], ascending=[False, True]
+    ).head(4).copy()
+    dominant["percent_of_all_reactions"] = 100 * dominant.n_reactions / len(df)
     return _result(
         "Ordered SMARTS assignments were recomputed from structures, with catalyst suppression "
         "rules and rare-class collapse evaluated on unique catalyst identities.",
-        [_metric("stored_catalyst_class_disagreements", len(mism)), _metric("reaction_records", len(df))],
+        [_metric("stored_catalyst_class_disagreements", len(mism)), _metric("reaction_records", len(df)),
+         _metric("four_dominant_catalyst_classes_records", int(dominant.n_reactions.sum())),
+         _metric("four_dominant_catalyst_classes_percent", float(100 * dominant.n_reactions.sum() / len(df)), unit="%")],
         {
+            "dominant_catalyst_classes": table(dominant, "Top four classes by REACTION count; denominator is all retained reaction records, not unique catalyst identities"),
             "class_count_summary": table(pd.DataFrame(class_counts),
                 "Explicit class totals, including versus excluding other; structures and reaction records are different counts"),
             "class_frequencies": table(
@@ -385,10 +401,19 @@ def scaffold_diversity():
     df = load()
     rows = []
     summaries = []
+    assignments = []
     for role in ("organocatalyst", "electrophile", "nucleophile"):
         key = "catalyst_identity" if role == "organocatalyst" else role + "_canonical"
         unique = df.drop_duplicates(key).copy()
         unique["scaffold"] = unique[role + "_canonical"].map(scaffold)
+        for _, member in unique.iterrows():
+            assignments.append({
+                "role": role, "first_reaction_id": member.reaction_id,
+                "canonical_smiles": member[role + "_canonical"],
+                "axial_configuration": member.axial_configuration if role == "organocatalyst" else None,
+                "scaffold_smiles": member.scaffold,
+                "acyclic_excluded_from_scaffold_count": member.scaffold == "",
+            })
         counts = Counter(unique.scaffold)
         reaction_counts = Counter(df[role + "_canonical"].map(scaffold))
         summaries.append(
@@ -448,6 +473,8 @@ def scaffold_diversity():
         {
             "role_summary": table(pd.DataFrame(summaries), "Supplementary scaffold populations"),
             "scaffolds": table(pd.DataFrame(rows), "Unique-structure and reaction frequencies"),
+            "scaffold_assignments": table(pd.DataFrame(assignments),
+                "Every unique component identity, including acyclic exclusions; inspect membership before changing the reported 207/204 discrepancy"),
             "reference_comparison": table(
                 pd.DataFrame(comparisons), "Computed and paper-reported columns are explicitly distinguished"
             ),

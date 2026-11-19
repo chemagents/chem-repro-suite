@@ -39,6 +39,29 @@ def test_conditions_have_expected_units_and_medians():
     assert rows["time"]["median"] == 24
 
 
+def test_report_statistics_keep_estimators_and_denominators_explicit():
+    r = analysis.target_distribution()
+    row = r.answer.tables["target_statistics"].rows[0]
+    assert row["skewness_bias_corrected"] != row["skewness"]
+    assert round(row["skewness_bias_corrected"], 2) == round(row["skewness"], 2) == -1.55
+    r = analysis.component_classes()
+    dominant = r.answer.tables["dominant_catalyst_classes"].rows
+    assert [x["n_reactions"] for x in dominant] == [1375, 895, 617, 592]
+    assert sum(x["percent_of_all_reactions"] for x in dominant) == pytest.approx(3479 / 4015 * 100)
+    assert metric_map(analysis.overview(False))["source_fields"] == 27
+
+
+def test_scaffold_membership_can_reconstruct_all_counts_without_dropping_acyclics():
+    r = analysis.scaffold_diversity()
+    members = r.answer.tables["scaffold_assignments"].rows
+    assert len(members) == 468 + 578 + 538
+    for row in r.answer.tables["role_summary"].rows:
+        subset = [m for m in members if m["role"] == row["role"]]
+        assert len(subset) == row["unique_structures"]
+        assert sum(m["acyclic_excluded_from_scaffold_count"] for m in subset) == row["acyclic_excluded"]
+        assert len({m["scaffold_smiles"] for m in subset if m["scaffold_smiles"]}) == row["nonempty_scaffolds"]
+
+
 def test_supplement_scaffolds_and_acyclic_exclusions():
     r = analysis.scaffold_diversity()
     assert r.status == "partial"
