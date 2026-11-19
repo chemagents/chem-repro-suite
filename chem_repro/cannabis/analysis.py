@@ -38,6 +38,14 @@ def dataset_audit():
     df = load()
     paper_sources = provenance("cannabis_candidates", "paper.cohort_flow.transcription")
     paper_flow = pd.read_csv(DATA_ROOT / "cannabis_candidates/paper_cohort_flow.csv")
+    paper_totals = paper_flow.groupby("paper_stage").paper_n.sum()
+    arithmetic = pd.DataFrame([{
+        "standardized_total": int(paper_totals['standardized']),
+        "docking_prepared_total": int(paper_totals['docking_prepared']),
+        "excluded_by_subtraction": int(paper_totals['standardized']-paper_totals['docking_prepared']),
+        "paper_reported_excluded_section_4_4": 2704,
+        "difference": int(paper_totals['standardized']-paper_totals['docking_prepared'])-2704,
+    }])
     rows = []
     identity_maps = {}
     for cohort, mask in [
@@ -119,6 +127,8 @@ def dataset_audit():
         ],
         {
             "paper_cohort_flow": table(paper_flow, "Reported stages remain separate from computed source-cohort counts; no inclusion map is inferred", "paper_reported"),
+            "paper_flow_arithmetic": table(arithmetic,
+                "Arithmetic on reported aggregate counts, not reconstructed preparation: 8430−5636=2794 differs from section4.4's 2704 by90. No source records are changed."),
             "cohort_audit": table(
                 pd.DataFrame(rows), "Exact isomeric identity; no silent salt or stereochemistry changes"
             ),

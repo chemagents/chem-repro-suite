@@ -2,6 +2,8 @@ import pytest
 
 from chem_repro.cannabis.paper_reference import attach_primary_validation
 from chem_repro.common.contracts import AnalysisResult, Answer, Metric, Provenance
+from chem_repro.common.datasets import table
+import pandas as pd
 
 
 def output():
@@ -36,3 +38,19 @@ def test_primary_reference_rejects_unknown_model_and_deduplicates_sources():
     attach_primary_validation(result, {"RTE_ALL6"})
     assert len(result.metadata.sources) == 2
     assert result.answer.tables["paper_primary_reference"].rows[0]["reported_mean"] == .802
+
+
+def test_primary_comparison_preserves_fpr_units_and_excludes_pooled_and_proxy_rows():
+    result=output()
+    result.answer.tables['fold_summary']=table(pd.DataFrame([
+        {'branch':'structure','scheme':'random','mean_roc_auc':.91,'mean_fpr':.15,'sd_roc_auc':.01,'sd_fpr':.02,'n_splits':5},
+        {'branch':'HGB','scheme':'random','mean_roc_auc':.999,'mean_fpr':0.,'n_splits':5},
+    ]),'fixture')
+    result.answer.tables['pooled_oof']=table(pd.DataFrame([{'roc_auc':.99}]),'not a split mean')
+    attach_primary_validation(result,{'DMPNN'})
+    rows=result.answer.tables['computed_primary_comparison'].rows
+    assert len(rows)==2 and all(r['computed_mean']!=.99 for r in rows)
+    fpr=next(r for r in rows if r['metric']=='FPR')
+    assert fpr['computed_minus_paper']==pytest.approx(.028)
+    assert fpr['difference_percentage_points']==pytest.approx(2.8)
+    assert fpr['exact_author_protocol_recovered'] is False

@@ -177,7 +177,8 @@ def validate_dmpnn(
     it defaults to all30source splits, or the explicitly requested indices. Original final3403labels
     and author fold/checkpoint details are absent: the available3171labels are used and all deviations
     declared. PR trapezoidal area and average precision are separate; class scores are not measured
-    pesticide efficacy. Long CPU training is cached; incomplete runs resume only completed verified folds.
+    pesticide efficacy. The reported3403 standardized reference molecules are not proof of the
+    authors' exact DMPNN training membership. Long CPU training is cached; incomplete runs resume only completed verified folds.
     """
     from .structure_validation import validate_structure
 
