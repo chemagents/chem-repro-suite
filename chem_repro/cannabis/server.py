@@ -53,21 +53,27 @@ def validate_rte(
     ] = None,
     iterations: Annotated[int, Field(ge=10, le=1000)] = 500,
     include_models: bool = False,
+    protocol: Literal["paper_kfold10", "source_random"] = "paper_kfold10",
 ) -> AnalysisResult:
-    """Do RTE features discriminate pesticide and AChE-inactive reference compounds? Actually fit
-    CatBoost and linear SVM for all six proteins and ALL6, with Appendix A residue selection refitted
-    on each requested source outer split; default is all 30 source splits (420 fits).
-    A configured execution cache is verified against archived algorithm/software/source data and
-    metrics are recomputed from held-out scores; cached fits are explicitly distinguished from new training.
-    Return ROC-AUC, both PR area definitions, FPR, recall,
-    confusion counts and downloaded held-out predictions. Optionally export fitted models. Source
-    folds and explicit unspecified hyperparameter choices are not asserted to match final-paper runs.
+    """Reproduce Figure3 RTE discrimination using CatBoost and linear SVM for all six proteins
+    and ALL6. paper_kfold10 (default) follows the caption's ten-fold validation: ten disjoint test
+    folds, 140 fits, train-only AppendixA selection and separate fold mean/SD and pooled OOF.
+    Source authors' exact memberships and hyperparameters are unavailable; explicit seed42
+    stratified folds are saved. source_random preserves all30 deposited repeated80/20holdouts
+    (420 fits), a separate code-replay protocol that must not be relabeled ten-fold validation.
+    split_indices selects0..9 in paper mode or0..29 in source mode; None runs all folds.
+    Return complete predictions, residue-selection audits and scientific figures. Verified
+    cached training is labeled separately from a new fit. No parameter is tuned to a paper number.
     """
-    from .cached_validation import validate_rte_cached as evaluate
-
-    return attach_primary_validation(evaluate(
-        split_indices, iterations=iterations, include_models=include_models
-    ), {"RTE_ALL6"})
+    if protocol == "paper_kfold10":
+        from .paper_cv import validate_paper_cv
+        evaluated = validate_paper_cv(split_indices, iterations=iterations, include_models=include_models)
+    elif protocol == "source_random":
+        from .cached_validation import validate_rte_cached
+        evaluated = validate_rte_cached(split_indices, iterations=iterations, include_models=include_models)
+    else:
+        raise ValueError("Unknown RTE validation protocol")
+    return attach_primary_validation(evaluated, {"RTE_ALL6"})
 
 
 for fn in [dataset_audit, docking_comparisons, select_residues, validate_rte]:
