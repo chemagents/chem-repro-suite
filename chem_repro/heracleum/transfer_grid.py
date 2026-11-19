@@ -40,7 +40,7 @@ def compare_transfer(endpoint="both", model="both", identity_policy="strict", bo
     tables = {key: table(pd.DataFrame(rows), {
         "validation_metrics":"All model × endpoint × split combinations; pooled OOF R²/RMSE/MAE and bootstrap intervals",
         "fold_audit":"Every fold with its model/endpoint; reported overlap refers to the declared generic scaffold groups",
-        "oof_predictions":"All held-out molecule predictions; model/endpoint/scheme/fold identities retained",
+        "oof_predictions":"All held-out molecule predictions; model/endpoint/scheme/fold and exact generic-scaffold groups retained for independent overlap checks",
     }[key]) for key, rows in merged.items()}
     tables["transfer_penalties"] = table(pd.DataFrame(penalties), "Random minus scaffold pooled OOF R²")
     # Preserve the child protocols' distinct qualifications when combining their results.

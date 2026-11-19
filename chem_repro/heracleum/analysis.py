@@ -500,14 +500,14 @@ def transfer(
     if include_oof:
         tables["oof_predictions"] = table(
             pd.DataFrame([{"scheme": s, **r} for s, v in fitted.items() for r in v["oof"]]),
-            "Full per-molecule out-of-fold predictions",
+            "Full per-molecule OOF predictions and exact generic scaffold groups; train is the complement of each held-out fold",
         )
     output = result(
         f"{model} {endpoint}: random R²={fitted['random']['r2']:.3f}, scaffold R²="
         f"{fitted['scaffold']['r2']:.3f}. The target is ADMETlab output, not experimental toxicity.",
         [metric("n_records", n), metric("delta_r2", fitted["random"]["r2"] - fitted["scaffold"]["r2"])],
         tables,
-        protocol="heracleum.surrogate_cv.v2",
+        protocol="heracleum.surrogate_cv.v3",
         model=model,
         endpoint=endpoint,
         target_column=ENDPOINTS[endpoint],

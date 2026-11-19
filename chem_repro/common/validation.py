@@ -69,8 +69,9 @@ def regression_oof(x, y, groups, ids, *, model, bootstrap=1000, seed=42, fold_as
             if np.ptp(y[sample]) > 0:
                 b.append(r2_score(y[sample], predictions[sample]))
         registry = [
-            {"observation_id": str(i), "fold": int(f), "observed": float(v), "predicted": float(p)}
-            for i, f, v, p in zip(ids, fold_ids, y, predictions)
+            {"observation_id": str(i), "fold": int(f), "generic_scaffold_group": str(g),
+             "observed": float(v), "predicted": float(p)}
+            for i, f, g, v, p in zip(ids, fold_ids, groups, y, predictions)
         ]
         digest = hashlib.sha256(json.dumps(registry, sort_keys=True, allow_nan=False).encode()).hexdigest()
         interval = np.quantile(b, [0.025, 0.975])
