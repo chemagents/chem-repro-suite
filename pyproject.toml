@@ -1,6 +1,6 @@
 [project]
 name = "chem-repro-suite"
-version = "0.4.5"
+version = "0.4.6"
 description = "Shared chemistry tool pool and three paper adapters for CoScientist_dev"
 requires-python = ">=3.12,<3.13"
 dependencies = [

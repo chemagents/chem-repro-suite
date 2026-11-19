@@ -193,6 +193,7 @@ def docking_comparisons():
                 "n_DS2": len(a),
                 "n_DS3": len(b),
                 "median_difference_DS2_minus_DS3": float(np.median(a) - np.median(b)),
+                "mean_difference_DS2_minus_DS3": float(np.mean(a) - np.mean(b)),
                 "u_statistic": float(u.statistic),
                 "p_two_sided": float(u.pvalue),
             }
@@ -204,15 +205,23 @@ def docking_comparisons():
         "Six DS2-versus-DS3 docking comparisons were recomputed with two-sided Mann–Whitney U tests "
         "and BH correction across six targets. Lower energies are docking features, not measured affinity. "
         "This comparison covers the two labeled cohorts only. The unavailable final DS1 map does not "
-        "affect the completed DS2-versus-DS3 comparisons. No new docking is required for this score reanalysis.",
+        "affect the completed DS2-versus-DS3 comparisons. No new docking is required for this score reanalysis. "
+        "Both mean and median differences are returned: the published numerical range and OR28 value "
+        "agree with the mean differences after rounding, although section4.4 defines delta as a median difference.",
         [metric("n_target_comparisons", len(tests), "DS2 versus DS3")],
         {
-            "target_tests": table(pd.DataFrame(tests), "Effect size is median(DS2) - median(DS3), kcal/mol"),
+            "target_tests": table(pd.DataFrame(tests), "Distinct mean and median DS2-minus-DS3 differences, kcal/mol; Mann–Whitney tests distributions, not either summary alone"),
             "target_distributions": table(
                 pd.DataFrame(statistics), "Full labeled source cohorts; docking units kcal/mol"
             ),
         },
-        "cannabis.mann_whitney_six_targets.v1",
+        "cannabis.mann_whitney_six_targets.v2",
+        notes=[EvidenceNote(code="PAPER_MEAN_MEDIAN_DISCREPANCY",
+            message="Section4.4 explicitly defines delta=median(DS2)-median(DS3). On the deposited labeled "
+                    "scores this gives OR28 +1.40 and a five-target range -0.70 to -1.20 kcal/mol. "
+                    "The mean differences instead round to the published +1.20 and -0.70 to -1.01. "
+                    "This numerical correspondence suggests a source definition/reporting mismatch; it does "
+                    "not establish the authors' implementation. Neither statistic is relabeled as the other.")],
         status="success",
         analysis_scope="six labeled DS2-versus-DS3 source-score comparisons; not a new docking run or full-paper reproduction",
         unavailable_ds1_map_affects_this_comparison=False,

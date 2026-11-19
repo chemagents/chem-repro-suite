@@ -130,3 +130,13 @@ def test_all_target_diagnostic_preserves_each_target_and_same_source_split(monke
     assert [v[0] for v in received]==list(TARGETS)
     assert all(v[1:]==(2,5,.2,42) for v in received)
     assert len(output.answer.tables["variant_inventory"].rows)==6
+def test_docking_mean_and_median_are_not_silently_interchanged():
+    from chem_repro.cannabis.analysis import docking_comparisons
+    result=docking_comparisons()
+    rows={r['target']:r for r in result.answer.tables['target_tests'].rows}
+    assert round(rows['OR28']['mean_difference_DS2_minus_DS3'],2)==1.20
+    assert round(rows['OR28']['median_difference_DS2_minus_DS3'],2)==1.40
+    means=[r['mean_difference_DS2_minus_DS3'] for t,r in rows.items() if t!='OR28']
+    assert round(min(means),2)==-1.01 and round(max(means),2)==-.70
+    assert any(n.code=='PAPER_MEAN_MEDIAN_DISCREPANCY' for n in result.answer.limitations)
+

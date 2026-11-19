@@ -211,6 +211,8 @@ def docking_profile():
             metric("pc1_mean_docking_spearman", rho),
             metric("median_n_strong", float(np.median(strong))),
             metric("mean_n_strong", float(strong.mean())),
+            metric("min_n_strong", int(strong.min())),
+            metric("max_n_strong", int(strong.max())),
         ],
         {
             "pca_variance": table(components, "Column-z-scaled docking PCA"),
@@ -412,7 +414,8 @@ def prioritize(identity_policy="strict", strong_threshold=-10.0):
 
 
 def separability(permutations=10000):
-    df, *_ = docking_components()
+    from ..common.statistics import MeanPairwiseKS
+    df, targets, *_ = docking_components()
     df = df.loc[df.scaffold_class.isin(CLASSES)]
     axes = {name: df[col].to_numpy(float) for name, col in ENDPOINTS.items()}
     axes.update({name: df[name].to_numpy(float) for name in ["PC1", "PC2", "PC3"]})
@@ -431,6 +434,9 @@ def separability(permutations=10000):
                 "mean_toxicity_ks", float(np.mean([r["observed_ks"] for r in rows if r["axis"] in ENDPOINTS]))
             ),
             metric("mean_null_ks", float(np.mean([r["null_mean_ks"] for r in rows]))),
+            metric("mean_docking_score_observed_ks", MeanPairwiseKS(
+                df[targets].clip(upper=0).mean(axis=1).to_numpy(float), CLASSES
+            )(df.scaffold_class.to_numpy())),
         ],
         {
             "axis_tests": table(pd.DataFrame(rows), "All 13 axes, shared cohort and BH family"),
@@ -444,6 +450,7 @@ def separability(permutations=10000):
         seed=42,
         p_value="(exceedances+1)/(permutations+1)",
         identity_policy="published_snapshot",
+        mean_docking_comparator="descriptive KS only; excluded from the original 13-axis BH family",
     )
 
 

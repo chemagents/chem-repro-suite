@@ -25,7 +25,8 @@ def dataset_audit() -> AnalysisResult:
 
 def docking_comparisons() -> AnalysisResult:
     """Do registered pesticides and AChE-inactive references have different docking profiles?
-    Recompute six two-sided Mann–Whitney tests, BH FDR, median differences and distributions.
+    Recompute six two-sided Mann–Whitney tests, BH FDR, mean AND median differences and distributions.
+    Preserve the article's mismatch: numerical delta values match means, while its methods define medians.
     Does not rerun Vina; tests source scores. Final DS1 subset remains unmapped.
     """
     from .figures import docking
