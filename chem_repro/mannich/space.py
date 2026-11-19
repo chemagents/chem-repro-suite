@@ -1,11 +1,13 @@
 """Figures 4 and 6 numerical projections; catalyst identities retain axial annotations."""
 
 from functools import lru_cache
+from hashlib import sha256
+import json
 
 import pandas as pd
 
 from ..common.contracts import EvidenceNote
-from ..common.datasets import table
+from ..common.datasets import DATA_ROOT, table
 from ..common.projections import fingerprint_tsne
 from .analysis import _classified, _metric, _result, load
 
@@ -63,6 +65,18 @@ def _chemical_space(population, protocol):
         frame.smiles.tolist(), chirality=chirality, distance_mode=mode, seed=seed
     )
     frame.insert(0, "projection_id", [f"{population}:{i:04d}" for i in range(1, len(frame) + 1)])
+    # This digest covers every identity row and label, not t-SNE coordinates.
+    identity_rows = table(frame, "Full pre-projection identity mapping").rows
+    identity_digest = sha256(json.dumps(identity_rows, sort_keys=True, ensure_ascii=False,
+                                       separators=(",", ":"), allow_nan=False).encode()).hexdigest()
+    identity_audit = pd.DataFrame([{
+        "population": population, "source_identity_rows": len(frame),
+        "unique_projection_ids": frame.projection_id.nunique(),
+        "identity_mapping_sha256": identity_digest,
+        "identity_columns": ",".join(frame.columns),
+        "audit_scope": "All input identity rows retained; digest excludes coordinates. This is a computation audit, not independent source curation.",
+    }])
+    evidence = json.loads((DATA_ROOT / "mannich/projection_method_evidence.json").read_text())
     frame["tsne_x"], frame["tsne_y"] = coords[:, 0], coords[:, 1]
     return _result(
         f"Projected {len(frame)} {population} using the declared Morgan/t-SNE protocol; "
@@ -73,8 +87,10 @@ def _chemical_space(population, protocol):
             _metric("distinct_fingerprints", n_fps, population=population),
             _metric("tsne_kl_divergence", kl, population=population),
         ],
-        {"coordinates": table(frame, "Every source projection record, labels and numerical coordinates")},
-        protocol=f"mannich.{population}_tsne.{protocol}.v1",
+        {"coordinates": table(frame, "Every source projection record, labels and numerical coordinates"),
+         "identity_mapping_audit": table(identity_audit, "Complete identity mapping, excluding coordinates"),
+         "catalyst_method_source_evidence": table(pd.DataFrame([evidence]), "Article/notebook comparison for catalyst Figure 4A", evidence_kind="source_record")},
+        protocol=f"mannich.{population}_tsne.{protocol}.v2",
         morgan_radius=2,
         morgan_bits=2048,
         include_chirality=chirality,
@@ -88,7 +104,7 @@ def _chemical_space(population, protocol):
             EvidenceNote(
                 code="PAPER_NOTEBOOK_CHIRALITY",
                 message="Paper prose calls catalyst fingerprints "
-                "chirality-sensitive; deposited figure_04 uses includeChirality=False. Notebook mode "
+                "chirality-sensitive; deposited figure_04 omits the chirality argument (default False) and explicitly comments NO chirality encoding. Notebook mode "
                 "reproduces that code. chirality_sensitivity is a declared alternative for point "
                 "stereochemistry; neither encodes the separate axial R/S column.",
             ),

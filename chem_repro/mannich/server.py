@@ -3,8 +3,11 @@
 from typing import Literal
 
 from ..common.contracts import AnalysisResult
+from ..common.completed_cache import CompletedResultCache
 from ..common.pool import register, serve, study_server
 from . import analysis
+
+_generation_cache = CompletedResultCache(maxsize=4)
 
 mcp = study_server("Mannich2026", "10.1038/s41597-026-08287-9", artifact_port=7343, operational_numeric_defaults=True)
 
@@ -59,6 +62,8 @@ def scaffold_diversity(include_figures: bool = True) -> AnalysisResult:
     """How many Murcko scaffolds are represented by Mannich catalysts and substrates?
     Recompute the three supplementary scaffold populations; distinguish acyclic exclusions,
     reaction frequency and unique chemical identities. Axial identity is preserved before grouping.
+    The 207 versus 204 catalyst discrepancy remains explicit; stored same-data checks across the
+    paper and repository RDKit versions are returned separately from this call's computations.
     """
     result = analysis.scaffold_diversity()
     if include_figures:
@@ -69,12 +74,23 @@ def scaffold_diversity(include_figures: bool = True) -> AnalysisResult:
 
 
 def selectivity_heatmaps(
-    protocol: Literal["paper", "notebook"] = "paper", include_figures: bool = True
+    protocol: Literal["paper", "notebook", "both"] = "paper", include_figures: bool = True
 ) -> AnalysisResult:
     """Which Mannich catalyst–substrate classes have high median ee and adequate observation counts?
     Recompute both Figure 7 tables. Paper masks n<5; notebook uses n<4. These are descriptive
     literature medians, not causal catalyst recommendations or prospective validation.
+    Use protocol="both" to compare paper and notebook masking in ONE call with ONE complete
+    structured output. Both variants and their full tables/figures are labeled separately.
     """
+    if protocol == "both":
+        from ..common.comparison import compare_variants
+        variants = {mode: selectivity_heatmaps(mode, include_figures) for mode in ("paper", "notebook")}
+        result = compare_variants(
+            variants, protocol_id="mannich.heatmap.comparison.v1",
+            finding="Both Figure 7 masking protocols were recomputed on the same retained reaction records.",
+        )
+        from .analysis import heatmap_protocol_comparison
+        return heatmap_protocol_comparison(result, variants)
     result = analysis.selectivity_heatmaps(protocol)
     if include_figures:
         from .figures import selectivity_heatmaps as plot_heatmaps
@@ -84,15 +100,32 @@ def selectivity_heatmaps(
 
 
 def chemical_space(
-    population: Literal["catalysts", "reagents"] = "catalysts",
-    protocol: Literal["notebook", "chirality_sensitivity"] = "notebook",
+    population: Literal["catalysts", "reagents", "both"] = "catalysts",
+    protocol: Literal["notebook", "chirality_sensitivity", "compare"] = "notebook",
     include_figures: bool = True,
 ) -> AnalysisResult:
     """How are the 468 Mannich catalysts and substrate pools distributed in chemical space?
     Recompute Figures 4/6 Morgan t-SNE coordinates, source identities and class labels.
     Notebook catalyst fingerprints omit chirality despite the paper wording; a separately labeled
     point-chirality sensitivity mode is available. Axial R/S is not encoded in Morgan bits.
+    For all catalyst/reagent maps plus the stereo check, use population="both", protocol="compare":
+    ONE call returns ONE complete structured result with three separately labeled variants.
+    This tool covers molecular maps; reaction PCA is a separate question, not required for these maps.
     """
+    if population == "both" or protocol == "compare":
+        from ..common.comparison import compare_variants
+        selections = []
+        if population in {"catalysts", "both"}:
+            modes = ("notebook", "chirality_sensitivity") if protocol == "compare" else (protocol,)
+            selections.extend(("catalysts", mode) for mode in modes)
+        if population in {"reagents", "both"}:
+            selections.append(("reagents", "notebook" if protocol == "compare" else protocol))
+        return compare_variants(
+            {f"{pop}_{mode}": chemical_space(pop, mode, include_figures) for pop, mode in selections},
+            protocol_id="mannich.chemical_space.comparison.v1",
+            finding="The requested molecular-space variants were recomputed and remain separately labeled. "
+                    "Every coordinate table retains source identities. Point-chiral Morgan features do not encode axial R/S.",
+        )
     from .space import chemical_space as compute_space
 
     result = compute_space(population, protocol)
@@ -134,16 +167,23 @@ def reaction_space(include_agents: bool = True, include_figures: bool = True) ->
 def regenerate_catalyst_structures(
     protocol: Literal["source_notebook", "geometry_verified"] = "source_notebook",
     filenames: list[str] | None = None,
+    force_recompute: bool = False,
 ) -> AnalysisResult:
     """Regenerate Mannich catalyst SDFs from the curated SMILES and axial labels with the pinned
     source ETKDGv3/MMFF94 algorithm (five conformers,20 bridged seeds,seed42). Return per-record
     failures, point/axial checks, aligned RMSD to deposited structures and a downloadable SDF archive.
     geometry_verified is a separate corrected protocol using nominated-axis CIP constraints; it never
     masquerades as source replay. Default covers all468; filenames optionally selects exact source names.
+    An identical completed call in this server process is reused with explicit cache provenance and
+    artifact hash checks. Read its original full result instead of repeating a long call to retrieve it.
+    force_recompute=true explicitly requests a fresh generation with the same scientific parameters.
     """
     from .conformers import regenerate_catalysts
 
-    return regenerate_catalysts(protocol, filenames)
+    return _generation_cache.call(
+        "mannich.regenerate_catalyst_structures", {"protocol": protocol, "filenames": filenames},
+        lambda: regenerate_catalysts(protocol, filenames), force_recompute=force_recompute,
+    )
 
 
 for fn in [

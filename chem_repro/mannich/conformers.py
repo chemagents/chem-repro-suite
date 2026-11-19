@@ -245,6 +245,10 @@ def regenerate_catalysts(protocol="source_notebook", filenames=None, seed=42, pr
                 "axial_conditional_disagreements",
                 sum(r["axial_annotation_comparison"] == "conditional_disagrees" for r in rows),
             ),
+            _metric("axial_without_supported_absolute_assignment",
+                    sum(r["axial_annotation_comparison"] not in {"matches", "disagrees"} for r in axial_rows)),
+            _metric("axial_unassigned_or_ambiguous",
+                    sum(r["axial_annotation_comparison"] not in {"matches", "disagrees", "conditional_matches", "conditional_disagrees"} for r in axial_rows)),
             _metric("source_axis_mismatches", sum(r["source_axis_matches_nominated"] is False for r in rows)),
         ],
         {
@@ -252,7 +256,7 @@ def regenerate_catalysts(protocol="source_notebook", filenames=None, seed=42, pr
                 pd.DataFrame(rows), "Every requested catalyst, including failures and unresolved axes"
             )
         },
-        protocol="mannich.regeneration." + protocol + ".v1",
+        protocol="mannich.regeneration." + protocol + ".v2",
         status="partial",
         seed=seed,
         conformers=5,
@@ -278,6 +282,12 @@ def regenerate_catalysts(protocol="source_notebook", filenames=None, seed=42, pr
             ),
         ],
     )
+    for metric in result.answer.metrics:
+        metric.population = (
+            "requested catalyst identities with explicit axial R/S annotations"
+            if metric.name.startswith("axial_") or metric.name == "source_axis_mismatches"
+            else "requested unique catalyst identities"
+        )
     result.artifacts.append(
         save_artifact(
             body.getvalue(),

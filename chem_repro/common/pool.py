@@ -105,7 +105,16 @@ def register(
     tool.description = (
         f"Study: {mcp.name}; paper DOI: {mcp._chem_repro_paper_doi}; dataset: {dataset_scope}.\n"
         + (tool.description or "")
+        + f"\nReturns ONE complete AnalysisResult JSON object. Suggested direct output name: {name}.json; "
+          f"bind that output to this exact tool name ({name}). Downloadable CSVs and figures are listed "
+          "inside artifacts; their actual filenames are returned by execution, not guessed in advance. "
+          "For a comparison mode, all labeled variants belong to this one JSON result."
     )
+    if tool.output_schema is not None:
+        tool.output_schema["description"] = (
+            f"Complete scientific result of {name}. Suggested direct output name: {name}.json. "
+            "Preserve the returned answer, metadata and artifact inventory as one object."
+        )
     tool.parameters["x-data-contract"] = {
         "input_mode": input_mode, "dataset_scope": dataset_scope,
         # Ordinary Python signature defaults are operational: explicitly passing the default

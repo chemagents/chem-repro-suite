@@ -20,6 +20,14 @@ IdentityPolicy = Annotated[
 ]
 
 
+IdentityComparisonPolicy = Annotated[
+    Literal["strict", "published_snapshot", "compare"],
+    Field(description=IdentityPolicy.__metadata__[0].description + " " +
+          "Choose compare when the question asks for both: one call returns separately labeled strict "
+          "and published-snapshot results, without resolving identities."),
+]
+
+
 class StrictModel(BaseModel):
     model_config = ConfigDict(extra="forbid", allow_inf_nan=False)
 

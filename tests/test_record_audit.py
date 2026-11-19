@@ -62,3 +62,14 @@ def test_solvent_label_count_is_not_a_molecular_identity_claim():
     assert metrics["nonmixture_solvent_labels_excluding_neat"] == 51
     assert metrics["normalized_solvent_categories"] == 50
     assert any(n.code == "SOLVENT_COUNT_DEFINITIONS" for n in result.answer.limitations)
+
+
+def test_repeated_group_and_record_counts_have_separate_units():
+    result=analysis.overview()
+    metrics={m.name:m for m in result.answer.metrics}
+    groups=result.answer.tables["repeated_input_groups"].rows
+    assert len(groups)==metrics["repeated_input_groups_with_different_outcomes"].value==46
+    assert sum(row["n_records"] for row in groups)==metrics["records_in_repeated_input_groups"].value==105
+    assert metrics["repeated_input_groups_with_different_outcomes"].unit=="groups"
+    assert metrics["records_in_repeated_input_groups"].unit=="records"
+    assert result.metadata.paper_doi in result.answer.finding

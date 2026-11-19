@@ -1,0 +1,14 @@
+{
+  "paper_doi": "10.1038/s41597-026-08287-9",
+  "paper_locator": "Data Records, discussion of Figure 4A; fifth PDF page of the retained Article in Press version",
+  "paper_quote": "chirality-sensitive Morgan fingerprints",
+  "paper_pdf_sha256": "da834986739802339985cd41562f54d0ca2fc1b5396773b7c4575f13638efcee",
+  "notebook_url": "https://github.com/chemagents/Mannich-dataset/blob/9cbd97285d945c3131d460f7f1ad33b9e0be76ef/scripts/figures/figure_04.ipynb",
+  "notebook_git_blob": "9afba02b967fa3b91bb6c3c9dac9dfb42e9cae73",
+  "notebook_locator": "zero-based code cell 2, lines 8,12,16",
+  "notebook_comment": "Plain Morgan fingerprint (radius=2, 2048 bits), NO chirality encoding.",
+  "generator_code": "rdFingerprintGenerator.GetMorganGenerator(radius=2, fpSize=2048)",
+  "fallback_code": "AllChem.GetMorganFingerprintAsBitVect(m, 2, 2048)",
+  "interpretation": "Both calls omit the chirality argument, whose default is False. The notebook comment explicitly says no chirality encoding. This conflicts with the paper prose for catalyst Figure 4A.",
+  "scope": "Source-method comparison only; no verification of published coordinates. The separate axial R/S annotation is retained in identity, not passed into these fingerprints."
+}

@@ -42,12 +42,36 @@ def compare_stereochemistry(expected, observed):
         and expected.GetNumAtoms() == observed.GetNumAtoms()
         and observed.HasSubstructMatch(expected, useChirality=True)
     )
+    geometric = {Chem.BondStereo.STEREOE, Chem.BondStereo.STEREOZ,
+                 Chem.BondStereo.STEREOCIS, Chem.BondStereo.STEREOTRANS}
+    source_atoms = len(Chem.FindMolChiralCenters(expected, includeUnassigned=False))
+    observed_atoms = len(Chem.FindMolChiralCenters(observed, includeUnassigned=False))
+    source_bonds = sum(b.GetStereo() in geometric for b in expected.GetBonds())
+    observed_bonds = sum(b.GetStereo() in geometric for b in observed.GetBonds())
+    exact = Chem.MolToSmiles(expected) == Chem.MolToSmiles(observed)
+    if not same_graph:
+        difference = "connectivity_disagreement"
+    elif not specified_match:
+        difference = "specified_stereo_disagreement"
+    elif exact:
+        difference = "exact_match"
+    elif observed_atoms > source_atoms and observed_bonds > source_bonds:
+        difference = "additional_atom_and_bond_stereo"
+    elif observed_atoms > source_atoms:
+        difference = "additional_atom_stereo"
+    elif observed_bonds > source_bonds:
+        difference = "additional_bond_stereo"
+    else:
+        difference = "other_isomeric_representation_difference"
     return {
         "connectivity_match": same_graph,
         "specified_source_stereo_match": bool(specified_match),
-        "exact_isomeric_smiles_match": Chem.MolToSmiles(expected) == Chem.MolToSmiles(observed),
-        "source_assigned_atom_centers": len(Chem.FindMolChiralCenters(expected, includeUnassigned=False)),
-        "sdf_assigned_atom_centers": len(Chem.FindMolChiralCenters(observed, includeUnassigned=False)),
+        "exact_isomeric_smiles_match": exact,
+        "source_assigned_atom_centers": source_atoms,
+        "sdf_assigned_atom_centers": observed_atoms,
+        "source_assigned_geometric_bonds": source_bonds,
+        "sdf_assigned_geometric_bonds": observed_bonds,
+        "stereo_difference_class": difference,
     }
 
 
@@ -89,6 +113,9 @@ def audit_catalyst_structures():
                 "exact_isomeric_smiles_match": None,
                 "source_assigned_atom_centers": None,
                 "sdf_assigned_atom_centers": None,
+                "source_assigned_geometric_bonds": None,
+                "sdf_assigned_geometric_bonds": None,
+                "stereo_difference_class": "unparsed",
                 "geometry_specified_stereo_match": None,
                 "axial_bond_cip_labels": [],
                 "geometry_axis_analysis": None,
@@ -169,16 +196,28 @@ def audit_catalyst_structures():
             for r in records
         ),
     }
+    for category in ("additional_atom_stereo", "additional_bond_stereo",
+                     "additional_atom_and_bond_stereo", "other_isomeric_representation_difference"):
+        counts[category + "_records"] = sum(r["stereo_difference_class"] == category for r in records)
+    difference_summary = pd.DataFrame(records).groupby("stereo_difference_class").size().rename("records").reset_index()
     return _result(
         "Deposited catalyst structures were checked against explicit source identities and 3-D geometry. "
-        "An R/S property or dihedral-sign convention alone is not an independent absolute axial-CIP assignment.",
-        [_metric(k, v, population="unique catalyst SDF records") for k, v in counts.items()],
+        "An R/S property or dihedral-sign convention alone is not an independent absolute axial-CIP assignment. "
+        f"Of {counts['exact_isomeric_smiles_disagreements']} exact isomeric differences, "
+        f"{counts['additional_atom_stereo_records']} records add atom stereo only, "
+        f"{counts['additional_bond_stereo_records']} add geometric bond stereo only, "
+        f"{counts['additional_atom_and_bond_stereo_records']} add both, and "
+        f"{counts['other_isomeric_representation_difference_records']} retain other representation differences. "
+        "These additional-label categories require matching connectivity and all source-specified stereo; "
+        "unassigned source stereo is not contradicted merely by an additional SDF assignment.",
+        [_metric(k, v, population="archive entries" if k == "ignored_archive_metadata" else "unique catalyst SDF records") for k, v in counts.items()],
         {
+            "stereo_difference_summary": table(difference_summary, "Mutually exclusive record classes; extra labels are not source contradictions"),
             "catalyst_structure_audit": table(
                 pd.DataFrame(records), "One row per actual SDF, excluding macOS resource forks"
             )
         },
-        protocol="mannich.stereochemistry_audit.v3",
+        protocol="mannich.stereochemistry_audit.v4",
         hydrogen_policy="explicit H on both sides for stereo comparison; remove stereo before H for achiral identity",
         axial_policy="geometry-derived CW/CCW tag then RDKit CIP; unique ring-constrained axis, else unique distinguishable axis",
         axial_descriptor_mapping={"M": "R", "P": "S"},

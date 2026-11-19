@@ -5,7 +5,7 @@ from typing import Annotated, Literal
 from pydantic import Field
 
 from ..common.artifacts import export_tables
-from ..common.contracts import AnalysisResult, IdentityPolicy
+from ..common.contracts import AnalysisResult, IdentityComparisonPolicy, IdentityPolicy
 from ..common.pool import register, serve, study_server
 from . import analysis, docking
 
@@ -117,7 +117,7 @@ def scaffold_transfer(
 
 
 def prioritize_candidates(
-    identity_policy: IdentityPolicy = "strict",
+    identity_policy: IdentityComparisonPolicy = "strict",
     strong_threshold: Annotated[float, Field(ge=-30, lt=0, allow_inf_nan=False)] = -10,
     include_figures: bool = True,
 ) -> AnalysisResult:
@@ -126,7 +126,67 @@ def prioritize_candidates(
     the deposited tier counts despite conflicts. All 102 records remain the median reference in both modes.
     Compare Tier 1 with published Table S4 separately by original DS2 and master prediction structures;
     report named-priority claim disagreements rather than repeating them as computed findings.
+    Use identity_policy="compare" for ONE call containing BOTH snapshot and strict lists with their
+    separate criteria, identity diagnostics and downloadable files. No second output slot is needed.
     """
+    if identity_policy == "compare":
+        from ..common.comparison import compare_variants, compare_record_tables
+        from ..common.contracts import Table
+        variants = {mode: analysis.prioritize(mode, strong_threshold)
+                    for mode in ("published_snapshot", "strict")}
+        comparison = compare_record_tables(
+            variants["published_snapshot"].answer.tables["candidates"],
+            variants["strict"].answer.tables["candidates"], id_column="synID",
+            fields=["tier", "identity_verified", "n_favorable", "n_strong", "pains", "brenk"],
+            reference_label="published_snapshot", observed_label="strict")
+        changes = [row for row in comparison.rows if "tier" in row["changed_fields"]]
+        priority_changes = [row for row in changes if row["published_snapshot__tier"] == 1]
+        summaries = []
+        for mode, variant in variants.items():
+            rows = variant.answer.tables["candidates"].rows
+            summaries.append({
+                "identity_policy": mode,
+                **{f"tier_{tier}": sum(row["tier"] == tier for row in rows) for tier in (1, 2, 3)},
+                "unranked": sum(row["tier"] is None for row in rows),
+                "ranked": sum(row["tier"] is not None for row in rows),
+                "total_records": len(rows),
+            })
+        if include_figures:
+            from .figures import candidate_structures
+            variants = {mode: candidate_structures(value) for mode, value in variants.items()}
+        result = compare_variants(
+            variants,
+            protocol_id="heracleum.prioritization.identity_comparison.v2",
+            finding="Published-snapshot and strict prioritization are computed separately on the same 102-record reference. "
+                    "Conflicting identities are retained in the snapshot and left unranked in strict mode. "
+                    "The tiers prioritize experiments; they do not establish safety or biological validation.",
+        )
+        result.answer.tables["identity_policy_record_comparison"] = comparison
+        result.answer.tables["identity_policy_summary"] = Table(
+            description="Counts recomputed from each complete candidate table; unranked records remain in the total",
+            columns=list(summaries[0]), rows=summaries)
+        result.answer.tables["changed_records"] = Table(
+            description="Every record whose tier changes between the two identity policies",
+            columns=comparison.columns, rows=changes)
+        result.answer.tables["changed_snapshot_tier1_records"] = Table(
+            description="Published-snapshot Tier 1 records affected by identity verification; IDs are not verified names",
+            columns=comparison.columns, rows=priority_changes)
+        population = "same DS2 records matched by unique synID; no identity repair"
+        result.answer.metrics.extend([
+            analysis.metric("records_compared_by_synid", len(comparison.rows), population=population),
+            analysis.metric("records_with_tier_change", len(changes), population=population),
+            analysis.metric("snapshot_tier1_records_with_tier_change", len(priority_changes), population=population),
+            analysis.metric("records_without_tier_change", len(comparison.rows)-len(changes), population=population),
+        ])
+        result.answer.finding += (
+            " " + "; ".join(
+                f"{row['identity_policy']}: Tier 1/2/3 = {row['tier_1']}/{row['tier_2']}/{row['tier_3']}, "
+                f"{row['ranked']} ranked, {row['unranked']} unranked, {row['total_records']} total"
+                for row in summaries) + "."
+            f" Full synID-matched comparison covers {len(comparison.rows)} records: "
+            f"{len(changes)} change tier, including {len(priority_changes)} snapshot Tier 1 records. "
+            "The complete comparison and affected Tier 1 records are computed tables, not an inference from previews.")
+        return export_tables(result, port=7342)
     result = analysis.prioritize(identity_policy, strong_threshold)
     if include_figures:
         from .figures import candidate_structures

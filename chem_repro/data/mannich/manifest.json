@@ -19,6 +19,18 @@
     "generate_catalyst_sdfs.ipynb": {
       "sha256": "b71a5cd0463e301d545e8bff39c4920cfcad0289574b4bc274cd7937d06a1d2c",
       "source_url": "https://github.com/chemagents/Mannich-dataset/blob/9cbd97285d945c3131d460f7f1ad33b9e0be76ef/scripts/generate_catalyst_sdfs.ipynb"
+    },
+    "scaffold_version_audit.json": {
+      "sha256": "603d4b935c77be57c58ef0f48f66de6a448a09abd22b7980e56b1e5c8dcb57fb",
+      "source_url": "https://github.com/chemagents/chem-repro-suite/actions/runs/44386398487",
+      "revision": "f3ee20ae8fa5cd01aac88967df4f8ade7946fcf0",
+      "parent_sha256": "903dd5d69bfe6c3b6a93bbde344f4df3bd7186a9f775eae18c954ffb252fd4a7",
+      "derivation": "Stored diagnostic runs of the stated Murcko method on the frozen4015-row table across three RDKit versions, plus macOS replay. Not an author-provided scaffold membership list."
+    },
+    "projection_method_evidence.json": {
+      "sha256": "31736f6249d69bf705690e02ae7764272c5772563bd03517db570cf4621b4df5",
+      "source_url": "https://doi.org/10.1038/s41597-026-08287-9",
+      "derivation": "Short article excerpt and exact deposited Figure 4 notebook code locators; source-method audit, not original projection coordinates."
     }
   }
 }

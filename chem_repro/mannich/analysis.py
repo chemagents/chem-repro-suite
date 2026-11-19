@@ -89,7 +89,7 @@ def overview(include_audit=True):
         "when axial configuration is part of identity.",
         [_metric(k, int(v)) for k, v in counts.items()],
         {"publications": table(pubs, "Reaction counts by normalized DOI identity")},
-        protocol="mannich.dataset_identity_and_quality.v2",
+        protocol="mannich.dataset_identity_and_quality.v3",
         notes=[
             EvidenceNote(
                 code="MANUAL_SOURCE_REVIEW",
@@ -101,14 +101,25 @@ def overview(include_audit=True):
         catalyst_identity="canonical isomeric SMILES + explicit R/S/none axial flag",
         doi_normalization="strip DOI resolver prefix, URL-decode, case-fold",
     )
+    result.answer.finding += f" Declared dataset-article DOI: {result.metadata.paper_doi}."
     if include_audit:
         from ..common.artifacts import save_table
         from .quality import audit_records
 
         tables, full = audit_records(df)
         result.answer.tables.update(tables)
+        groups = tables["repeated_input_groups"].rows
+        grouped_records = sum(row["n_records"] for row in groups)
+        result.answer.metrics.extend([
+            _metric("repeated_input_groups_with_different_outcomes", len(groups), unit="groups",
+                    population="groups of identical recorded inputs and conditions with different outcomes"),
+            _metric("records_in_repeated_input_groups", grouped_records, unit="records",
+                    population="reaction records belonging to the repeated-input groups"),
+        ])
         result.answer.finding += (
-            " The automated record audit retains all rows and exposes diagnostics for source review."
+            " The automated record audit retains all rows and exposes diagnostics for source review. "
+            f"There are {len(groups)} repeated-input groups containing {grouped_records} records; "
+            "record counts and group counts are distinct quantities."
         )
         result.artifacts.append(
             save_table(
@@ -150,6 +161,13 @@ def target_distribution():
     )
     mismatches = df.loc[np.abs(delta) > 1e-8, ["reaction_id", "ee", "temperature", "ddG_kcal_mol"]].copy()
     mismatches["recomputed_ddg"] = calculated[np.abs(delta) > 1e-8]
+    records = df[["reaction_id", "ee", "temperature", "ddG_kcal_mol"]].copy()
+    records["recomputed_ddg"] = calculated
+    records["absolute_residual_kcal_mol"] = np.abs(delta)
+    nonzero = df.ddG_kcal_mol != 0
+    relative = np.full(len(df), np.nan)
+    relative[nonzero] = np.abs(delta[nonzero] / df.ddG_kcal_mol[nonzero]) * 100
+    records["absolute_relative_error_percent"] = relative
     return _result(
         "The Eyring transformation is recomputed from each record's ee and absolute temperature. "
         "It gives the magnitude of enantiomeric discrimination; no product-configuration sign is inferred.",
@@ -157,16 +175,30 @@ def target_distribution():
             _metric("ddg_max_absolute_residual", float(np.max(np.abs(delta))), unit="kcal/mol"),
             _metric("records_at_99_9_percent_cap", int((df.ee == 99.9).sum())),
             _metric("ddg_mismatches_above_1e_8", len(mismatches)),
+            _metric("recomputed_records", len(records)),
+            _metric("nonzero_ddg_records_for_relative_error", int(nonzero.sum())),
+            _metric("zero_ddg_records", int((~nonzero).sum())),
+            _metric("median_absolute_relative_error_percent", float(np.median(relative[nonzero])), unit="%", population="curated reaction records with nonzero stored absolute ddG"),
         ],
         {
             "target_statistics": table(summary, "Target distribution moments, scipy skew(bias=True)"),
-            "conversion_disagreements": table(mismatches, "Stored versus independently recomputed |ddG|"),
+            "conversion_records": table(records, "Every retained reaction and its independently recomputed |ddG|; relative error is null for a zero reference"),
+            "conversion_disagreements": table(mismatches, "ONLY mismatches above 1e-8 kcal/mol; zero rows means no disagreements, not missing computation"),
         },
-        protocol="mannich.eyring_magnitude.v1",
+        protocol="mannich.eyring_magnitude.v2",
         gas_constant_kcal_mol_K=0.001987,
         kelvin_offset=273.15,
         ee_cap_percent=99.9,
         notes=[
+            EvidenceNote(code="COMPLETE_ROW_COMPARISON", severity="info",
+                message="All retained records were recomputed. conversion_records is the full per-reaction table; "
+                "conversion_disagreements is only its mismatch subset. An empty mismatch table indicates agreement. "
+                "Relative error is undefined for a zero reference and is left null; its median uses nonzero references only."),
+            EvidenceNote(code="EE_VERSUS_DR", severity="info",
+                message="ee compares enantiomer proportions; dr compares diastereomer proportions. "
+                "Diastereomers are not mirror images and can differ at only one of multiple stereogenic centers "
+                "(epimers); they do not have to differ at more than one center. "
+                "Definitions: https://doi.org/10.1351/goldbook.D01679 and https://doi.org/10.1351/goldbook.E02167."),
             EvidenceNote(
                 code="TARGET_SCOPE",
                 message="dr is stored separately and is not used "
@@ -388,6 +420,10 @@ def scaffold_diversity():
         for r in summaries
     ]
     discrepancies = [r for r in comparisons if not r["matches"]]
+    version_audit = json.loads((DATA_ROOT / "mannich/scaffold_version_audit.json").read_text())
+    source_hash = verified_manifest("mannich")["files"]["mannich_dataset.csv"]["sha256"]
+    if version_audit["source_sha256"] != source_hash:
+        raise ValueError("Scaffold version diagnostic refers to a different source table")
     notes = [
         EvidenceNote(
             code="SUPPLEMENT_SCAFFOLD_DISAGREEMENT",
@@ -396,6 +432,14 @@ def scaffold_diversity():
         )
         for r in discrepancies
     ]
+    notes.append(EvidenceNote(
+        code="SCAFFOLD_VERSION_CHECK", severity="info",
+        message="Stored diagnostic runs on the same frozen table gave 207/114/112 with RDKit "
+        "2025.09.2 (paper methods), 2025.09.6 (repository environment), and 2026.03.3. "
+        "Individual scaffold strings also agreed. The tested versions do not explain 207 versus 204. "
+        "These are previous diagnostic results, not fresh execution of three environments in this call. "
+        "The largest-fragment calculation was a counterfactual only; production chemistry was unchanged.",
+    ))
     return _result(
         "Achiral Bemis–Murcko scaffolds were recomputed separately for catalysts, electrophiles "
         "and nucleophiles. Acyclic molecules are reported separately and excluded from scaffold counts. "
@@ -407,12 +451,67 @@ def scaffold_diversity():
             "reference_comparison": table(
                 pd.DataFrame(comparisons), "Computed and paper-reported columns are explicitly distinguished"
             ),
+            "software_version_check": table(
+                pd.DataFrame(version_audit["rows"]),
+                "Stored version diagnostics on this exact dataset; not author results or fresh multi-version execution",
+                evidence_kind="source_record",
+            ),
         },
-        protocol="mannich.scaffolds.v1",
+        protocol="mannich.scaffolds.v2",
+        status="partial" if discrepancies else "success",
         notes=notes,
         remove_stereochemistry=True,
         acyclic_policy="exclude",
+        version_diagnostic_run=version_audit["linux_run_url"],
+        version_diagnostic_source="stored_own_reconstruction",
     )
+
+
+
+def heatmap_protocol_comparison(result, variants):
+    comparisons, changed = [], []
+    for role in ("electrophile", "nucleophile"):
+        columns = ("organocatalyst_class", role + "_computed_class")
+        def indexed(mode):
+            rows = variants[mode].answer.tables[role + "_heatmap"].rows
+            index = {tuple(row[key] for key in columns): row for row in rows}
+            if len(index) != len(rows):
+                raise ValueError("Duplicate observed class pairs in protocol comparison")
+            return index
+        paper, notebook = indexed("paper"), indexed("notebook")
+        if paper.keys() != notebook.keys():
+            raise ValueError("Protocol comparison must preserve the observed class-pair population")
+        differing = []
+        for key, left in paper.items():
+            right = notebook[key]
+            if (left["n_reactions"], left["median_ee"]) != (right["n_reactions"], right["median_ee"]):
+                raise ValueError("Masking protocols changed underlying observations")
+            if left["visible"] != right["visible"]:
+                differing.append({"substrate_role": role, "catalyst_class": key[0], "substrate_class": key[1],
+                                  "n_reactions": left["n_reactions"], "median_ee": left["median_ee"],
+                                  "paper_visible": left["visible"], "notebook_visible": right["visible"]})
+        changed.extend(differing)
+        comparisons.append({"substrate_role": role, "observed_class_pairs": len(paper),
+                            "paper_minimum_n": variants["paper"].metadata.protocol_parameters["minimum_cell_count"],
+                            "notebook_minimum_n": variants["notebook"].metadata.protocol_parameters["minimum_cell_count"],
+                            "paper_visible_pairs": sum(row["visible"] for row in paper.values()),
+                            "notebook_visible_pairs": sum(row["visible"] for row in notebook.values()),
+                            "pairs_with_n4": sum(row["n_reactions"] == 4 for row in paper.values()),
+                            "changed_visibility_pairs": len(differing)})
+    result.answer.tables["masking_comparison"] = table(pd.DataFrame(comparisons),
+        "Actual effect on observed class pairs; unobserved grid cells are not counted as zero observations")
+    result.answer.tables["changed_mask_cells"] = table(pd.DataFrame(changed, columns=[
+        "substrate_role", "catalyst_class", "substrate_class", "n_reactions", "median_ee", "paper_visible", "notebook_visible"]),
+        "Only observed pairs whose visibility differs; an empty table means the masks agree on these data")
+    n = sum(row["observed_class_pairs"] for row in comparisons)
+    result.answer.metrics.extend([
+        _metric("observed_class_pairs_compared", n, population="observed catalyst/substrate class pairs across both roles"),
+        _metric("changed_visibility_pairs", len(changed), population="observed catalyst/substrate class pairs across both roles"),
+    ])
+    result.answer.finding += (f" The definitions differ, but {len(changed)} of {n} observed class pairs change visibility "
+                             "on this actual dataset. Counts and median ee are identical before masking. "
+                             "These observational medians do not establish the best catalyst for an unseen substrate.")
+    return result
 
 
 def selectivity_heatmaps(protocol="paper"):
@@ -421,6 +520,9 @@ def selectivity_heatmaps(protocol="paper"):
     df = _classified().copy()
     minimum = 5 if protocol == "paper" else 4
     tables = {}
+    metrics = []
+    mask_rows = []
+    leaders = []
     for role in ("electrophile", "nucleophile"):
         # The deposited figure notebook uses the stored catalyst labels.
         grouped = (
@@ -433,13 +535,31 @@ def selectivity_heatmaps(protocol="paper"):
         tables[role + "_heatmap"] = table(
             grouped, "Observed class combinations; unseen combinations are absent, not zero-ee"
         )
+        visible = grouped.loc[grouped.visible, ["organocatalyst_class", role + "_computed_class", "n_reactions", "median_ee"]].copy()
+        visible = visible.sort_values(["median_ee", "n_reactions", "organocatalyst_class", role + "_computed_class"],
+                                      ascending=[False, False, True, True])
+        tables[role + "_visible_by_median"] = table(visible,
+            "All visible observed class pairs ordered by median ee, then observation count; no universal high-ee threshold or causal recommendation")
+        if not visible.empty:
+            top = visible.loc[visible.median_ee == visible.median_ee.max()]
+            leaders.append(role + " maximum visible median: " + "; ".join(
+                f"{row['organocatalyst_class']} × {row[role + '_computed_class']}: {row['median_ee']:g}% ee, n={int(row['n_reactions'])}"
+                for _, row in top.iterrows()))
+        counts = {"observed_class_pairs": len(grouped), "pairs_with_n4": int((grouped.n_reactions == 4).sum()),
+                  "visible_at_n_ge4": int((grouped.n_reactions >= 4).sum()), "visible_at_n_ge5": int((grouped.n_reactions >= 5).sum())}
+        mask_rows.append({"substrate_role": role, **counts})
+        metrics.extend(_metric(role + "_" + name, value, unit="class pairs", population=f"observed catalyst/{role} class pairs")
+                       for name, value in counts.items())
+    tables["mask_effect_by_role"] = table(pd.DataFrame(mask_rows),
+        "Both masking thresholds evaluated on every observed pair, including rows beyond a preview")
     return _result(
         "Median ee and counts were computed for catalyst–substrate class pairs. Sparse cells "
         "are masked by the explicitly selected protocol; these observational medians are not "
-        "causal estimates of catalyst superiority.",
-        [],
+        "causal estimates of catalyst superiority. " + " | ".join(leaders) + ". " +
+        "Threshold4 versus5 changes only n=4 pairs; actual full-cohort counts for BOTH roles are in mask_effect_by_role.",
+        metrics,
         tables,
-        protocol=f"mannich.heatmap.{protocol}.v1",
+        protocol=f"mannich.heatmap.{protocol}.v2",
         minimum_cell_count=minimum,
         notes=[
             EvidenceNote(

@@ -2,11 +2,11 @@
 
 Shared chemistry, statistics, artifact export and paper-specific MCP implementations for ITMO.CoScientist. The three server repositories use an immutable commit of this package, so scientific code is maintained in one place.
 
-| Server | Paper | Tools | Default URL |
+| Server | Paper | Tools | Local development port |
 |---|---|---:|---|
-| Heracleum | IJMS 2026, 27, 7947 | 8 | http://127.0.0.1:7342/mcp |
-| Mannich | Scientific Data s41597-026-08287-9 | 10 | http://127.0.0.1:7343/mcp |
-| Cannabis | IJMS 2026, 27, 8000 | 9 | http://127.0.0.1:7341/mcp |
+| Heracleum | IJMS 2026, 27, 7947 | 8 | 7342 |
+| Mannich | Scientific Data s41597-026-08287-9 | 10 | 7343 |
+| Cannabis | IJMS 2026, 27, 8000 | 9 | 7341 |
 
 ## Install and run
 
@@ -19,7 +19,7 @@ uv run heracleum-2026-mcp
 uv run mannich-2026-mcp
 ```
 
-Use Streamable HTTP at `/mcp` for the complete tool and downloadable-artifact workflow. Set `CHEM_REPRO_ARTIFACTS_DIR` to a persistent output directory and `CHEM_REPRO_PUBLIC_BASE_URL` to a URL reachable by the client when hosting elsewhere. Artifacts include their size and SHA-256.
+Use Streamable HTTP at `/mcp` for the complete tool and downloadable-artifact workflow. No shared hosted endpoint is currently published. Deploy on a host reachable by CoScientist, set `CHEM_REPRO_ARTIFACTS_DIR` to a persistent output directory and `CHEM_REPRO_PUBLIC_BASE_URL` to its client-reachable address. Artifacts include their size and SHA-256.
 
 For Cannabis, follow [CANNABIS_DEPLOYMENT.md](CANNABIS_DEPLOYMENT.md): neural and toxicology computations use separately pinned worker environments. Dataset auditing works with the base environment; model training needs the workers. Missing author models or unsupported modes are reported explicitly.
 
@@ -43,8 +43,10 @@ See [REPRODUCTION_REQUIREMENTS.md](REPRODUCTION_REQUIREMENTS.md), [MISSING_SOURC
 
 ## Portable validation splits
 
-Heracleum uses a frozen fold registry from this implementation's reference environment. NumPy's tie ordering inside GroupKFold changed the fold assignment of 402 records between macOS/ARM and Linux/x86 despite identical source groups. The registry fixes that implementation-level variation for both identity policies; input identities, group membership and zero scaffold overlap are checked before fitting. Models are trained anew. These are **reference-implementation folds, not author-supplied fold files**. The generation script and software metadata are included; no target values or predictions were used to choose the partitions.
+Heracleum uses a frozen fold registry from this implementation's reference environment. NumPy's tie ordering inside GroupKFold changed the fold assignment of 402 records between macOS/ARM and Linux/x86 despite identical source groups. The registry fixes that implementation-level variation for both identity policies; input identities, group membership and zero scaffold overlap are checked before fitting. Models are fitted by this implementation; repeated identical requests may reuse completed results, explicitly marked by `metadata.reused_from_cache`. These are **reference-implementation folds, not author-supplied fold files**. The generation script and software metadata are included; no target values or predictions were used to choose the partitions.
 
 CSV artifacts preserve integer values even in columns with missing values. Missing entries remain empty, so withholding a Tier does not turn unchanged integer tiers into floating-point strings. Original JSON values and scientific selection rules are unchanged.
 
 Heracleum candidate tables retain nullable integer tiers at table construction as well as CSV export; the complete priority-to-download path is covered by a regression test.
+
+The Mannich scaffold tool marks the unresolved 207-versus-204 catalyst count as `partial`. It returns a separate, source-labelled table of stored same-data diagnostics with RDKit 2025.09.2, 2025.09.6 and 2026.03.3. Every individual scaffold agreed across these versions; the mismatch is not explained by that software change. [Diagnostic run](https://github.com/chemagents/chem-repro-suite/actions/runs/44386398487).

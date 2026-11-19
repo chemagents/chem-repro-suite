@@ -295,6 +295,8 @@ def prioritize(identity_policy="strict", strong_threshold=-10.0):
     informative = {k: v for k, v in ENDPOINTS.items() if k not in SATURATED}
     medians = df[list(informative.values())].median()
     herg_threshold = float(np.nanmedian(all_rows[targets].to_numpy(float)))
+    rules = {"tier1_min_favorable": 6, "tier1_max_strong_targets": 2,
+             "tier1_max_brenk": 1, "tier2_min_favorable": 5, "required_pains": 0}
     rows = []
     for r in df.itertuples():
         probs = {e: float(getattr(r, c)) for e, c in informative.items()}
@@ -304,15 +306,19 @@ def prioritize(identity_policy="strict", strong_threshold=-10.0):
         n_strong = int((scores < strong_threshold).sum()) if valid else None
         complete = valid and pd.notna(r.admetai_pains_alert) and pd.notna(r.admetai_brenk_alert)
         usable = complete and (r.identity_verified or identity_policy == "published_snapshot")
+        gates = {
+            "tier1_favorable": len(favorable) >= rules["tier1_min_favorable"],
+            "tier1_docking": n_strong <= rules["tier1_max_strong_targets"] if n_strong is not None else None,
+            "tier1_brenk": bool(r.admetai_brenk_alert <= rules["tier1_max_brenk"]) if pd.notna(r.admetai_brenk_alert) else None,
+            "pains": bool(r.admetai_pains_alert == rules["required_pains"]) if pd.notna(r.admetai_pains_alert) else None,
+            "tier2_favorable": len(favorable) >= rules["tier2_min_favorable"],
+        }
         tier = None
         if usable:
             tier = (
                 1
-                if len(favorable) >= 6
-                and n_strong <= 2
-                and r.admetai_brenk_alert <= 1
-                and r.admetai_pains_alert == 0
-                else (2 if len(favorable) >= 5 and r.admetai_pains_alert == 0 else 3)
+                if gates["tier1_favorable"] and gates["tier1_docking"] and gates["tier1_brenk"] and gates["pains"]
+                else (2 if gates["tier2_favorable"] and gates["pains"] else 3)
             )
         rows.append(
             {
@@ -320,6 +326,10 @@ def prioritize(identity_policy="strict", strong_threshold=-10.0):
                 "name": r.trivial_name if pd.notna(r.trivial_name) else None,
                 "identity_verified": bool(r.identity_verified),
                 "tier": tier,
+                "eligible_for_ranking": bool(usable),
+                "criterion_checks": gates,
+                "unranked_reasons": (["incomplete_docking_or_alerts"] if not complete else [])
+                    + (["identity_conflict"] if identity_policy == "strict" and not r.identity_verified else []),
                 "n_favorable": len(favorable),
                 "favorable_endpoints": favorable,
                 "n_strong": n_strong,
@@ -336,12 +346,30 @@ def prioritize(identity_policy="strict", strong_threshold=-10.0):
     rows.sort(key=lambda r: (r["tier"] or 4, -r["n_favorable"], r["synID"]))
     output = result(
         f"DS2 tiers in {identity_policy} mode: {dict(counts)}. Tiers are relative experimental "
-        "follow-up priorities, not safety classes. "
+        "follow-up priorities, not safety classes. Tier 1 requires at least "
+        f"{rules['tier1_min_favorable']} favorable ADMET endpoints, at most {rules['tier1_max_strong_targets']} "
+        f"strong docking targets, PAINS={rules['required_pains']} and Brenk<={rules['tier1_max_brenk']}. "
+        "n_strong counts docking targets, not ADMET endpoints. "
         f"Recomputed alert counts match the archive for {int(alerts.original_DS2_counts_match_archive.sum())}/102 "
         f"original DS2 structures and {int(alerts.master_counts_match_archive.sum())}/102 master structures.",
         [metric("tier_" + k, int(v), population="DS2") for k, v in counts.items()],
         {
-            "candidates": table(pd.DataFrame(rows, dtype=object), "Every criterion and identity flag retained"),
+            "candidates": table(pd.DataFrame(rows, dtype=object), "Every criterion, rule check and identity flag retained"),
+            "tier1_shortlist": table(pd.DataFrame([
+                {key: row[key] for key in ("synID", "name", "identity_verified", "n_favorable", "n_strong", "pains", "brenk")}
+                for row in rows if row["tier"] == 1],
+                columns=["synID", "name", "identity_verified", "n_favorable", "n_strong", "pains", "brenk"]),
+                "Complete Tier 1 shortlist; all criteria for every DS2 record remain in candidates"),
+            "tier_rules": table(pd.DataFrame([
+                {"rule": "identity_verified", "definition": "Equality of RDKit canonical isomeric SMILES for the master prediction structure and original source structure at the same synID. This is the strict-mode eligibility gate; it is not the separate full-InChIKey comparison with Table S4."},
+                {"rule": "favorable_endpoint", "definition": "Predicted probability strictly below the corresponding median of all 102 DS2 records; not measured toxicity."},
+                {"rule": "strong_docking_target", "definition": f"A valid archived target docking score strictly below {strong_threshold} kcal/mol; n_strong counts targets among the 44-score panel."},
+                {"rule": "Tier 1", "definition": f"Eligible record; n_favorable >= {rules['tier1_min_favorable']}, n_strong <= {rules['tier1_max_strong_targets']}, archived Brenk <= {rules['tier1_max_brenk']}, archived PAINS = {rules['required_pains']}."},
+                {"rule": "Tier 2", "definition": f"Eligible record not in Tier 1; n_favorable >= {rules['tier2_min_favorable']} and archived PAINS = {rules['required_pains']}."},
+                {"rule": "Tier 3", "definition": "Remaining eligible records."},
+                {"rule": "unranked", "definition": "Incomplete docking/alert data, or an unverified identity in strict mode. This is not a toxicity failure."},
+                {"rule": "hERG", "definition": "Auxiliary source-rule comparison with the panel median; not an additional tier gate or a cardiotoxicity measurement."},
+            ]), "Exact implemented source policy; no new adequacy or safety cutoff"),
             "median_thresholds": table(
                 pd.DataFrame([{"endpoint": e, "median": medians[c]} for e, c in informative.items()]),
                 "All 102 deposited DS2 records define thresholds in both modes",
@@ -351,8 +379,15 @@ def prioritize(identity_policy="strict", strong_threshold=-10.0):
                 "RDKit catalog-entry counts/names for master prediction structures and original DS2 separately; archived flags still define reproduced tiers",
             ),
         },
-        protocol="heracleum.candidate_policy.v1",
+        protocol="heracleum.candidate_policy.v2",
         identity_policy=identity_policy,
+        tier_rule_parameters=rules,
+        identity_verification="same synID: equality of canonical isomeric SMILES of master and original source structures",
+        table_s4_comparison="separate full-InChIKey structure-set comparison; not the strict-mode eligibility gate",
+        informative_endpoints=list(informative),
+        excluded_from_ranking=sorted(SATURATED),
+        favorable_rule="predicted probability < same-endpoint median of all 102 DS2 records",
+        strong_docking_rule="score < strong_threshold; count across 44 archived targets",
         strong_threshold=strong_threshold,
         herg_panel_median_kcal_mol=herg_threshold,
         notes=[

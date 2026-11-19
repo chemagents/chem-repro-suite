@@ -41,6 +41,7 @@ def test_conditions_have_expected_units_and_medians():
 
 def test_supplement_scaffolds_and_acyclic_exclusions():
     r = analysis.scaffold_diversity()
+    assert r.status == "partial"
     rows = {x["role"]: x for x in r.answer.tables["role_summary"].rows}
     # The declared paper method gives 207 on both RDKit 2025.09.2 and 2026.03.3.
     # The test requires the unresolved disagreement to remain visible, not a fabricated match.
@@ -52,6 +53,13 @@ def test_supplement_scaffolds_and_acyclic_exclusions():
     assert comparison["paper_reported_scaffolds"] == 204
     assert comparison["matches"] is False
     assert any(n.code == "SUPPLEMENT_SCAFFOLD_DISAGREEMENT" for n in r.answer.limitations)
+    audit = r.answer.tables["software_version_check"]
+    assert audit.evidence_kind == "source_record" and len(audit.rows) == 12
+    assert {row['rdkit'] for row in audit.rows} == {'2025.09.2','2025.09.6','2026.03.3'}
+    assert all(row['source_records'] == 4015 for row in audit.rows)
+    assert all(row['individual_scaffolds_match_reference_version'] for row in audit.rows)
+    assert {row['paper_method_scaffolds'] for row in audit.rows if row['role']=='organocatalyst'} == {207}
+    assert r.metadata.protocol_parameters['version_diagnostic_source'] == 'stored_own_reconstruction'
 
 
 def test_smarts_differentiates_reactive_families():
@@ -70,8 +78,10 @@ def test_heatmap_protocol_difference_is_preserved():
     notebook = analysis.selectivity_heatmaps("notebook")
     assert paper.metadata.protocol_parameters["minimum_cell_count"] == 5
     assert notebook.metadata.protocol_parameters["minimum_cell_count"] == 4
-    for table in paper.answer.tables.values():
+    for role in ("electrophile", "nucleophile"):
+        table = paper.answer.tables[role + "_heatmap"]
         assert all(x["display_median_ee"] is None for x in table.rows if x["n_reactions"] < 5)
+        assert all(x["n_reactions"] >= 5 for x in paper.answer.tables[role + "_visible_by_median"].rows)
 
 
 async def test_mcp_declared_output_and_dataset_scope():

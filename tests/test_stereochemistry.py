@@ -55,3 +55,26 @@ def test_defined_double_bond_stereo_and_isotopes_survive_comparison():
     assert not compare_stereochemistry(Chem.MolFromSmiles("[2H]O"), Chem.MolFromSmiles("O"))[
         "connectivity_match"
     ]
+
+
+def test_extra_stereo_labels_are_not_source_contradictions():
+    from chem_repro.mannich.stereochemistry import compare_stereochemistry
+    from rdkit import Chem
+    atom = compare_stereochemistry(Chem.MolFromSmiles("CC(O)F"), Chem.MolFromSmiles("C[C@H](O)F"))
+    assert atom["stereo_difference_class"] == "additional_atom_stereo"
+    bond = compare_stereochemistry(Chem.MolFromSmiles("CC=NC"), Chem.MolFromSmiles("C/C=N/C"))
+    assert bond["stereo_difference_class"] == "additional_bond_stereo"
+    contradiction = compare_stereochemistry(Chem.MolFromSmiles("C[C@H](O)F"), Chem.MolFromSmiles("C[C@@H](O)F"))
+    assert contradiction["stereo_difference_class"] == "specified_stereo_disagreement"
+
+
+def test_full_deposit_difference_categories_preserve_unresolved_records():
+    from chem_repro.mannich.stereochemistry import audit_catalyst_structures
+    result = audit_catalyst_structures()
+    rows = result.answer.tables["stereo_difference_summary"].rows
+    counts = {r["stereo_difference_class"]:r["records"] for r in rows}
+    assert sum(counts.values()) == 468
+    assert counts["additional_atom_stereo"] == 20
+    assert counts["additional_bond_stereo"] == 5
+    assert counts["other_isomeric_representation_difference"] == 3
+    assert counts["exact_match"] == 440
